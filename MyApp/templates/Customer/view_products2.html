@@ -1,0 +1,144 @@
+{% extends 'Customer/home.html' %}
+{% load static %}
+{% block x %}
+
+<head>
+    <style>
+        .product-container {
+            display: flex;
+            align-items: center;
+            gap: 20px; /* Added gap between elements */
+        }
+
+        .sample1 img {
+            max-width: 100%;
+        }
+
+        .product-details {
+            margin-left: 20px;
+        }
+
+        .quantity-container {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Added gap between quantity elements */
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            appearance: none; /* Remove default arrow for number input */
+            -moz-appearance: textfield; /* Firefox */
+        }
+
+        .quantity-button,
+        .add-to-cart-button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .add-to-cart-button {
+            background-color: #000;
+            color: #fff;
+            margin-left: 10px; /* Added margin between quantity and cart button */
+        }
+
+        .quantity-button {
+            background-color: transparent;
+            color: #000;
+        }
+
+        .quantity-button:hover,
+        .add-to-cart-button:hover {
+            background-color: #e0e0e0; /* Neutral color on hover */
+            color: #000; /* Adjust text color on hover */
+        }
+
+        .quantity-table {
+            display: table;
+            width: auto;
+            border-collapse: collapse;
+        }
+
+        .quantity-cell {
+            display: table-cell;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="product-container">
+        <div class="sample1">
+            <div class="img-thumbnail" bis_skin_checked="1">
+                <img width="800" height="500"
+                    src="https://www.claybrickandsand.co.za/wp-content/uploads/2017/12/cement-bricks-1-500x459.jpg"
+                    class="woocommerce-main-image img-responsive" alt=""
+                    href="https://www.claybrickandsand.co.za/wp-content/uploads/2017/12/cement-bricks-1.jpg"
+                    title="cement-bricks" decoding="async" fetchpriority="high"
+                    srcset="https://www.claybrickandsand.co.za/wp-content/uploads/2017/12/cement-bricks-1-500x459.jpg 500w, https://www.claybrickandsand.co.za/wp-content/uploads/2017/12/cement-bricks-1-400x367.jpg 400w, https://www.claybrickandsand.co.za/wp-content/uploads/2017/12/cement-bricks-1-367x337.jpg 367w">
+            </div>
+        </div>
+
+        <div class="product-details">
+            <h2 class="product_title entry-title show-product-nav">Cement Brick 7MPA</h2>
+
+            <p class="price"><b>Price: </b><span class="woocommerce-Price-amount amount"><bdi><span
+                            class="woocommerce-Price-currencySymbol">R</span>&nbsp;1.75</bdi></span></p>
+            <hr class="styled-break">
+            <div class="other-info">
+                <p><b>Brick type:</b> NFP – Non Face Plaster</p>
+                <p><b>Texture:</b> Rough, Cracks, Chipped corners</p>
+                <p><b>Colour:</b> Grey</p>
+                <p><b>Dimension:</b> 222 X 106 X73 mm</p>
+                <p><b>Strength:</b> 7-10 mpa</p>
+                <p><b>Pallet Size:</b> 500 Bricks in a pallet.</p>
+                <hr class="styled-break">
+                <p><b>Description:</b> Cement <em>brick</em> are made of the traditional standard and commonly used for
+                    general building purposes with plaster of the wall.</p>
+            </div>
+            <hr class="styled-break">
+
+            <div class="quantity-container">
+                <div class="quantity-table">
+                    <div class="quantity-cell">
+                        <button class="quantity-button" onclick="decrementQuantity()">-</button>
+                    </div>
+                    <div class="quantity-cell">
+                        <input type="number" class="quantity-input" value="1" min="1">
+                    </div>
+                    <div class="quantity-cell">
+                        <button class="quantity-button" onclick="incrementQuantity()">+</button>
+                    </div>
+                </div>
+                <button class="add-to-cart-button">ADD TO CART</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function decrementQuantity() {
+            var quantityInput = document.querySelector('.quantity-input');
+            var currentValue = parseInt(quantityInput.value, 10);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        }
+
+        function incrementQuantity() {
+            var quantityInput = document.querySelector('.quantity-input');
+            var currentValue = parseInt(quantityInput.value, 10);
+            quantityInput.value = currentValue + 1;
+        }
+    </script>
+</body>
+{% endblock x %}

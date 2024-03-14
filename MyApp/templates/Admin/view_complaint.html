@@ -1,0 +1,42 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+
+</head>
+<body>
+
+<div class="container mt-5">
+
+  {% if data %}
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>S. No</th>
+          <th>Complaint Message</th>
+          <th>Customer</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.complaint_message }}</td>
+            <td>{{ i.CUSTOMER.customer_name }}</td>
+            <td>{{ i.date }}</td>
+            <td>{{ i.status }}</td>
+            <td>
+              <a href="{% url 'reply_complaint' complaint.id %}" class="btn btn-success btn-sm">Reply</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No complaints available.</p>
+  {% endif %}
+
+</div>
+
+</body>
+{% endblock x %}

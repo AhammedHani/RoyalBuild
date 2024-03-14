@@ -1,0 +1,37 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+
+</head>
+<body>
+
+<div class="container mt-5">
+  {% if data %}
+    <table class="table table-bordered table-hover">
+        <tr>
+          <th>Name</th>
+          <th>Photo</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Category</th>
+        </tr>
+        {% for i in data %}
+          <tr>
+            <td>{{ i.product_name }}</td>
+            <td><img src="{{ i.photo }}" alt="{{ i.product_name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
+            <td>{{ i.description }}</td>
+            <td>{{ i.price }}</td>
+            <td>{{ i.quantity }}</td>
+            <td>{{ i.CATEGORY.category_name }}</td>
+            <td><a href="/edit_product/{{i.product_id}}" class="btn btn-warning btn-sm">Edit</a></td>
+            <td><a href="/delete_product/{{i.product_id}}" class="btn btn-danger btn-sm">Delete</a></td>
+          </tr>
+        {% endfor %}
+    </table>
+  {% else %}
+    <p>No products available.</p>
+  {% endif %}
+</div>
+
+</body>
+{% endblock x %}

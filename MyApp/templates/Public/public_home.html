@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Royal Bricks</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'Public/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'Public/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'Public/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'Public/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Public/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'Public/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Public/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'Public/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'Public/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'Public/assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Arsha
+  * Updated: Jan 29 2024 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center">
+      <h1 class="logo me-auto"><a href="index.html">Royal Bricks</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto" href="#about">About</a></li>
+          <li><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li><a class="nav-link   scrollto" href="#portfolio">Portfolio</a></li>
+          <!--<li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Drop Down 2</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+            </ul>
+          </li>-->
+          <!--<li><a class="nav-link scrollto" href="#contact">Contact</a></li>-->
+          <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+          <Center><h1>CRAFTING EXCELLENCE<br>BUILDING LEGACIES</h1>
+          <h2>Royal Bricks Redefining Construction Excellence</h2></center>
+          <div class="d-flex justify-content-center" style="margin-top: 0em;">
+            <a href="/signup" class="btn-get-started scrollto">REGISTER</a>
+            <a href="/signin" class="btn-get-started scrollto">SIGN IN</a>
+            <!--<a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>-->
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="{% static 'Public/assets/img/1.png' %}" class="img-fluid animated" alt="" style=" height: 500px; width:100%">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Clients Section ======= -->
+    <!--<section id="clients" class="clients section-bg">
+      <div class="container">
+
+        <div class="row" data-aos="zoom-in">
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-1.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-2.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-5.png" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <img src="assets/img/clients/client-6.png" class="img-fluid" alt="">
+          </div>
+
+        </div>
+
+      </div>
+    </section>--><!-- End Cliens Section -->
+
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>About Us</h2>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6">
+            <img src="{% static 'Public/assets/img/2.jpg' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0"> 
+            <!--<a href="#" class="btn-learn-more">Learn More</a>-->
+            <p>Welcome to Royal Bricks,</p>
+            <p>Discover the simplicity of building with Royal Bricks, your trusted brick manufacturer. Situated in Elettil Vattoli, our factory produces a range of superior building materials – Bricks, Pots, Sands, Metals, Interlocks, and more.</p>
+            <p>Your Convenient Building Partner,</p>
+            <p>We've crafted this online store with one goal in mind – to provide you with an easy and convenient shopping experience. Say goodbye to the frustrations of traditional material procurement. Now, you can order bricks and building essentials from anywhere, at any time, using your phone or computer.</p>
+            <p>Why Royal Bricks?</P>
+           <ul>
+              <li><i class="ri-check-double-line"></i> <b>Quality Materials:</b> Our bricks and building supplies meet the highest standards.</li>
+              <li><i class="ri-check-double-line"></i> <b>Variety:</b> From bricks to interlocks, find everything you need in one place.</li>
+              <li><i class="ri-check-double-line"></i> <b>Convenience:</b> Shop effortlessly online, saving time and eliminating hassle.</li>
+            </ul>
+            <p>Revolutionize Building with Royal Bricks - Quality, Simplified.</P>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <!--<section id="why-us" class="why-us section-bg">
+      <div class="container-fluid" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+
+            <div class="content">
+              <h3>Eum ipsam laborum deleniti <strong>velit pariatur architecto aut nihil</strong></h3>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
+              </p>
+            </div>
+
+            <div class="accordion-list">
+              <ul>
+                <li>
+                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>01</span> Non consectetur a erat nam at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
+                    <p>
+                      Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>02</span> Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
+                    <p>
+                      Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                    </p>
+                  </div>
+                </li>
+
+                <li>
+                  <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>03</span> Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
+                    <p>
+                      Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                    </p>
+                  </div>
+                </li>
+
+              </ul>
+            </div>
+
+          </div>
+
+          <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("assets/img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+        </div>
+
+      </div>
+    </section>--><!-- End Why Us Section -->
+
+    <!-- ======= Skills Section ======= -->
+    <!--
+    <section id="skills" class="skills">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-6 d-flex align-items-center" data-aos="fade-right" data-aos-delay="100">
+            <img src="assets/img/skills.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content" data-aos="fade-left" data-aos-delay="100">
+            <h3>Voluptatem dignissimos provident quasi corporis voluptates</h3>
+            <p class="fst-italic">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+              magna aliqua.
+            </p>
+
+            <div class="skills-content">
+
+              <div class="progress">
+                <span class="skill">HTML <i class="val">100%</i></span>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+
+              <div class="progress">
+                <span class="skill">CSS <i class="val">90%</i></span>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+
+              <div class="progress">
+                <span class="skill">JavaScript <i class="val">75%</i></span>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+
+              <div class="progress">
+                <span class="skill">Photoshop <i class="val">55%</i></span>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>--><!-- End Skills Section -->
+          
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Services</h2>
+          <p>" Comprehensive solutions for all your construction needs - from materials to delivery, we've got you covered "</p>
+        </div>
+        
+        <div class="row gy-4">
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="card">
+            <div class="card-img">
+              <img src="{% static 'Public/assets/img/3.jpg' %}" alt="" class="img-fluid">
+            </div>
+            <h3><a href="service-details.html" class="stretched-link">Bricks</a></h3>
+            <p>Diverse bricks for all construction needs, including various types and sizes. From traditional red bricks to specialized designs, we have quality options.</p>
+          </div>
+        </div><!-- End Card Item -->
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="card">
+            <div class="card-img">
+              <img src="{% static 'Public/assets/img/5.jpg' %}" alt="" class="img-fluid">
+            </div>
+            <h3><a href="service-details.html" class="stretched-link">Pots</a></h3>
+            <p>Stylish and functional pots for your spaces. Whether for gardens or decor, our collection elevates your landscaping.</p>
+          </div>
+        </div><!-- End Card Item -->
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <div class="card">
+            <div class="card-img">
+              <img src="{% static 'Public/assets/img/4.jpg' %}" alt="" class="img-fluid">
+            </div>
+            <h3><a href="service-details.html" class="stretched-link">Paving</a></h3>
+            <p>Versatile and durable interlocks for outdoor surfaces. Choose from various patterns for a customized and lasting finish.</p>
+          </div>
+        </div><!-- End Card Item -->
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+          <div class="card">
+            <div class="card-img">
+              <img src="{% static 'Public/assets/img/7.jpg' %}" alt="" class="img-fluid">
+            </div>
+            <h3><a href="service-details.html" class="stretched-link">Sands</a></h3>
+            <p>Explore sands tailored to your construction needs, from fine to coarse, ensuring a perfect match for your projects.</p>
+          </div>
+        </div><!-- End Card Item -->
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+          <div class="card">
+            <div class="card-img">
+              <img src="{% static 'Public/assets/img/6.jpg' %}" alt="" class="img-fluid">
+            </div>
+            <h3><a href="service-details.html" class="stretched-link">Metals</a></h3>
+            <p>Various stones in different sizes and styles, providing durability and distinct aesthetics for your construction projects.</p>
+          </div>
+        </div><!-- End Card Item -->
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+          <div class="card">
+            <div class="card-img">
+              <img src="{% static 'Public/assets/img/8.jpg' %}" alt="" class="img-fluid">
+            </div>
+            <h3><a href="service-details.html" class="stretched-link">Others</a></h3>
+            <p>Explore various building materials for your project needs, covering essentials and finishing touches, with a diverse range to meet all requirements.</p>
+          </div>
+        </div><!-- End Card Item -->
+
+
+      <!--  <div class="row">
+  <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+    <div class="icon-box">
+      <div class="icon"><i class="bi bi-bricks"></i></div>
+      <h4><a href="#">Bricks</a></h4>
+      <p>Diverse bricks for all construction needs, including various types and sizes. From traditional red bricks to specialized designs, we have quality options.</p>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+    <div class="icon-box">
+        <div class="icon" style="margin-top: -30px; margin-left: -30px;">
+            <div style="width: 100px; height: 100px;">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100" height="100" viewBox="0 0 256 256" xml:space="preserve">
+                    <defs></defs>
+                    <g transform="translate(58.471595330739305 58.471595330739305) scale(1.53 1.53)">
+                        <path d="M 71.209 45.949 c -0.19 -0.215 -0.463 -0.338 -0.75 -0.338 H 47.157 c -0.456 -1.419 -0.805 -2.846 -1.045 -4.328 c 8.333 -2.804 13.092 -8.216 14.155 -16.165 C 60.952 13.437 53.389 6.667 44.9 0.205 c -0.33 -0.251 -0.78 -0.273 -1.132 -0.055 c -0.352 0.218 -0.533 0.63 -0.456 1.038 c 0.725 3.811 -1.88 6.777 -4.897 10.211 c -2.603 2.963 -5.552 6.322 -6.787 10.841 c -2.022 8.136 0.239 14.276 7.117 19.322 c 0.342 0.25 0.804 0.259 1.153 0.021 c 0.35 -0.238 0.513 -0.67 0.405 -1.08 c -1.626 -6.218 0.014 -12.257 2.871 -17.124 c -2.595 7.452 -2.665 14.11 -0.46 22.231 H 19.541 c -0.287 0 -0.56 0.123 -0.75 0.338 c -0.19 0.214 -0.278 0.501 -0.243 0.786 l 1.685 13.479 c 0.063 0.5 0.488 0.876 0.992 0.876 h 4.782 l 3.504 28.034 C 29.574 89.624 30 90 30.504 90 h 28.992 c 0.504 0 0.93 -0.376 0.992 -0.876 l 3.504 -28.034 h 4.782 c 0.504 0 0.93 -0.376 0.992 -0.876 l 1.685 -13.479 C 71.487 46.45 71.398 46.163 71.209 45.949 z M 48.141 16.99 c 0.225 -0.437 0.099 -0.972 -0.297 -1.263 c -0.396 -0.291 -0.943 -0.251 -1.294 0.092 c -5.154 5.067 -9.858 13.401 -8.717 22.417 c -4.552 -4.185 -5.868 -9.063 -4.27 -15.492 c 1.106 -4.052 3.774 -7.089 6.354 -10.026 c 2.678 -3.049 5.232 -5.958 5.499 -9.591 c 7.545 5.905 13.439 11.904 12.861 21.799 c -0.992 7.392 -5.432 12.203 -13.574 14.708 c -0.468 0.144 -0.763 0.604 -0.697 1.089 c 0.224 1.658 0.58 3.294 1.055 4.886 h -0.267 C 41.832 35.106 42.729 27.525 48.141 16.99 z M 58.613 88 H 31.387 l -3.363 -26.91 h 33.953 L 58.613 88 z M 67.892 59.09 H 22.108 L 20.674 47.61 h 48.652 L 67.892 59.09 z" 
+                        style="stroke: #47b2e4; stroke-width: 2; fill: #47b2e4; fill-rule: nonzero; opacity: 1;" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <h4 style="margin-top:-18px"><a href="#">Pots</a></h4>
+        <p>Stylish and functional pots for your spaces. Whether for gardens or decor, our collection elevates your landscaping.</p>
+    </div>
+</div>
+
+  <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="300">
+    <div class="icon-box">
+      <div class="icon"><i class="bi bi-puzzle"></i></div>
+      <h4><a href="#">Interlocks</a></h4>
+      <p>Versatile and durable interlocks for outdoor surfaces. Choose from various patterns for a customized and lasting finish.</p>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0" data-aos="zoom-in" data-aos-delay="400">
+    <div class="icon-box">
+      <div class="icon"><i class="bi bi-bucket"></i></div>
+      <h4><a href="#">Others</a></h4>
+      <p>Additional building materials, including sands, metals, and essentials. Find everything for your projects in this diverse selection.</p>
+    </div>
+  </div>
+</div>-->
+<!--<div class="col-xl-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+    <div class="icon-box">
+      <div class="icon"><i class="bi bi-flower1"></i></div>
+      <h4><a href="#">Pots</a></h4>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+    </div>
+  </div>-->
+
+        </div>
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Cta Section ======= -->
+    <!--<section id="cta" class="cta">
+      <div class="container" data-aos="zoom-in">
+
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-start">
+            <h3>Call To Action</h3>
+            <p> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" href="#">Call To Action</a>
+          </div>
+        </div>
+
+      </div>
+    </section>--><!-- End Cta Section -->
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Portfolio</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+          <li data-filter="*" class="filter-active">All</li>
+          <li data-filter=".filter-app">App</li>
+          <li data-filter=".filter-card">Card</li>
+          <li data-filter=".filter-web">Web</li>
+        </ul>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="{% static 'Public/assets/img/portfolio/portfolio-1.jpg' %}" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>App 1</h4>
+              <p>App</p>
+              <a href="{% static 'Public/assets/img/portfolio/portfolio-1.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-img"><img src="{% static 'Public/assets/img/portfolio/portfolio-2.jpg' %}" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Web 3</h4>
+              <p>Web</p>
+              <a href="{% static 'Public/assets/img/portfolio/portfolio-2.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="{% static 'Public/assets/img/portfolio/portfolio-3.jpg' %}" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>App 2</h4>
+              <p>App</p>
+              <a href="{% static 'Public/assets/img/portfolio/portfolio-3.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-img"><img src="{% static 'Public/assets/img/portfolio/portfolio-4.jpg' %}" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Card 2</h4>
+              <p>Card</p>
+              <a href="{% static 'Public/assets/img/portfolio/portfolio-4.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-img"><img src="{% static 'Public/assets/img/portfolio/portfolio-5.jpg' %}" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Web 2</h4>
+              <p>Web</p>
+              <a href="{% static 'Public/assets/img/portfolio/portfolio-5.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-img"><img src="{% static 'Public/assets/img/portfolio/portfolio-6.jpg' %}" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>App 3</h4>
+              <p>App</p>
+              <a href="{% static 'Public/assets/img/portfolio/portfolio-6.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="App 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-img"><img src="{% static 'Public/assets/img/portfolio/portfolio-7.jpg' %}" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Card 1</h4>
+              <p>Card</p>
+              <a href="{% static 'Public/assets/img/portfolio/portfolio-7.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 1"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+            <div class="portfolio-img"><img src="{% static 'Public/assets/img/portfolio/portfolio-8.jpg' %}" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Card 3</h4>
+              <p>Card</p>
+              <a href="{% static 'Public/assets/img/portfolio/portfolio-8.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Card 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+            <div class="portfolio-img"><img src="{% static 'Public/assets/img/portfolio/portfolio-9.jpg' %}" class="img-fluid" alt=""></div>
+            <div class="portfolio-info">
+              <h4>Web 3</h4>
+              <p>Web</p>
+              <a href="{% static 'Public/assets/img/portfolio/portfolio-9.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i class="bx bx-plus"></i></a>
+              <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+    <!-- ======= Team Section ======= -->
+    <!--<section id="team" class="team section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Team</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
+            <div class="member d-flex align-items-start">
+              <div class="pic"><img src="assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Walter White</h4>
+                <span>Chief Executive Officer</span>
+                <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
+                <div class="social">
+                  <a href=""><i class="ri-twitter-fill"></i></a>
+                  <a href=""><i class="ri-facebook-fill"></i></a>
+                  <a href=""><i class="ri-instagram-fill"></i></a>
+                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="200">
+            <div class="member d-flex align-items-start">
+              <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Sarah Jhonson</h4>
+                <span>Product Manager</span>
+                <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
+                <div class="social">
+                  <a href=""><i class="ri-twitter-fill"></i></a>
+                  <a href=""><i class="ri-facebook-fill"></i></a>
+                  <a href=""><i class="ri-instagram-fill"></i></a>
+                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="member d-flex align-items-start">
+              <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>William Anderson</h4>
+                <span>CTO</span>
+                <p>Quisquam facilis cum velit laborum corrupti fuga rerum quia</p>
+                <div class="social">
+                  <a href=""><i class="ri-twitter-fill"></i></a>
+                  <a href=""><i class="ri-facebook-fill"></i></a>
+                  <a href=""><i class="ri-instagram-fill"></i></a>
+                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
+            <div class="member d-flex align-items-start">
+              <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>Amanda Jepson</h4>
+                <span>Accountant</span>
+                <p>Dolorum tempora officiis odit laborum officiis et et accusamus</p>
+                <div class="social">
+                  <a href=""><i class="ri-twitter-fill"></i></a>
+                  <a href=""><i class="ri-facebook-fill"></i></a>
+                  <a href=""><i class="ri-instagram-fill"></i></a>
+                  <a href=""> <i class="ri-linkedin-box-fill"></i> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>--><!-- End Team Section -->
+
+    <!-- ======= Pricing Section ======= -->
+    <!--<section id="pricing" class="pricing">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Pricing</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="box">
+              <h3>Free Plan</h3>
+              <h4><sup>$</sup>0<span>per month</span></h4>
+              <ul>
+                <li><i class="bx bx-check"></i> Quam adipiscing vitae proin</li>
+                <li><i class="bx bx-check"></i> Nec feugiat nisl pretium</li>
+                <li><i class="bx bx-check"></i> Nulla at volutpat diam uteera</li>
+                <li class="na"><i class="bx bx-x"></i> <span>Pharetra massa massa ultricies</span></li>
+                <li class="na"><i class="bx bx-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+              </ul>
+              <a href="#" class="buy-btn">Get Started</a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="200">
+            <div class="box featured">
+              <h3>Business Plan</h3>
+              <h4><sup>$</sup>29<span>per month</span></h4>
+              <ul>
+                <li><i class="bx bx-check"></i> Quam adipiscing vitae proin</li>
+                <li><i class="bx bx-check"></i> Nec feugiat nisl pretium</li>
+                <li><i class="bx bx-check"></i> Nulla at volutpat diam uteera</li>
+                <li><i class="bx bx-check"></i> Pharetra massa massa ultricies</li>
+                <li><i class="bx bx-check"></i> Massa ultricies mi quis hendrerit</li>
+              </ul>
+              <a href="#" class="buy-btn">Get Started</a>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="300">
+            <div class="box">
+              <h3>Developer Plan</h3>
+              <h4><sup>$</sup>49<span>per month</span></h4>
+              <ul>
+                <li><i class="bx bx-check"></i> Quam adipiscing vitae proin</li>
+                <li><i class="bx bx-check"></i> Nec feugiat nisl pretium</li>
+                <li><i class="bx bx-check"></i> Nulla at volutpat diam uteera</li>
+                <li><i class="bx bx-check"></i> Pharetra massa massa ultricies</li>
+                <li><i class="bx bx-check"></i> Massa ultricies mi quis hendrerit</li>
+              </ul>
+              <a href="#" class="buy-btn">Get Started</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>--><!-- End Pricing Section -->
+
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="faq" class="faq section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>REVIWS</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="faq-list">
+          <ul>
+            <li data-aos="fade-up" data-aos-delay="100">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-1">Non consectetur a erat nam at lectus urna duis? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-1" class="collapse show" data-bs-parent=".faq-list">
+                <p>
+                  Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="200">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-2" class="collapsed">Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-2" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="300">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-3" class="collapsed">Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-3" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="400">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-4" class="collapsed">Tempus quam pellentesque nec nam aliquam sem et tortor consequat? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-4" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in.
+                </p>
+              </div>
+            </li>
+
+            <li data-aos="fade-up" data-aos-delay="500">
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">Tortor vitae purus faucibus ornare. Varius vel pharetra vel turpis nunc eget lorem dolor? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
+                <p>
+                  Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
+                </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+
+      </div>
+    </section><!-- End Frequently Asked Questions Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <!--<section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contact</h2>
+          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-5 d-flex align-items-stretch">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>A108 Adam Street, New York, NY 535022</p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>info@example.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>+1 5589 55488 55s</p>
+              </div>
+
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0; width: 100%; height: 290px;" allowfullscreen></iframe>
+            </div>
+
+          </div>
+
+          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="name">Your Name</label>
+                  <input type="text" name="name" class="form-control" id="name" required>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Your Email</label>
+                  <input type="email" class="form-control" name="email" id="email" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="name">Subject</label>
+                <input type="text" class="form-control" name="subject" id="subject" required>
+              </div>
+              <div class="form-group">
+                <label for="name">Message</label>
+                <textarea class="form-control" name="message" rows="10" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>--><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <!--<div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4>Join Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>Royal Bricks</h3>
+            <p>
+              Elettil Vattoli, Kozhikode<br>
+              Kerala, 673572<br>
+              India <br><br>
+              <strong>Phone:</strong> +91 8943669933<br>
+              <strong>Email:</strong> royalassociatescalicut@gmail.com<br>
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Royal Bricks</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+        Designed by <a href="https://bootstrapmade.com/">ahammedhani</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'Public/assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'Public/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'Public/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'Public/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'Public/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'Public/assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'Public/assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'Public/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

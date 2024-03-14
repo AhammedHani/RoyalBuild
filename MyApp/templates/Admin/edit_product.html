@@ -1,0 +1,57 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+
+</head>
+<body>
+
+<div class="container mt-5">
+  <form method="post" action="/edit_product_post/" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <table class="table table-bordered table-hover">
+      <tr>
+        <td>Product Name</td>
+        <td><input type="text" class="form-control" name="product_name" value="{{ data.product_name }}"></td>
+        <input type="hidden" name="id" value="{{ data.product_id }}">
+      </tr>
+      <tr>
+        <td>Photo</td>
+        <td><input type="file" class="form-control-file" name="photo"></td>
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td><textarea class="form-control" name="product_description" rows=7>{{ data.description }}</textarea></td>
+      </tr>
+      <tr>
+        <td>Price</td>
+        <td><input type="text" class="form-control" name="product_price" value="{{ data.price }}"></td>
+      </tr>
+      <tr>
+        <td>Quantity</td>
+        <td><input type="text" class="form-control" name="product_quantity" value="{{ data.quantity }}"></td>
+      </tr>
+<tr>
+    <td>Category Type</td>
+    <td>
+        <select class="form-control" name="category_type">
+            {% for i in data2 %}
+                <option value="{{ i.category_id }}">
+                    {{ i.category_name }}
+                </option>
+            {% endfor %}
+        </select>
+    </td>
+</tr>
+
+
+      <tr>
+        <td colspan="2" class="text-center">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+</body>
+{% endblock x %}

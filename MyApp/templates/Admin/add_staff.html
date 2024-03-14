@@ -1,0 +1,43 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+
+</head>
+<body>
+
+<div class="container mt-5">
+  <form method="post" action="/add_staff_post/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table table-bordered">
+      <tr>
+        <td><label for="staff_name">Staff Name</label></td>
+        <td><input type="text" class="form-control" id="staff_name" name="staff_name" required></td>
+      </tr>
+      <tr>
+        <td><label for="staff_photo">Photo</label></td>
+        <td><input type="file" class="form-control-file" id="staff_photo" name="staff_photo" required></td>
+      </tr>
+      <tr>
+        <td><label for="staff_place">Place</label></td>
+        <td><input type="text" class="form-control" id="staff_place" name="staff_place" required></td>
+      </tr>
+      <tr>
+        <td><label for="staff_email">Email</label></td>
+        <td><input type="email" class="form-control" id="staff_email" name="staff_email" required></td>
+      </tr>
+      <tr>
+        <td><label for="staff_phone">Phone</label></td>
+        <td><input type="tel" class="form-control" id="staff_phone" name="staff_phone" required></td>
+      </tr>
+      <tr>
+        <td><label for="staff_state">State</label></td>
+        <td><input type="text" class="form-control" id="staff_state" name="staff_state" required></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-center"><button type="submit" class="btn btn-success">Add</button></td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+</body>
+{% endblock x %}

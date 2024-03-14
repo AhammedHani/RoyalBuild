@@ -1,0 +1,30 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+
+</head>
+<body>
+
+<div class="container mt-5">
+
+  {% if data %}
+    <table class="table table-bordered table-hover">
+        <tr>
+          <th>Vehicle Number</th>
+          <th>Type</th>
+        </tr>
+        {% for i in data %}
+          <tr>
+            <td>{{ i.vehicle_number }}</td>
+            <td>{{ i.type }}</td>
+            <td><a href="/edit_vehicle/{{i.vehicle_id}}" class="btn btn-warning btn-sm">Edit</a></td>
+            <td><a href="/delete_vehicle/{{i.vehicle_id}}" class="btn btn-danger btn-sm">Delete</a></td>
+          </tr>
+        {% endfor %}
+    </table>
+  {% else %}
+    <p>No vehicles available.</p>
+  {% endif %}
+</div>
+
+</body>
+{% endblock x %}

@@ -1,0 +1,36 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+  
+</head>
+<body>
+
+<div id="form-container">
+  <form id="form1" name="form1" method="post" action="/edit_category_post/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table class="table table-bordered table-hover">
+      <br><br>
+      <tr align="center">
+        <td colspan="2"><img src="{{data.photo}}" alt="" width="100px" height="100px"></td>
+      </tr>
+      <tr>
+        <td>Category name</td>
+        <td><input type="text" name="textfield" id="textfield" class="form-control" value="{{data.category_name}}"/></td>
+        <input type="hidden" name="id" id="id" value="{{data.category_id}}">
+      </tr>
+      <tr>
+        <td>Description</td>
+        <td><textarea name="description" id="description" class="form-control">{{data.description}}</textarea></td>
+      </tr>
+      <tr>
+        <td>Photo</td>
+        <td><input type="file" name="photo" id="photo" class="form-control"/></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Update" class="btn btn-primary"/></td>
+      </tr>
+    </table>
+  </form>
+</div>
+
+</body>
+{% endblock x %}

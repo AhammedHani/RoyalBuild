@@ -1,0 +1,28 @@
+{% extends 'Customer/customer_home.html' %}
+{% load static %}
+{% block x %}
+
+<section id="services" class="services section-bg">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>PRODUCTS</h2>
+      </div>
+      
+      <div class="row gy-4">
+        {% for ct in data %}
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="card">
+                    <div class="card-img">
+                      <a href="/view_products2/{{ ct.product_id }}">
+                      <img width="305" height="225" src="{{ct.photo}}" alt="" class="img-fluid" >
+                    </div>
+                      <h3>{{ct.product_name}}</h3></a>
+                      <p>Rs&nbsp;{{ct.price}}</p>              
+                </div>
+            </div>
+        {% endfor %}
+      </div>
+    </section>
+
+{% endblock x %}

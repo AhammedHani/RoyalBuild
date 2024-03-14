@@ -1,0 +1,61 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+
+</head>
+<body>
+
+<div class="container mt-5">
+
+  <form method="post" action="/edit_staff_post/" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <table class="table table-bordered table-hover">
+      <tr>
+        <td>Staff Name</td>
+        <td>
+          <input type="text" class="form-control" name="staff_name" value="{{ data.staff_name }}">
+          <input type="hidden" name="id" value="{{ data.staff_id }}">
+        </td>
+      </tr>
+      <tr>
+        <td>Photo</td>
+        <td>
+          <input type="file" class="form-control-file" name="photo">
+        </td>
+      </tr>
+      <tr>
+        <td>Place</td>
+        <td>
+          <input type="text" class="form-control" name="staff_place" value="{{ data.place }}">
+        </td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>
+          <input type="email" class="form-control" name="staff_email" value="{{ data.email }}">
+        </td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>
+          <input type="tel" class="form-control" name="staff_phone" value="{{ data.phone }}">
+        </td>
+      </tr>
+      <tr>
+        <td>State</td>
+        <td>
+          <input type="text" class="form-control" name="staff_state" value="{{ data.state }}">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-center">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+
+</div>
+
+</body>
+{% endblock x %}

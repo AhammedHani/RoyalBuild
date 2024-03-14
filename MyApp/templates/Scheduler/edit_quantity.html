@@ -1,0 +1,28 @@
+{% extends 'Scheduler/scheduler_home.html' %}
+{% block x %}
+
+</head>
+<body>
+    <form method="post" action="/edit_quantity_post/{{data.product_id}}">
+        {%csrf_token%}
+<div class="container mt-5">
+
+  <table class="table table-bordered">
+    <tr>
+        <td>Quantity</td>
+        <td>
+          <input type="text" class="form-control" name="new_quantity" value="{{ data.quantity }}">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-center">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </td>
+      </tr>
+
+  </table>
+
+</div>
+</form>
+</body>
+{% endblock x %}
