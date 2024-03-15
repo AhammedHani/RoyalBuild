@@ -125,6 +125,12 @@ def add_product_post(request):
     data=product()
     data.product_name=request.POST.get('product_name')
     Photo = request.FILES['product_photo']
+    data.detail1=request.POST.get('detail_1')
+    data.detail2=request.POST.get('detail_2')
+    data.detail3=request.POST.get('detail_3')
+    data.detail4=request.POST.get('detail_4')
+    data.detail5=request.POST.get('detail_5')
+    data.detail6=request.POST.get('detail_6')
     data.description=request.POST.get('product_description')
     data.price=request.POST.get('product_price')
     data.quantity=request.POST.get('product_quantity')
@@ -162,6 +168,12 @@ def edit_product_post(request):
         uploaded_file_url = fs.url(filename)
         var1.photo=uploaded_file_url
         var1.product_name=request.POST.get('product_name')
+        var1.detail1=request.POST.get('detail_1')
+        var1.detail2=request.POST.get('detail_2')
+        var1.detail3=request.POST.get('detail_3')
+        var1.detail4=request.POST.get('detail_4')
+        var1.detail5=request.POST.get('detail_5')
+        var1.detail6=request.POST.get('detail_6')
         var1.description=request.POST.get('product_description')
         var1.price=request.POST.get('product_price')
         var1.quantity=request.POST.get('product_quantity')
@@ -175,6 +187,12 @@ def edit_product_post(request):
     else:
         var1=product.objects.get(product_id=id)
         var1.product_name=request.POST.get('product_name')
+        var1.detail1=request.POST.get('detail_1')
+        var1.detail2=request.POST.get('detail_2')
+        var1.detail3=request.POST.get('detail_3')
+        var1.detail4=request.POST.get('detail_4')
+        var1.detail5=request.POST.get('detail_5')
+        var1.detail6=request.POST.get('detail_6')
         var1.description=request.POST.get('product_description')
         var1.price=request.POST.get('product_price')
         var1.quantity=request.POST.get('product_quantity')
@@ -209,21 +227,6 @@ def add_staff_post(request):
     data.save()
     
     return HttpResponse('''<Script>alert("Accepted");window.location="/add_staff/";</Script>''')
-
-def add_scheduler(request,id):
-    data=staff.objects.get(staff_id=id)
-    data.status = 'scheduler'
-    data.save()
-    data2=login.objects
-    data2.username=data.email
-    data2.password=data.phone
-    data2.type="scheduler"
-    data2.save()
-    return HttpResponse('''<Script>alert("Allotted as scheduler");window.location="/view_staff/";</Script>''')
-
-def view_scheduler(request):
-    data=staff.objects.filter(status='scheduler')
-    return render(request,"Admin/view_scheduler.html",{'data':data})
     
 def view_staff(request):
     data = staff.objects.filter(status="active")
@@ -266,6 +269,65 @@ def edit_staff_post(request):
 def delete_staff(request,id):
     staff.objects.filter(staff_id=id).delete()
     return HttpResponse('''<Script>alert("Deleted");window.location="/view_staff/";</Script>''')
+
+def add_scheduler(request,id):
+    data=staff.objects.get(staff_id=id)
+    data.status = 'scheduler'
+    data.save()
+    data2=login()
+    data2.username=data.email
+    data2.password=data.phone
+    data2.type="scheduler"
+    data2.save()
+    return HttpResponse('''<Script>alert("Allotted as scheduler");window.location="/view_staff/";</Script>''')
+
+def view_scheduler(request):
+    data=staff.objects.filter(status='scheduler')
+    return render(request,"Admin/view_scheduler.html",{'data':data})
+
+def edit_scheduler(request,id):
+    data=staff.objects.get(staff_id=id)
+    return render(request,'Admin/edit_scheduler.html',{'data':data})
+
+def edit_scheduler_post(request):
+    id=request.POST['id']
+    
+    if 'photo' in request.FILES:
+        
+        var1=staff.objects.get(staff_id=id)
+        Photo = request.FILES['photo']
+        fs = FileSystemStorage()
+        filename = fs.save(Photo.name, Photo) 
+        uploaded_file_url = fs.url(filename)
+        var1.photo=uploaded_file_url
+        var1.staff_name=request.POST.get('staff_name')
+        var1.place=request.POST.get('staff_place')
+        var1.email=request.POST.get('staff_email')
+        var1.phone=request.POST.get('staff_phone')
+        var1.state=request.POST.get('staff_state')
+        var1.save()
+        return HttpResponse('''<script>alert("EDITED");window.location="/view_scheduler/"</script> ''')
+    
+    else:
+        var1=staff.objects.get(staff_id=id)
+        var1.staff_name=request.POST.get('staff_name')
+        var1.place=request.POST.get('staff_place')
+        var1.email=request.POST.get('staff_email')
+        var1.phone=request.POST.get('staff_phone')
+        var1.state=request.POST.get('staff_state')
+        var1.save()
+        
+    return HttpResponse('''<Script>alert("Edited");window.location="/view_scheduler/";</Script>''')
+
+def delete_scheduler(request,id):
+    data=staff.objects.get(staff_id=id)
+    data2=login.objects.get(username=data.email)
+    staff.objects.filter(staff_id=id).delete()
+    
+    
+    data2.delete()
+    return HttpResponse('''<Script>alert("Deleted");window.location="/view_scheduler/";</Script>''')
+
 
 def add_vehicle(request):
     return render(request,'Admin/add_vehicle.html')
@@ -359,7 +421,7 @@ def view_products(request,id):
 
 def view_products2(request,id):
     request.session['cc']=id
-    data = product.objects.filter(CATEGORY_id=id)
+    data = product.objects.get(product_id=id)
     return render(request, 'Customer/view_products2.html', {'data': data})
 
 

@@ -18,6 +18,36 @@
         <td>Photo</td>
         <td><input type="file" class="form-control-file" name="photo"></td>
       </tr>
+      <!-- Add Detail 1 -->
+      <tr>
+        <td>Detail 1</td>
+        <td><input type="text" class="form-control" name="detail_1" value="{{ data.detail1 }}"></td>
+      </tr>
+      <!-- Add Detail 2 -->
+      <tr>
+        <td>Detail 2</td>
+        <td><input type="text" class="form-control" name="detail_2" value="{{ data.detail2 }}"></td>
+      </tr>
+      <!-- Add Detail 3 -->
+      <tr>
+        <td>Detail 3</td>
+        <td><input type="text" class="form-control" name="detail_3" value="{{ data.detail3 }}"></td>
+      </tr>
+      <!-- Add Detail 4 -->
+      <tr>
+        <td>Detail 4</td>
+        <td><input type="text" class="form-control" name="detail_4" value="{{ data.detail4 }}"></td>
+      </tr>
+      <!-- Add Detail 5 -->
+      <tr>
+        <td>Detail 5</td>
+        <td><input type="text" class="form-control" name="detail_5" value="{{ data.detail5 }}"></td>
+      </tr>
+      <!-- Add Detail 6 -->
+      <tr>
+        <td>Detail 6</td>
+        <td><input type="text" class="form-control" name="detail_6" value="{{ data.detail6 }}"></td>
+      </tr>
       <tr>
         <td>Description</td>
         <td><textarea class="form-control" name="product_description" rows=7>{{ data.description }}</textarea></td>
@@ -30,20 +60,16 @@
         <td>Quantity</td>
         <td><input type="text" class="form-control" name="product_quantity" value="{{ data.quantity }}"></td>
       </tr>
-<tr>
-    <td>Category Type</td>
-    <td>
-        <select class="form-control" name="category_type">
+      <tr>
+        <td>Category Type</td>
+        <td>
+          <select class="form-control" name="category_type">
             {% for i in data2 %}
-                <option value="{{ i.category_id }}">
-                    {{ i.category_name }}
-                </option>
+              <option value="{{ i.category_id }}">{{ i.category_name }}</option>
             {% endfor %}
-        </select>
-    </td>
-</tr>
-
-
+          </select>
+        </td>
+      </tr>
       <tr>
         <td colspan="2" class="text-center">
           <button type="submit" class="btn btn-primary">Update</button>

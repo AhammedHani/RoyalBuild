@@ -1,13 +1,13 @@
-{% extends 'Customer/customer_home.html' %}
+{% extends 'Customer/home.html' %}
 {% load static %}
 {% block x %}
 
 <section id="services" class="services section-bg">
     <div class="container" data-aos="fade-up">
 
-      <div class="section-title">
+      {% comment %} <div class="section-title">
         <h2>PRODUCTS</h2>
-      </div>
+      </div> {% endcomment %}
       
       <div class="row gy-4">
         {% for ct in data %}

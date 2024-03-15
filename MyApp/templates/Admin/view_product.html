@@ -1,9 +1,7 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
-
 </head>
 <body>
-
 <div class="container mt-5">
   {% if data %}
     <table class="table table-bordered table-hover">
@@ -11,15 +9,31 @@
           <th>Name</th>
           <th>Photo</th>
           <th>Description</th>
+          <th>Detail 1</th>
+          <th>Detail 2</th>
+          <th>Detail 3</th>
+          <th>Detail 4</th>
+          <th>Detail 5</th>
+          <th>Detail 6</th>
           <th>Price</th>
           <th>Quantity</th>
           <th>Category</th>
+          <th>Edit</th>
+          <th>Delete</th>
         </tr>
         {% for i in data %}
           <tr>
             <td>{{ i.product_name }}</td>
             <td><img src="{{ i.photo }}" alt="{{ i.product_name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
             <td>{{ i.description }}</td>
+            <!-- Add Detail Fields -->
+            <td>{{ i.detail1 }}</td>
+            <td>{{ i.detail2 }}</td>
+            <td>{{ i.detail3 }}</td>
+            <td>{{ i.detail4 }}</td>
+            <td>{{ i.detail5 }}</td>
+            <td>{{ i.detail6 }}</td>
+            <!-- End of Detail Fields -->
             <td>{{ i.price }}</td>
             <td>{{ i.quantity }}</td>
             <td>{{ i.CATEGORY.category_name }}</td>
@@ -32,6 +46,5 @@
     <p>No products available.</p>
   {% endif %}
 </div>
-
 </body>
 {% endblock x %}
