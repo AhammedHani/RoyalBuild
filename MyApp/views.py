@@ -392,15 +392,23 @@ def edit_quantity_post(request,id):
     c1=request.session['cc']
     return HttpResponse('''<script>alert("EDITED");window.location="/view_product2/'''+c1+'''"</script> ''')
 
+def view_order(request):
+    data=make_order.objects.filter(status="Pending")
+    return render(request,'Scheduler/view_order.html',{'data':data})
+
+def schedule_order(request,s4):
+    data=payment.objects.get(unit_order_id_id=s4)
+    return render(request,'schedule_order.html',{'data':data})
 
 
 
 
 
 
+# Public
 
-
-
+def public_home(request):
+    return render(request,'Public/public_home.html')
 
 # customer
 
@@ -424,10 +432,33 @@ def view_products2(request,id):
     data = product.objects.get(product_id=id)
     return render(request, 'Customer/view_products2.html', {'data': data})
 
+def add_order(request,id):
+    s=request.POST.get('txt')
+    return render(request, 'Customer/add_order.html',{'id':id,'s':s})
 
+def submit_order(request,id):
+    request.session['pid']=id
+    request.session['qty']=request.POST.get('quantity')
+    return render(request,"Customer/make_payment.html")
 
-
-# Public
-
-def public_home(request):
-    return render(request,'Public/public_home.html')
+def make_payment_post(request):
+    data1=make_order()
+    data1.quantity=request.session['qty']
+    data1.PRODUCT_id=request.session['pid']
+    data10=customer.objects.get(email=request.session['customers'])
+    data1.CUSTOMER_id=data10.customer_id
+    data1.status="pending"
+    from datetime import datetime
+    data1.date=datetime.now().strftime('%Y-%m-%d')
+    data1.save()
+    d1=make_order.objects.last()
+    
+    data2=payment()
+    data2.acc_number=request.POST.get('acc_number')
+    data2.ifsc_code=request.POST.get('ifsc_code')
+    data2.branch=request.POST.get('branch')
+    data2.ORDER_id=d1.order_id
+    data2.status="paid"
+    data2.date=datetime.now().strftime('%Y-%m-%d')
+    data2.save()
+    return HttpResponse('''<Script>alert("ORDER SUCCESS");window.location="/view_products/";</Script>''')

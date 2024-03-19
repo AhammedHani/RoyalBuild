@@ -81,11 +81,11 @@
         <div class="sample1">
             <div class="img-thumbnail" bis_skin_checked="1">
                 <img width="800" height="500"
-                    src="https://www.claybrickandsand.co.za/wp-content/uploads/2017/12/cement-bricks-1-500x459.jpg"
+                    src={{data.photo}}
                     class="woocommerce-main-image img-responsive" alt=""
-                    href="https://www.claybrickandsand.co.za/wp-content/uploads/2017/12/cement-bricks-1.jpg"
+                    href=""
                     title="cement-bricks" decoding="async" fetchpriority="high"
-                    srcset="https://www.claybrickandsand.co.za/wp-content/uploads/2017/12/cement-bricks-1-500x459.jpg 500w, https://www.claybrickandsand.co.za/wp-content/uploads/2017/12/cement-bricks-1-400x367.jpg 400w, https://www.claybrickandsand.co.za/wp-content/uploads/2017/12/cement-bricks-1-367x337.jpg 367w">
+                    srcset="{{data.photo}} 367w">
             </div>
         </div>
 
@@ -116,10 +116,15 @@
                         <input type="number" class="quantity-input" value="1" min="1">
                     </div>
                     <div class="quantity-cell">
-                        <button class="quantity-button" onclick="incrementQuantity()">+</button>
+                        <form name="f1">
+                        <button class="quantity-button" onclick="incrementQuantity()" type="button">+</button>
+                    <input type="text" name="txt">   
+                    </form>
                     </div>
                 </div>
+           
                 <button class="add-to-cart-button">ADD TO CART</button>
+                <a href="/add_order/{{data.product_id}}" class="order-now-button">ORDER</a>
             </div>
         </div>
     </div>
@@ -137,6 +142,7 @@
             var quantityInput = document.querySelector('.quantity-input');
             var currentValue = parseInt(quantityInput.value, 10);
             quantityInput.value = currentValue + 1;
+            f1.txt.value=parseInt(f1.txt.value)+parseInt(currentValue + 1)
         }
     </script>
 </body>

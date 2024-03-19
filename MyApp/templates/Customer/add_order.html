@@ -1,0 +1,29 @@
+{% extends 'Customer/home.html' %}
+{% load static %}
+{% block x %}
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Order Form</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/submit_order/{{id}}" method="post">
+                            {% csrf_token %}
+                            <table class="table">
+                                <tr>
+                                    <th>Quantity:</th>
+                                    <td><input type="text" id="quantity" name="quantity" min="1" class="form-control" required></td>
+                                </tr>
+                            </table>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock x %}

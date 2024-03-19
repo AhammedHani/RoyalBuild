@@ -1,7 +1,5 @@
 from django.db import models
-        
-
-        
+             
 class login(models.Model):
     username = models.CharField(max_length=100)
     password = models.CharField(max_length=100)
@@ -9,7 +7,6 @@ class login(models.Model):
     class Meta:
         db_table = "login" 
            
-
 class category(models.Model):
     category_id = models.IntegerField(primary_key=True)
     category_name = models.CharField(max_length=100)
@@ -85,3 +82,23 @@ class review(models.Model):
     class Meta:
         db_table = "review"
         
+class make_order(models.Model):
+    order_id = models.IntegerField(primary_key=True)
+    date = models.CharField(max_length=100)
+    quantity = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)  
+    CUSTOMER = models.ForeignKey(customer, on_delete=models.CASCADE,default=1)
+    PRODUCT = models.ForeignKey(product, on_delete=models.CASCADE,default=1)
+    class Meta:
+        db_table = "make_order"        
+
+class payment(models.Model):
+    payment_id = models.IntegerField(primary_key=True)
+    branch = models.CharField(max_length=100)
+    acc_number = models.CharField(max_length=100)
+    ifsc_code = models.CharField(max_length=100)
+    date = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    ORDER = models.ForeignKey(make_order, on_delete=models.CASCADE,default=1)
+    class Meta:
+        db_table = "payment" 

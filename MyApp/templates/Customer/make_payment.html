@@ -1,0 +1,32 @@
+{% load static %}
+<body>
+<form action="/make_payment_post/" method="post" enctype="multipart/form-data" name="form1" id="form1">
+    {% csrf_token %}
+  <table class="table table-bordered">
+    <tr>
+        <th>Amount</th>
+        <td>
+        <input type="text" name="amount" id="amount" class="form-control" value="{{s4}}" required/></td>
+    </tr>
+    <tr>
+        <th>Account Number</th>
+        <td>
+        <input type="text" name="acc_number" id="account_number" class="form-control" required/></td>
+    </tr>
+    <tr>
+        <th>IFSC Code</th>
+        <td>
+        <input type="text" name="ifsc_code" id="ifsc_code" class="form-control" required/></td>
+    </tr>
+    <tr>
+        <th>Branch</th>
+        <td>
+        <input type="text" name="branch" id="branch" class="form-control" required/></td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td><input type="submit" name="button" id="button" value="Submit" class="btn btn-success"/></td>
+    </tr>
+  </table>
+</form>
+</body>
