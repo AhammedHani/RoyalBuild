@@ -275,7 +275,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="/scheduler_home">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -302,7 +302,7 @@
 
       <li class="nav-item">
         <i class="bi bi-cart"></i>
-        <a href="/view_order">
+        <a href="/view_orders">
          <span>Orders</span>
         </a>
         {% comment %} <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -316,7 +316,7 @@
               <i class="bi bi-circle"></i><span>Add</span>
             </a>
           </li>
-        </ul> {% endcomment %}
+        </ul> 
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
@@ -338,8 +338,10 @@
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-tools"></i><span>Worksite</span>
+        {% comment %} <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#"> {% endcomment %}
+          
+          <i class="bi bi-tools"></i>
+          <a href="#"><span>Worksite</span>
         </a>
         {% comment %} <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -453,7 +455,7 @@
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
+    {% comment %} <div class="pagetitle">
       <h1>Dashboard</h1>
       <nav>
         <ol class="breadcrumb">
@@ -461,7 +463,7 @@
           <li class="breadcrumb-item active">Dashboard</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
+    </div><!-- End Page Title --> {% endcomment %}
 
     <section class="section dashboard">
       <div class="row">

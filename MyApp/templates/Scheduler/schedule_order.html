@@ -1,0 +1,71 @@
+{% extends 'Scheduler/scheduler_home.html' %}
+{% block x %}
+<body>
+    <form method="post" action="/schedule_order_post/{{data1.order_id}}">
+    {%csrf_token%}
+    <div class="container mt-5">
+    <table class="table table-bordered">
+        
+            <tr>
+                <th>Order ID:</th>
+                <td><input type="text" id="orderId" name="orderId" class="form-control" value="{{data1.order_id}}" readonly></td>
+            </tr>
+            <tr>
+                <th>Customer Name:</th>
+                <td><input type="text" id="customerName" name="customerName" class="form-control" value="{{data1.CUSTOMER.customer_name}}" readonly></td>
+            </tr>
+            <tr>
+                <th>Product:</th>
+                <td><input type="text" id="product" name="product" class="form-control" value="{{data1.PRODUCT.product_name}}" readonly></td>
+            </tr>
+            <tr>
+                <th>Quantity:</th>
+                <td><input type="text" id="quantity" name="quantity" min="1" class="form-control" value="{{data1.quantity}}" readonly></td>
+            </tr>
+            <tr>
+                <th>Order Date:</th>
+                <td><input type="date" id="orderDate" name="orderDate" class="form-control" value="{{data1.date}}" readonly></td>
+            </tr>
+            <tr>
+                <th>Delivery Date:</th>
+                <td><input type="date" id="deliveryDate" name="deliveryDate" class="form-control" required></td>
+            </tr>
+            <tr>
+                <th>Delivery Time:</th>
+                <td><input type="time" id="deliveryTime" name="deliveryTime" class="form-control" required></td>
+            </tr>
+            <tr>
+                <th>Staff:</th>
+                <td>
+                    <select id="staff" name="staff" class="form-control" required>
+                        <option value="">Select staff</option>
+                        {% for i in data3 %}
+                        {% if i.status != 'scheduler' %}
+                        <option value="{{ i.staff_id }}">{{ i.staff_name }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Vehicle:</th>
+                <td>
+                    <select id="vehicle" name="vehicle" class="form-control" required>
+                        <option value="">Select Vehicle</option>
+                        {% for i in data2 %}
+                            {% if i.status == 'available' %}
+                                <option value="{{ i.vehicle_id }}">{{ i.type }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            
+            
+            <tr>
+                <td colspan="2" class="text-center">
+                  <button type="submit" class="btn btn-primary">Schedule</button>
+                </td>
+              </tr>
+        </table>
+{% endblock x %}

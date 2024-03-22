@@ -1,12 +1,14 @@
-{% load static %}
+{% extends 'Customer/home.html' %}
+{% block x %}
 <body>
-<form action="/make_payment_post/" method="post" enctype="multipart/form-data" name="form1" id="form1">
+<form action="/make_payment/" method="post" enctype="multipart/form-data" name="form1" id="form1">
     {% csrf_token %}
+    <br><br>
   <table class="table table-bordered">
     <tr>
         <th>Amount</th>
         <td>
-        <input type="text" name="amount" id="amount" class="form-control" value="{{s4}}" required/></td>
+        <input type="text" name="amount" id="amount" class="form-control" value="{{data2.amount}}" readonly/></td>
     </tr>
     <tr>
         <th>Account Number</th>
@@ -24,9 +26,12 @@
         <input type="text" name="branch" id="branch" class="form-control" required/></td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
-      <td><input type="submit" name="button" id="button" value="Submit" class="btn btn-success"/></td>
-    </tr>
+      <td colspan="2" class="text-center">
+          <button type="submit" name="button" id="button" class="btn btn-success">Submit</button>
+      </td>
+  </tr>
+  
   </table>
 </form>
 </body>
+{% endblock x %}

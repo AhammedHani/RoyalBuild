@@ -1,0 +1,19 @@
+{% extends 'Customer/home.html' %}
+{% block x %}
+<body>
+    <h2>Cash on Delivery</h2>
+    
+    <form method="post" action="{% url 'process_payment' %}">
+        {% csrf_token %}
+        
+        <table>
+            <tr>
+                <td>Amount:</td>
+                <td>{{ amount }}</td>
+            </tr>
+        </table>
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+{% endblock x %}

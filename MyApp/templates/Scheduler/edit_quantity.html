@@ -1,7 +1,6 @@
 {% extends 'Scheduler/scheduler_home.html' %}
 {% block x %}
 
-</head>
 <body>
     <form method="post" action="/edit_quantity_post/{{data.product_id}}">
         {%csrf_token%}
@@ -10,9 +9,7 @@
   <table class="table table-bordered">
     <tr>
         <td>Quantity</td>
-        <td>
-          <input type="text" class="form-control" name="new_quantity" value="{{ data.quantity }}">
-        </td>
+        <td><input type="text" class="form-control" name="new_quantity" value="{{ data.quantity }}"></td>
       </tr>
       <tr>
         <td colspan="2" class="text-center">

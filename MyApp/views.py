@@ -336,6 +336,7 @@ def add_vehicle_post(request):
     data=vehicle()
     data.vehicle_number=request.POST.get('vehicle_number')
     data.type=request.POST.get('vehicle_type')
+    data.status='available'
     data.save()
     return HttpResponse('''<Script>alert("Accepted");window.location="/add_vehicle/";</Script>''')
 
@@ -392,18 +393,51 @@ def edit_quantity_post(request,id):
     c1=request.session['cc']
     return HttpResponse('''<script>alert("EDITED");window.location="/view_product2/'''+c1+'''"</script> ''')
 
-def view_order(request):
-    data=make_order.objects.filter(status="Pending")
-    return render(request,'Scheduler/view_order.html',{'data':data})
+def view_orders(request):
+    data=make_order.objects.filter(status="pending")
+    return render(request,'Scheduler/view_orders.html',{'data':data})
 
-def schedule_order(request,s4):
-    data=payment.objects.get(unit_order_id_id=s4)
-    return render(request,'schedule_order.html',{'data':data})
+def check_payment(request,id):
+    data=payment.objects.get(ORDER_id=id)
+    return render(request,'Scheduler/check_payment.html',{'data':data})
 
+def schedule_order(request,id):
+    data1 = make_order.objects.get(order_id=id)
+    data2=vehicle.objects.all()
+    data3=staff.objects.all()
+    return render(request, 'Scheduler/schedule_order.html', {'data1': data1,'data2':data2,'data3':data3,})
+ 
+def schedule_order_post(request,id):
+    data1=make_order.objects.get(order_id=id)
+    data1.status="approved"
+    data1.save()
+    q1=data1.quantity
+    data2=product.objects.get(product_id=data1.PRODUCT_id)
+    q2=data2.quantity
+    result=int(q2)-int(q1)
+    data2.quantity=result
+    data2.save()
+    
+    staff_id = request.POST.get('staff')
+    vehicle_id = request.POST.get('vehicle')
+    selected_staff = staff.objects.get(staff_id=staff_id)
+    selected_vehicle = vehicle.objects.get(vehicle_id=vehicle_id)
+    
+    data4 = vehicle_allot()
+    data4.date = request.POST.get('deliveryDate')
+    data4.time = request.POST.get('deliveryTime')
+    data4.ORDER = data1
+    data4.STAFF = selected_staff 
+    data4.VEHICLE = selected_vehicle  
+    data4.save()
+    
+    return HttpResponse('''<Script>alert("Scheduled");window.location="/view_orders/";</Script>''')
 
-
-
-
+def reject_order(request, id):
+    data = make_order.objects.get(order_id=id)
+    data.status = "rejected"
+    data.save()
+    return HttpResponse('''<Script>alert("REJECTED");window.location="/view_order/";</Script>''')
 
 # Public
 
@@ -433,18 +467,19 @@ def view_products2(request,id):
     return render(request, 'Customer/view_products2.html', {'data': data})
 
 def add_order(request,id):
-    s=request.POST.get('txt')
-    return render(request, 'Customer/add_order.html',{'id':id,'s':s})
+    return render(request, 'Customer/add_order.html',{'id':id})
 
-def submit_order(request,id):
+def add_order_post(request,id):
     request.session['pid']=id
     request.session['qty']=request.POST.get('quantity')
     return render(request,"Customer/make_payment.html")
 
-def make_payment_post(request):
+def make_payment(request):
     data1=make_order()
     data1.quantity=request.session['qty']
     data1.PRODUCT_id=request.session['pid']
+    data11=product.objects.get(product_id=request.session['pid'])
+    data1.amount=int(request.session['qty'])*int(data11.price)
     data10=customer.objects.get(email=request.session['customers'])
     data1.CUSTOMER_id=data10.customer_id
     data1.status="pending"
@@ -457,8 +492,16 @@ def make_payment_post(request):
     data2.acc_number=request.POST.get('acc_number')
     data2.ifsc_code=request.POST.get('ifsc_code')
     data2.branch=request.POST.get('branch')
+    data2.amount=int(request.session['qty'])*int(data11.price)
     data2.ORDER_id=d1.order_id
     data2.status="paid"
     data2.date=datetime.now().strftime('%Y-%m-%d')
     data2.save()
-    return HttpResponse('''<Script>alert("ORDER SUCCESS");window.location="/view_products/";</Script>''')
+    c2=data11.CATEGORY
+    return HttpResponse('''<script>alert("ORDERED");window.location="/view_products/'''+str(c2.category_id)+'''"</script> ''')
+
+def view_order(request):
+    customer_id = request.session.get('customers')
+    data2 = customer.objects.get(email=customer_id)
+    data = make_order.objects.filter(CUSTOMER_id=data2.customer_id).order_by('-order_id')
+    return render(request, 'Customer/view_order.html', {'data': data})

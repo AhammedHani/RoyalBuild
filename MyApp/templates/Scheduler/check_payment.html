@@ -1,0 +1,28 @@
+{% extends 'Scheduler/scheduler_home.html' %}
+{% block x %}
+<body>
+    <br><br>
+    <table class="table table-bordered">
+        <tr>
+            <th>Order ID</th>
+            {% comment %} <th>Customer Name</th> {% endcomment %}
+            <th>Account Number</th>
+            <th>IFSC Code</th>
+            <th>Fee</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>{{data.ORDER.order_id}}</td>
+            {% comment %} <td>{{data.ORDER.CUSTOMER.customer_name}}</td> {% endcomment %}
+            <td>{{data.acc_number}}</td>
+            <td>{{data.ifsc_code}}</td>
+            <td>{{data.amount}}</td>
+            <td>{{data.date}}</td>
+            <td>{{data.ORDER.status}}</td>
+        <td><a href="/schedule_order/{{data.ORDER.order_id}}" class="btn btn-success btn-sm">Accept</a></td>
+        <td><a href="/reject_order/{{ data.ORDER.order_id }}" class="btn btn-danger btn-sm">Reject</a></td>
+    </tr>
+    </table>
+</body>
+{% endblock x %}

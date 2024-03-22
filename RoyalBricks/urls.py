@@ -47,7 +47,11 @@ urlpatterns = [
     path('view_product2/<id>',views.view_product2),  
     path('edit_quantity/<id>',views.edit_quantity),  
     path('edit_quantity_post/<int:id>',views.edit_quantity_post),  
-    path('view_order/',views.view_order),  
+    path('view_orders/',views.view_orders),  
+    path('check_payment/<id>',views.check_payment),  
+    path('schedule_order/<id>',views.schedule_order),  
+    path('schedule_order_post/<id>',views.schedule_order_post),  
+    path('reject_order/<id>', views.reject_order),
     
     #public
     path('signup/',views.signup),
@@ -64,8 +68,11 @@ urlpatterns = [
     path('view_products/<id>',views.view_products),
     path('view_products2/<id>',views.view_products2), 
     path('add_order/<id>',views.add_order), 
-    path('submit_order/<id>',views.submit_order), 
-    path('make_payment_post/',views.make_payment_post), 
+    path('add_order_post/<id>',views.add_order_post), 
+    path('make_payment/',views.make_payment), 
+    path('view_order/',views.view_order),  
+    
+    
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -87,6 +87,7 @@ class make_order(models.Model):
     date = models.CharField(max_length=100)
     quantity = models.CharField(max_length=100)
     status = models.CharField(max_length=100)  
+    amount = models.IntegerField(max_length=100)
     CUSTOMER = models.ForeignKey(customer, on_delete=models.CASCADE,default=1)
     PRODUCT = models.ForeignKey(product, on_delete=models.CASCADE,default=1)
     class Meta:
@@ -99,6 +100,17 @@ class payment(models.Model):
     ifsc_code = models.CharField(max_length=100)
     date = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
+    amount = models.IntegerField(max_length=100)
     ORDER = models.ForeignKey(make_order, on_delete=models.CASCADE,default=1)
     class Meta:
         db_table = "payment" 
+        
+class vehicle_allot(models.Model):
+    vehicle_allot_id = models.IntegerField(primary_key=True)
+    date = models.CharField(max_length=100)
+    time = models.CharField(max_length=100)
+    ORDER = models.ForeignKey(make_order, on_delete=models.CASCADE,default=1)
+    STAFF = models.ForeignKey(staff, on_delete=models.CASCADE,default=1)
+    VEHICLE = models.ForeignKey(vehicle, on_delete=models.CASCADE,default=1)
+    class Meta:
+        db_table = "vehicle_allot" 
