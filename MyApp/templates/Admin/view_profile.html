@@ -1,0 +1,18 @@
+{% extends 'Admin/admin_home.html' %}
+{% load static %} 
+{% block x %}
+
+<div class="container rounded bg-white mt-5 mb-5 border"> <!-- Added border class -->
+    <div class="row justify-content-center"> <!-- Added justify-content-center class -->
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <h4 class="text-right">View Profile</h4>
+                <img class="rounded-circle mt-5" width="150px" height="150px" src="{% static 'Admin/assets/img/RoyalBricks.jpeg' %}">
+                <span class="font-weight-bold"><br>{{data.username}}</span>
+                <span class="text-black-50"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock x %}

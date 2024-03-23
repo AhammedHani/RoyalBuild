@@ -1,12 +1,10 @@
-{% extends 'Admin/admin_home.html' %}
+{% extends 'Customer/home.html' %}
 {% block x %}
-
-</head>
 <body>
 
 <div class="container mt-5">
 
-  <form method="post" action="/add_complaint_post/">
+  <form method="post" action="/send_complaint_post/">
     {% csrf_token %}
 
     <table class="table table-bordered table-hover">

@@ -48,7 +48,7 @@
         <img src="{% static 'Admin/assets/img/logo.png' %}" alt="">&nbsp;
         <span class="d-none d-lg-block">ROYAL BRICKS</span>
       </a>
-      <!-- <i class="bi bi-list toggle-sidebar-btn"></i> -->
+      <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
     <!-- <div class="search-bar">
@@ -67,7 +67,7 @@
           </a>
         </li>End Search Icon -->
 
-        <!-- <li class="nav-item dropdown">
+        <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
@@ -140,9 +140,9 @@
 
           </ul>
 
-        </li>End Notification Nav -->
+        </li><!--End Notification Nav -->
 
-        <!-- <li class="nav-item dropdown">
+        {% comment %} <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-chat-left-text"></i>
@@ -186,46 +186,33 @@
               <hr class="dropdown-divider">
             </li>
 
-            <li class="message-item">
-              <a href="#">
-                <img src="{% static 'Admin/assets/img/messages-3.jpg' %}" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
+            
             <li class="dropdown-footer">
               <a href="#">Show all messages</a>
             </li>
 
           </ul>
 
-        </li>End Messages Nav -->
+        </li><!--End Messages Nav --> {% endcomment %}
 
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{% static 'Admin/assets/img/profile-img.jpg' %}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <img src="{{data.photo}}" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2"></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>Kevin Anderson</h6>
-              <span>Web Designer</span>
+              <h6>{{data.staff_name}}</h6>
+              <span>{{data.email}}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="/scheduler_view_profile">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -235,16 +222,16 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
+              <a class="dropdown-item d-flex align-items-center" href="/scheduler_change_password">
+                <i class="bi bi-key"></i>
+                <span>Change Password</span>
               </a>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            {% comment %} <li>
               <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                 <i class="bi bi-question-circle"></i>
                 <span>Need Help?</span>
@@ -252,7 +239,7 @@
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>
+            </li> {% endcomment %}
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="#">
@@ -282,10 +269,10 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <i class="bi bi-archive"></i>
-        <a href="#">
-          <span><a href="/view_category2">Stock</a></span>
+        <a class="nav-link collapsed"  href="/view_category2">
+            <i class="bi bi-archive"></i><span>Stock</span>
         </a>
+    </li>
         {% comment %} <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="/view_category">
@@ -301,10 +288,10 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <i class="bi bi-cart"></i>
-        <a href="/view_orders">
-         <span>Orders</span>
+        <a class="nav-link collapsed" href="/view_orders">
+            <i class="bi bi-cart"></i><span>Orders</span>
         </a>
+    </li>
         {% comment %} <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
            <li>
             <a href="/view_product">
@@ -340,9 +327,11 @@
       <li class="nav-item">
         {% comment %} <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#"> {% endcomment %}
           
-          <i class="bi bi-tools"></i>
-          <a href="#"><span>Worksite</span>
-        </a>
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#">
+                <i class="bi bi-tools"></i><span>Worksite</span>
+            </a>
+        </li>
         {% comment %} <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="/add_vehicle">
@@ -354,8 +343,8 @@
               <i class="bi bi-circle"></i><span>View</span>
             </a>
           </li>
-        </ul> {% endcomment %}
-      </li><!-- End Charts Nav -->
+        </ul> 
+      </li>End Charts Nav{% endcomment %}
 
       {% comment %} <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#complaint-nav" data-bs-toggle="collapse" href="#">
@@ -384,7 +373,7 @@
       </li><!-- End Reviews Nav --> {% endcomment %}
       
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#reports-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" href="#">
           <i class="bi bi-file-text"></i><span>Reports</span></i>
         </a>
         {% comment %} <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
@@ -679,6 +668,7 @@
                 </div>
 
                 <div class="card-body">
+
                   {% block x%}
                   {% endblock%}
 
@@ -1044,6 +1034,18 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+  }
+  
+  footer {
+      margin-top: auto;
+  }
+  </style>
+  
   <footer id="footer" class="footer">
     <div class="copyright">
       &copy; Copyright <strong><span>Royal Bricks</span></strong>. All Rights Reserved

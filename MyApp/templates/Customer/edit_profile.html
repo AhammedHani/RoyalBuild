@@ -1,0 +1,52 @@
+{% extends 'Customer/home.html' %}
+{% block x %}
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row justify-content-center"> <!-- Added justify-content-center class -->
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" height="150px"
+                src="{{data.photo}}"><span class="font-weight-bold"><br>{{data.customer_name}}</span><span class="text-black-50">{{data.email}}</span><span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-2 py-2">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Edit Profile </h4> <!-- Changed heading to "Edit Profile" -->
+                </div>
+                <form method="POST" action="/customer_edit_profile_post/" enctype="multipart/form-data"> <!-- Added enctype attribute -->
+                    {% csrf_token %}
+                    <table class="table">
+                        <tr>
+                            <td><label for="name">Name:</label></td>
+                            <td><input type="text" class="form-control" id="name" name="name" value="{{ data.customer_name }}"></td> <!-- Removed readonly attribute -->
+                        </tr>
+                        <tr>
+                            <td><label for="photo">Photo:</label></td>
+                            <td><input type="file" class="form-control" id="photo" name="photo"></td>
+                        </tr> 
+                        <tr>
+                            <td><label for="address">Address:</label></td>
+                            <td><textarea class="form-control" id="address" name="address">{{ data.address }}</textarea></td> <!-- Removed readonly attribute -->
+                        </tr>
+                        <tr>
+                            <td><label for="pin">Pin:</label></td>
+                            <td><input type="text" class="form-control" id="pin" name="pin" value="{{ data.pin }}"></td> <!-- Removed readonly attribute -->
+                        </tr>
+                        <tr>
+                            <td><label for="email">Email:</label></td>
+                            <td><input type="email" class="form-control" id="email" name="email" value="{{ data.email }}" readonly></td> <!-- Added readonly attribute -->
+                        </tr>
+                        <tr>
+                            <td><label for="phone">Phone:</label></td>
+                            <td><input type="tel" class="form-control" id="phone" name="phone" value="{{ data.phone }}"></td> <!-- Removed readonly attribute -->
+                        </tr>
+                    </table>
+                    <div class="text-center"> <!-- Added text-center class -->
+                        <button type="submit" class="btn btn-primary">Save</button> <!-- Changed button text to "Save" -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock x %}

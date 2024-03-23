@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from MyApp.models import *
 from django.core.files.storage import FileSystemStorage
+from datetime import datetime
 
 # Create your views here.
 
@@ -34,7 +35,7 @@ def signup_post(request):
 # Login
 
 def signin(request):
-    return render(request,'signin.html')
+    return render(request,'Public/signin.html')
 
 def signin_post(request):
     if request.method=='POST':
@@ -64,7 +65,9 @@ def signin_post(request):
 # Admin
 
 def admin_home(request):
-    return render(request,'Admin/admin_home.html')
+    admin_id = request.session.get('admins')
+    data = login.objects.get(username=admin_id)
+    return render(request,'Admin/admin_home.html',{'data':data})
 
 def add_category(request):
     return render(request,'Admin/add_category.html')
@@ -361,17 +364,44 @@ def delete_vehicle(request,id):
     return HttpResponse('''<Script>alert("Deleted");window.location="/view_vehicle/";</Script>''')
     
 def view_complaint(request):
-    data = complaint.objects.all()
+    data=complaint.objects.filter(status='pending')
     return render(request,'Admin/view_complaint.html', {'data': data})
 
 def view_review(request):
     data = review.objects.all()
     return render(request,'Admin/view_review.html', {'data': data})
 
+def admin_view_profile(request):
+    admin_id = request.session.get('admins')
+    data = login.objects.get(username=admin_id)
+    return render(request, 'Admin/view_profile.html', {'data': data})
+
+def admin_change_password(request):
+    val=request.session.get('admins')
+    var=login.objects.get(username =val)
+    return render(request,"Admin/admin_change_password.html",{'data':var})
+
+def admin_change_password_post(request):
+    oldpass=request.POST['textfield']
+    newpass=request.POST['textfield2']
+    confirmpass=request.POST['textfield3']
+    res=login.objects.filter(username=request.session['admins'],password=oldpass)
+    if res.exists():
+        if newpass == confirmpass:
+            ress = res.update(password=newpass)
+            return HttpResponse('''<script>alert('PASSWORD CHANGED SUCCESSFULLY');window.location="/admin_home/"</script>''')
+        else:
+            return HttpResponse('''<Script>alert("PASSWORD DOES NOT MATCH");window.location="/admin_change_password/";</Script>''')
+    else:
+        return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/admin_change_password/";</Script>''')
+
+
 # Scheduler
 
 def scheduler_home(request):
-    return render(request,'Scheduler/scheduler_home.html')
+    staff_id = request.session.get('schedulers')
+    data = staff.objects.get(email=staff_id)
+    return render(request,'Scheduler/scheduler_home.html',{'data':data})
 
 def view_category2(request):
     data = category.objects.all()
@@ -439,10 +469,64 @@ def reject_order(request, id):
     data.save()
     return HttpResponse('''<Script>alert("REJECTED");window.location="/view_order/";</Script>''')
 
-# Public
+def scheduler_view_profile(request):
+    staff_id = request.session.get('schedulers')
+    data = staff.objects.get(email=staff_id)
+    return render(request, 'Scheduler/view_profile.html', {'data': data})
 
-def public_home(request):
-    return render(request,'Public/public_home.html')
+def scheduler_edit_profile(request):
+    staff_id = request.session.get('schedulers')
+    data = staff.objects.get(email=staff_id)
+    return render(request, 'Scheduler/edit_profile.html', {'data': data})
+
+def scheduler_edit_profile_post(request):
+    if 'photo' in request.FILES:
+        staff_id = request.session.get('schedulers')
+        data = staff.objects.get(email=staff_id)
+        data.staff_name = request.POST.get('name')
+        data.place = request.POST.get('place')
+        data.email = request.POST.get('email')
+        data.phone = request.POST.get('phone')
+        data.state = request.POST.get('state')
+        Photo = request.FILES['photo']
+        fs = FileSystemStorage()
+        filename = fs.save(Photo.name, Photo) 
+        uploaded_file_url = fs.url(filename)
+        data.photo = uploaded_file_url
+        data.save()
+        return HttpResponse('''<script>alert("Profile Edited");window.location="/scheduler_view_profile/";</script>''')
+    else:
+        staff_id = request.session.get('schedulers')
+        data = staff.objects.get(email=staff_id)
+        data.staff_name = request.POST.get('name')
+        data.place = request.POST.get('place')
+        data.email = request.POST.get('email')
+        data.phone = request.POST.get('phone')
+        data.state = request.POST.get('state')
+        data.save()
+        return HttpResponse('''<script>alert("Profile Edited");window.location="/scheduler_view_profile/";</script>''')
+
+
+def scheduler_change_password(request):
+    val=request.session.get('schedulers')
+    var=login.objects.get(username =val)
+    return render(request,"Scheduler/scheduler_change_password.html",{'data':var})
+
+def scheduler_change_password_post(request):
+    oldpass=request.POST['textfield']
+    newpass=request.POST['textfield2']
+    confirmpass=request.POST['textfield3']
+    res=login.objects.filter(username=request.session['schedulers'],password=oldpass)
+    if res.exists():
+        if newpass == confirmpass:
+            ress = res.update(password=newpass)
+            return HttpResponse('''<script>alert('PASSWORD CHANGED SUCCESSFULLY');window.location="/scheduler_home/"</script>''')
+        else:
+            return HttpResponse('''<Script>alert("PASSWORD DOES NOT MATCH");window.location="/scheduler_change_password/";</Script>''')
+    else:
+        return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/scheduler_change_password/";</Script>''')
+
+
 
 # customer
 
@@ -505,3 +589,77 @@ def view_order(request):
     data2 = customer.objects.get(email=customer_id)
     data = make_order.objects.filter(CUSTOMER_id=data2.customer_id).order_by('-order_id')
     return render(request, 'Customer/view_order.html', {'data': data})
+
+def send_complaint(request):
+    return render(request, 'Customer/send_complaint.html')
+
+def send_complaint_post(request):
+    complaint_message=request.POST['complaint_message']
+    var=complaint()
+    var.complaint_message=complaint_message
+    var.date=datetime.now().strftime('%Y-%m-%d')
+    var.status='pending'
+    var.customer_id=customer.objects.get(email=request.session['customers'])
+    var.save()
+    return HttpResponse('''<script>alert('Success');window.location="/send_complaint/"</script>''')
+    
+def customer_view_profile(request):
+    customer_id = request.session.get('customers')
+    data = customer.objects.get(email=customer_id)
+    return render(request, 'Customer/view_profile.html', {'data': data})
+
+def customer_edit_profile(request):
+    customer_id = request.session.get('customers')
+    data = customer.objects.get(email=customer_id)
+    return render(request, 'Customer/edit_profile.html', {'data': data})
+
+def customer_edit_profile_post(request):
+    if 'photo' in request.FILES:
+        customer_id = request.session.get('customers')
+        data = customer.objects.get(email=customer_id)
+        data.customer_name = request.POST.get('name')
+        data.address = request.POST.get('address')
+        data.pin = request.POST.get('pin')
+        data.email = request.POST.get('email')
+        data.phone = request.POST.get('phone')
+        Photo = request.FILES['photo']
+        fs = FileSystemStorage()
+        filename = fs.save(Photo.name, Photo) 
+        uploaded_file_url = fs.url(filename)
+        data.photo = uploaded_file_url
+        data.save()
+        return HttpResponse('''<script>alert("Profile Edited");window.location="/customer_view_profile/";</script>''')
+    else:
+        customer_id = request.session.get('customers')
+        data = customer.objects.get(email=customer_id)
+        data.customer_name = request.POST.get('name')
+        data.address = request.POST.get('address')
+        data.pin = request.POST.get('pin')
+        data.email = request.POST.get('email')
+        data.phone = request.POST.get('phone')
+        data.save()
+        return HttpResponse('''<script>alert("Profile Edited");window.location="/customer_view_profile/";</script>''')
+
+def customer_change_password(request):
+    val=request.session.get('customers')
+    var=login.objects.get(username =val)
+    return render(request,"Customer/change_password.html",{'data':var})
+
+def customer_change_password_post(request):
+    oldpass=request.POST['textfield']
+    newpass=request.POST['textfield2']
+    confirmpass=request.POST['textfield3']
+    res=login.objects.filter(username=request.session['customers'],password=oldpass)
+    if res.exists():
+        if newpass == confirmpass:
+            ress = res.update(password=newpass)
+            return HttpResponse('''<script>alert('PASSWORD CHANGED SUCCESSFULLY');window.location="/customer_home/"</script>''')
+        else:
+            return HttpResponse('''<Script>alert("PASSWORD DOES NOT MATCH");window.location="/customer_change_password/";</Script>''')
+    else:
+        return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/customer_change_password/";</Script>''')
+
+# Public
+
+def public_home(request):
+    return render(request,'Public/public_home.html')

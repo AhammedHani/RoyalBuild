@@ -39,6 +39,9 @@ urlpatterns = [
     path('delete_vehicle/<id>',views.delete_vehicle),
     path('view_complaint/',views.view_complaint),
     path('view_review/',views.view_review),
+    path('admin_change_password/',views.admin_change_password),
+    path('admin_change_password_post/',views.admin_change_password_post),
+    path('admin_view_profile/',views.admin_view_profile),    
     
     # Scheduler
     
@@ -52,13 +55,13 @@ urlpatterns = [
     path('schedule_order/<id>',views.schedule_order),  
     path('schedule_order_post/<id>',views.schedule_order_post),  
     path('reject_order/<id>', views.reject_order),
-    
-    #public
-    path('signup/',views.signup),
-    path('signup_post/',views.signup_post),
-    path('signin/',views.signin),
-    path('signin_post/',views.signin_post),
-    path('public_home/',views.public_home),
+    path('scheduler_change_password/',views.scheduler_change_password),
+    path('scheduler_change_password_post/',views.scheduler_change_password_post),
+    path('scheduler_view_profile/',views.scheduler_view_profile),
+    path('scheduler_edit_profile/',views.scheduler_edit_profile),
+    path('scheduler_edit_profile_post/',views.scheduler_edit_profile_post),
+        
+
     
     
     #customer
@@ -71,8 +74,24 @@ urlpatterns = [
     path('add_order_post/<id>',views.add_order_post), 
     path('make_payment/',views.make_payment), 
     path('view_order/',views.view_order),  
+    path('send_complaint/',views.send_complaint),  
+    path('send_complaint_post/',views.send_complaint_post),  
+    path('customer_change_password/',views.customer_change_password),
+    path('customer_change_password_post/',views.customer_change_password_post),
+    path('customer_view_profile/',views.customer_view_profile),
+    path('customer_edit_profile/',views.customer_edit_profile),
+    path('customer_edit_profile_post/',views.customer_edit_profile_post),
     
     
+    
+    
+    
+    #public
+    path('signup/',views.signup),
+    path('signup_post/',views.signup_post),
+    path('signin/',views.signin),
+    path('signin_post/',views.signin_post),
+    path('public_home/',views.public_home),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

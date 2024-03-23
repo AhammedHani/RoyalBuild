@@ -45,14 +45,14 @@
           <li><a class="nav-link scrollto" href="/view_order/">Order</a></li>
           <li class="dropdown"><a href="#"><span>Complaint</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Send</a></li>
+              <li><a href="/send_complaint">Send</a></li>
               <li><a href="#">View</a></li>
             </ul>
           </li>
           <li class="dropdown"><a href="#"><span>Others</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Profile</a></li>
-              <li><a href="#">Change Password</a></li>
+              <li><a href="/customer_view_profile">My Profile</a></li>
+              <li><a href="/customer_change_password">Change Password</a></li>
             </ul>
           </li>
           <!--<li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
@@ -106,6 +106,17 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+  }
+  
+  footer {
+      margin-top: auto;
+  }
+  </style>
  <footer id="footer"> {% comment %} 
     <div class="footer-top">
       <div class="container">
