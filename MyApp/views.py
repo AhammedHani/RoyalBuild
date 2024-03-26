@@ -82,7 +82,7 @@ def add_category_post(request):
     uploaded_file_url = fs.url(filename)
     data.photo=uploaded_file_url
     data.save()
-    return HttpResponse('''<Script>alert("Accepted");window.location="/add_category/";</Script>''')
+    return HttpResponse('''<Script>alert("ADDED");window.location="/add_category/";</Script>''')
 
 def view_category(request):
     categories = category.objects.all()
@@ -114,11 +114,11 @@ def edit_category_post(request):
         cat.description=request.POST.get('description')
         cat.save()
         
-    return HttpResponse('''<Script>alert("Edited");window.location="/view_category/";</Script>''')
+    return HttpResponse('''<Script>alert("EDITED");window.location="/view_category/";</Script>''')
 
 def delete_category(request,id):
     category.objects.filter(category_id=id).delete()
-    return HttpResponse('''<Script>alert("Deleted");window.location="/view_category/";</Script>''')
+    return HttpResponse('''<Script>alert("DELETED");window.location="/view_category/";</Script>''')
 
 def add_product(request):
     data = category.objects.all()
@@ -147,7 +147,7 @@ def add_product_post(request):
     uploaded_file_url = fs.url(filename)
     data.photo=uploaded_file_url
     data.save()
-    return HttpResponse('''<Script>alert("Accepted");window.location="/add_product/";</Script>''')
+    return HttpResponse('''<Script>alert("ADDED");window.location="/add_product/";</Script>''')
 
 def view_product(request):
     data = product.objects.all()
@@ -205,11 +205,11 @@ def edit_product_post(request):
         
         var1.save()
         
-    return HttpResponse('''<Script>alert("Edited");window.location="/view_product/";</Script>''')
+    return HttpResponse('''<Script>alert("EDITED");window.location="/view_product/";</Script>''')
 
 def delete_product(request,id):
     product.objects.filter(product_id=id).delete()
-    return HttpResponse('''<Script>alert("Deleted");window.location="/view_product/";</Script>''')
+    return HttpResponse('''<Script>alert("DELETED");window.location="/view_product/";</Script>''')
 
 def add_staff(request):
     return render(request,'Admin/add_staff.html')
@@ -229,7 +229,7 @@ def add_staff_post(request):
     data.status = "active"
     data.save()
     
-    return HttpResponse('''<Script>alert("Accepted");window.location="/add_staff/";</Script>''')
+    return HttpResponse('''<Script>alert("ADDED");window.location="/add_staff/";</Script>''')
     
 def view_staff(request):
     data = staff.objects.filter(status="active")
@@ -267,11 +267,11 @@ def edit_staff_post(request):
         var1.state=request.POST.get('staff_state')
         var1.save()
         
-    return HttpResponse('''<Script>alert("Edited");window.location="/view_staff/";</Script>''')
+    return HttpResponse('''<Script>alert("EDITED");window.location="/view_staff/";</Script>''')
 
 def delete_staff(request,id):
     staff.objects.filter(staff_id=id).delete()
-    return HttpResponse('''<Script>alert("Deleted");window.location="/view_staff/";</Script>''')
+    return HttpResponse('''<Script>alert("DELETED");window.location="/view_staff/";</Script>''')
 
 def add_scheduler(request,id):
     data=staff.objects.get(staff_id=id)
@@ -282,7 +282,7 @@ def add_scheduler(request,id):
     data2.password=data.phone
     data2.type="scheduler"
     data2.save()
-    return HttpResponse('''<Script>alert("Allotted as scheduler");window.location="/view_staff/";</Script>''')
+    return HttpResponse('''<Script>alert("ALLOTED AS SCHEDULER");window.location="/view_staff/";</Script>''')
 
 def view_scheduler(request):
     data=staff.objects.filter(status='scheduler')
@@ -320,16 +320,14 @@ def edit_scheduler_post(request):
         var1.state=request.POST.get('staff_state')
         var1.save()
         
-    return HttpResponse('''<Script>alert("Edited");window.location="/view_scheduler/";</Script>''')
+    return HttpResponse('''<Script>alert("EDITED");window.location="/view_scheduler/";</Script>''')
 
 def delete_scheduler(request,id):
     data=staff.objects.get(staff_id=id)
     data2=login.objects.get(username=data.email)
     staff.objects.filter(staff_id=id).delete()
-    
-    
     data2.delete()
-    return HttpResponse('''<Script>alert("Deleted");window.location="/view_scheduler/";</Script>''')
+    return HttpResponse('''<Script>alert("DELETED");window.location="/view_scheduler/";</Script>''')
 
 
 def add_vehicle(request):
@@ -341,7 +339,7 @@ def add_vehicle_post(request):
     data.type=request.POST.get('vehicle_type')
     data.status='available'
     data.save()
-    return HttpResponse('''<Script>alert("Accepted");window.location="/add_vehicle/";</Script>''')
+    return HttpResponse('''<Script>alert("ADDED");window.location="/add_vehicle/";</Script>''')
 
 def view_vehicle(request):
     data = vehicle.objects.all()
@@ -361,11 +359,22 @@ def edit_vehicle_post(request):
 
 def delete_vehicle(request,id):
     vehicle.objects.filter(vehicle_id=id).delete()
-    return HttpResponse('''<Script>alert("Deleted");window.location="/view_vehicle/";</Script>''')
+    return HttpResponse('''<Script>alert("DELETED");window.location="/view_vehicle/";</Script>''')
     
 def view_complaint(request):
     data=complaint.objects.filter(status='pending')
     return render(request,'Admin/view_complaint.html', {'data': data})
+
+def complaint_reply(request,id):
+    data=complaint.objects.get(complaint_id=id)
+    return render(request,'Admin/complaint_reply.html',{'data':data})
+
+def complaint_reply_post(request,id):
+    var1=complaint.objects.get(complaint_id=id)
+    var1.reply=request.POST.get('complaint_reply')
+    var1.status='replied'
+    var1.save()
+    return HttpResponse('''<script>alert("REPLIED");window.location="/view_complaint/";</script>''')
 
 def view_review(request):
     data = review.objects.all()
@@ -400,21 +409,30 @@ def admin_change_password_post(request):
 
 def scheduler_home(request):
     staff_id = request.session.get('schedulers')
-    data = staff.objects.get(email=staff_id)
-    return render(request,'Scheduler/scheduler_home.html',{'data':data})
+    lg = staff.objects.get(email=staff_id)
+    return render(request,'Scheduler/scheduler_home.html',{'lg':lg})
 
 def view_category2(request):
+    staff_id = request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
     data = category.objects.all()
-    return render(request,'Scheduler/view_category2.html', {'data': data})
+    return render(request,'Scheduler/view_category2.html', {'lg': lg, 'data': data})
 
 def view_product2(request,id):
+    staff_id = request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
     request.session['cc']=id
     data = product.objects.filter(CATEGORY_id=id)
-    return render(request,'Scheduler/view_product2.html', {'data': data})
+    return render(request,'Scheduler/view_product2.html', {'lg': lg, 'data': data})
 
 def edit_quantity(request,id):
+    staff_id = request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
     data = product.objects.get(product_id=id)
-    return render(request,'Scheduler/edit_quantity.html', {'data': data})
+    return render(request,'Scheduler/edit_quantity.html', {'lg': lg, 'data': data})
 
 def edit_quantity_post(request,id):
     var1=product.objects.get(product_id=id)
@@ -424,18 +442,27 @@ def edit_quantity_post(request,id):
     return HttpResponse('''<script>alert("EDITED");window.location="/view_product2/'''+c1+'''"</script> ''')
 
 def view_orders(request):
+    staff_id = request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
     data=make_order.objects.filter(status="pending")
-    return render(request,'Scheduler/view_orders.html',{'data':data})
+    return render(request,'Scheduler/view_orders.html',{'lg': lg, 'data':data})
 
 def check_payment(request,id):
+    staff_id = request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
     data=payment.objects.get(ORDER_id=id)
-    return render(request,'Scheduler/check_payment.html',{'data':data})
+    return render(request,'Scheduler/check_payment.html',{'lg':lg, 'data':data})
 
 def schedule_order(request,id):
+    staff_id = request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
     data1 = make_order.objects.get(order_id=id)
     data2=vehicle.objects.all()
     data3=staff.objects.all()
-    return render(request, 'Scheduler/schedule_order.html', {'data1': data1,'data2':data2,'data3':data3,})
+    return render(request, 'Scheduler/schedule_order.html', {'lg':lg, 'data1': data1,'data2':data2,'data3':data3,})
  
 def schedule_order_post(request,id):
     data1=make_order.objects.get(order_id=id)
@@ -461,23 +488,30 @@ def schedule_order_post(request,id):
     data4.VEHICLE = selected_vehicle  
     data4.save()
     
-    return HttpResponse('''<Script>alert("Scheduled");window.location="/view_orders/";</Script>''')
+    return HttpResponse('''<Script>alert("SCHEDULED");window.location="/view_orders/";</Script>''')
 
 def reject_order(request, id):
     data = make_order.objects.get(order_id=id)
     data.status = "rejected"
     data.save()
-    return HttpResponse('''<Script>alert("REJECTED");window.location="/view_order/";</Script>''')
+    return HttpResponse('''<Script>
+                            if (confirm("Are you sure you want to reject this order?")) {
+                                alert("REJECTED");
+                                window.location="/view_orders/";
+                            } else {
+                                window.location="/check_payment/'''+id+'''";
+                            }
+                          </Script>''')
 
 def scheduler_view_profile(request):
     staff_id = request.session.get('schedulers')
-    data = staff.objects.get(email=staff_id)
-    return render(request, 'Scheduler/view_profile.html', {'data': data})
+    lg = staff.objects.get(email=staff_id)
+    return render(request, 'Scheduler/view_profile.html', {'lg': lg})
 
 def scheduler_edit_profile(request):
     staff_id = request.session.get('schedulers')
-    data = staff.objects.get(email=staff_id)
-    return render(request, 'Scheduler/edit_profile.html', {'data': data})
+    lg = staff.objects.get(email=staff_id)
+    return render(request, 'Scheduler/edit_profile.html', {'lg': lg})
 
 def scheduler_edit_profile_post(request):
     if 'photo' in request.FILES:
@@ -494,7 +528,7 @@ def scheduler_edit_profile_post(request):
         uploaded_file_url = fs.url(filename)
         data.photo = uploaded_file_url
         data.save()
-        return HttpResponse('''<script>alert("Profile Edited");window.location="/scheduler_view_profile/";</script>''')
+        return HttpResponse('''<script>alert("EDITED");window.location="/scheduler_view_profile/";</script>''')
     else:
         staff_id = request.session.get('schedulers')
         data = staff.objects.get(email=staff_id)
@@ -504,13 +538,14 @@ def scheduler_edit_profile_post(request):
         data.phone = request.POST.get('phone')
         data.state = request.POST.get('state')
         data.save()
-        return HttpResponse('''<script>alert("Profile Edited");window.location="/scheduler_view_profile/";</script>''')
+        return HttpResponse('''<script>alert("EDITED");window.location="/scheduler_view_profile/";</script>''')
 
 
 def scheduler_change_password(request):
-    val=request.session.get('schedulers')
-    var=login.objects.get(username =val)
-    return render(request,"Scheduler/scheduler_change_password.html",{'data':var})
+    staff_id=request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    data=login.objects.get(username=staff_id)
+    return render(request,"Scheduler/scheduler_change_password.html",{'lg':lg,'data':data})
 
 def scheduler_change_password_post(request):
     oldpass=request.POST['textfield']
@@ -526,8 +561,124 @@ def scheduler_change_password_post(request):
     else:
         return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/scheduler_change_password/";</Script>''')
 
+def add_worksite(request):
+    staff_id=request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    data=product.objects.all()
+    return render(request,'Scheduler/add_worksite.html',{'lg':lg,'data':data})
+
+def add_worksite_post(request):
+    data=worksite()
+    data.PRODUCT_id=request.POST.get('product')
+    data.worksite_location=request.POST.get('location')
+    
+    photo1 = request.FILES['photo1']
+    fs1 = FileSystemStorage()
+    filename1 = fs1.save(photo1.name, photo1) 
+    uploaded_file_url1 = fs1.url(filename1)
+    data.photo1=uploaded_file_url1
+    
+    photo2 = request.FILES['photo2']
+    fs2 = FileSystemStorage()
+    filename2 = fs2.save(photo2.name, photo2) 
+    uploaded_file_url2 = fs2.url(filename2)
+    data.photo2=uploaded_file_url2
+    
+    photo3 = request.FILES['photo3']
+    fs3 = FileSystemStorage()
+    filename3 = fs3.save(photo3.name, photo3) 
+    uploaded_file_url3 = fs3.url(filename3)
+    data.photo3=uploaded_file_url3
+    data.remark=request.POST.get('remark')
+    data.save()
+    return HttpResponse('''<Script>alert("ADDED");window.location="/add_worksite/";</Script>''')
+
+def view_worksite(request):
+    staff_id=request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
+    data = worksite.objects.all()
+    return render(request, 'Scheduler/view_worksite.html', {'lg' : lg , 'data' : data })
+
+def edit_worksite(request,id):
+    staff_id=request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
+    data=worksite.objects.get(worksite_id=id)
+    data2 = product.objects.all()
+    return render(request,'Scheduler/edit_worksite.html',{'lg': lg , 'data':data,'data2':data2})
+
+def edit_worksite_post(request):
+    id=request.POST['id']
+    
+    data=worksite.objects.get(worksite_id=id)
+    
+    if 'photo1' in request.FILES:
+        photo1 = request.FILES['photo1']
+        fs1 = FileSystemStorage()
+        filename1 = fs1.save(photo1.name, photo1) 
+        uploaded_file_url1 = fs1.url(filename1)
+        data.photo1=uploaded_file_url1
+    
+    if 'photo2' in request.FILES:
+        photo2 = request.FILES['photo2']
+        fs2 = FileSystemStorage()
+        filename2 = fs2.save(photo2.name, photo2) 
+        uploaded_file_url2 = fs2.url(filename2)
+        data.photo2=uploaded_file_url2
+    
+    if 'photo3' in request.FILES:
+        photo3 = request.FILES['photo3']
+        fs3 = FileSystemStorage()
+        filename3 = fs3.save(photo3.name, photo3) 
+        uploaded_file_url3 = fs3.url(filename3)
+        data.photo3=uploaded_file_url3
+    
+    data.PRODUCT_id=request.POST.get('product')
+    data.worksite_location=request.POST.get('location')
+    data.remark=request.POST.get('remark')
+    data.save()
+    
+    return HttpResponse('''<script>alert("EDITED");window.location="/view_worksite/"</script> ''')
 
 
+def delete_worksite(request,id):
+    worksite.objects.filter(worksite_id=id).delete()
+    return HttpResponse('''<Script>alert("DELETED");window.location="/view_worksite/";</Script>''')
+
+def view_staffs(request):
+    staff_id=request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
+    data = staff.objects.filter(status="active")
+    return render(request,'Scheduler/view_staffs.html',{'lg':lg,'data':data})
+
+def add_duty(request, id):
+    staff_id = request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
+    data = staff.objects.get(staff_id=id)
+    return render(request, 'Scheduler/add_duty.html', {'lg': lg, 'data': data})
+
+def add_duty_post(request):
+    staff_id = request.POST.get('staff')
+    staff_obj = staff.objects.get(staff_id=staff_id)
+    data = duty()
+    data.job = request.POST.get('job')
+    data.date = request.POST.get('date')
+    data.time = request.POST.get('time')
+    data.workstation = request.POST.get('workstation')  
+    data.status = "pending"
+    data.STAFF = staff_obj
+    data.save()
+    return HttpResponse('''<script>alert("DUTY ADDED");window.location="/view_staffs/";</script>''')
+    
+def view_duty(request):
+    staff_id = request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
+    data = duty.objects.filter(status="pending")
+    return render(request, 'Scheduler/view_duty.html', {'lg': lg, 'data': data})
 # customer
 
 def customer_home(request):
@@ -551,19 +702,17 @@ def view_products2(request,id):
     return render(request, 'Customer/view_products2.html', {'data': data})
 
 def add_order(request,id):
-    return render(request, 'Customer/add_order.html',{'id':id})
+    data = product.objects.get(product_id=id)
+    return render(request, 'Customer/add_order.html',{'id':id,'data':data})
 
 def add_order_post(request,id):
     request.session['pid']=id
     request.session['qty']=request.POST.get('quantity')
-    return render(request,"Customer/make_payment.html")
-
-def make_payment(request):
     data1=make_order()
     data1.quantity=request.session['qty']
     data1.PRODUCT_id=request.session['pid']
     data11=product.objects.get(product_id=request.session['pid'])
-    data1.amount=int(request.session['qty'])*int(data11.price)
+    data1.amount=float(request.session['qty'])*float(data11.price)
     data10=customer.objects.get(email=request.session['customers'])
     data1.CUSTOMER_id=data10.customer_id
     data1.status="pending"
@@ -576,9 +725,14 @@ def make_payment(request):
     data2.acc_number=request.POST.get('acc_number')
     data2.ifsc_code=request.POST.get('ifsc_code')
     data2.branch=request.POST.get('branch')
-    data2.amount=int(request.session['qty'])*int(data11.price)
+    data2.amount=float(request.session['qty'])*float(data11.price)
     data2.ORDER_id=d1.order_id
-    data2.status="paid"
+    m=request.POST.get('payment_method')
+    if(m=="BANK"):
+        data2.status="PAID"
+    else:
+        data2.status="COD"    
+            
     data2.date=datetime.now().strftime('%Y-%m-%d')
     data2.save()
     c2=data11.CATEGORY
@@ -599,9 +753,21 @@ def send_complaint_post(request):
     var.complaint_message=complaint_message
     var.date=datetime.now().strftime('%Y-%m-%d')
     var.status='pending'
-    var.customer_id=customer.objects.get(email=request.session['customers'])
+    customer_id = request.session.get('customers')
+    data = customer.objects.get(email=customer_id)
+    var.CUSTOMER_id=data.customer_id
     var.save()
-    return HttpResponse('''<script>alert('Success');window.location="/send_complaint/"</script>''')
+    return HttpResponse('''<script>alert('SUCCESSFULLY SENT');window.location="/send_complaint/"</script>''')
+
+def view_customer_complaint(request):
+    customer_id = request.session['customers']
+    customer_obj = customer.objects.get(email=customer_id)
+    data = complaint.objects.filter(CUSTOMER_id=customer_obj.customer_id)
+    return render(request, 'Customer/view_complaint.html', {'data': data})
+
+def view_replied_complaint(request,id):
+    data = complaint.objects.get(complaint_id=id)
+    return render(request, 'Customer/view_replied_complaint.html', {'data': data})
     
 def customer_view_profile(request):
     customer_id = request.session.get('customers')
@@ -628,7 +794,7 @@ def customer_edit_profile_post(request):
         uploaded_file_url = fs.url(filename)
         data.photo = uploaded_file_url
         data.save()
-        return HttpResponse('''<script>alert("Profile Edited");window.location="/customer_view_profile/";</script>''')
+        return HttpResponse('''<script>alert("EDITED");window.location="/customer_view_profile/";</script>''')
     else:
         customer_id = request.session.get('customers')
         data = customer.objects.get(email=customer_id)
@@ -638,7 +804,7 @@ def customer_edit_profile_post(request):
         data.email = request.POST.get('email')
         data.phone = request.POST.get('phone')
         data.save()
-        return HttpResponse('''<script>alert("Profile Edited");window.location="/customer_view_profile/";</script>''')
+        return HttpResponse('''<script>alert("EDITED");window.location="/customer_view_profile/";</script>''')
 
 def customer_change_password(request):
     val=request.session.get('customers')
@@ -659,6 +825,9 @@ def customer_change_password_post(request):
     else:
         return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/customer_change_password/";</Script>''')
 
+def view_worksites(request):
+    data = worksite.objects.all()
+    return render(request, 'Customer/view_worksites.html', {'data': data})
 # Public
 
 def public_home(request):

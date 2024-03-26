@@ -1,0 +1,18 @@
+{% extends 'Customer/home.html' %}
+
+{% block x %}
+<body>
+    <table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Replied Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ data.reply }}</td>
+        </tr>
+    </tbody>
+</table>
+</body>
+{% endblock %}

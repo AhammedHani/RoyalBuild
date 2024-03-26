@@ -5,17 +5,17 @@
     <div class="row justify-content-center">
         <div class="col-md-3 border-right"><br><br>
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" height="150px"
-                src="{{data.photo}}"><span class="font-weight-bold"><br>{{data.staff_name}}</span><span class="text-black-50">{{data.email}}</span><span> </span></div>
+                src="{{lg.photo}}"><span class="font-weight-bold"><br>{{lg.staff_name}}</span><span class="text-black-50">{{lg.email}}</span><span> </span></div>
         </div>
         <div class="col-md-5 border-right">
             <div class="p-2 py-2"><br><br>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">View Profile </h4>
+                    <h4 class="text-right"><b>View Profile</b></h4>
                 </div>
                 <table class="table table-bordered"> <!-- Added table-bordered class -->
                     <tr>
                         <td><label for="name">Name:</label></td>
-                        <td><input type="text" class="form-control" id="name" name="name" value="{{ data.staff_name }}" readonly></td>
+                        <td><input type="text" class="form-control" id="name" name="name" value="{{ lg.staff_name }}" readonly></td>
                     </tr>
                     {% comment %} <tr>
                         <td><label for="photo">Photo:</label></td>
@@ -23,19 +23,19 @@
                     </tr> {% endcomment %}
                     <tr>
                         <td><label for="address">Place:</label></td>
-                        <td><input type="text" class="form-control" id="place" name="place" value="{{ data.place }}"readonly></td>
+                        <td><input type="text" class="form-control" id="place" name="place" value="{{ lg.place }}"readonly></td>
                     </tr>
                     <tr>
                         <td><label for="pin">State:</label></td>
-                        <td><input type="text" class="form-control" id="state" name="state" value="{{ data.state }}" readonly></td>
+                        <td><input type="text" class="form-control" id="state" name="state" value="{{ lg.state }}" readonly></td>
                     </tr>
                     <tr>
                         <td><label for="email">Email:</label></td>
-                        <td><input type="email" class="form-control" id="email" name="email" value="{{ data.email }}" readonly></td>
+                        <td><input type="email" class="form-control" id="email" name="email" value="{{ lg.email }}" readonly></td>
                     </tr>
                     <tr>
                         <td><label for="phone">Phone:</label></td>
-                        <td><input type="tel" class="form-control" id="phone" name="phone" value="{{ data.phone }}" readonly></td>
+                        <td><input type="tel" class="form-control" id="phone" name="phone" value="{{ lg.phone }}" readonly></td>
                     </tr>
                 </table>
                 <div class="text-center">

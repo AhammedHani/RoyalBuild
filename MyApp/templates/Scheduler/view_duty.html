@@ -1,0 +1,43 @@
+{% extends 'Scheduler/scheduler_home.html' %}
+{% block x %}
+
+<body>
+<form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+
+    {% comment %} <table class="table table-bordered">
+        <tr><br><br>
+            <td>
+            <input type="text" name="textfield" id="textfield" placeholder="Search by Name" class="form-control " required/></td>
+            <td width="80px"><input type="submit" name="button" id="button" value="Search" class="btn btn-success"/></td>
+        </tr>
+    </table> {% endcomment %}
+    {% if data %}
+        <table class="table table-bordered"><br><br>
+            <tr>
+                <th>SL.NO</th>
+                <th>Staff</th>
+                <th>Job</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Workstation</th>
+                <th>Status</th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.STAFF.staff_name }}</td>
+                <td>{{ i.job }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.time }}</td>
+                <td>{{ i.workstation }}</td>
+                <td>{{ i.status }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Duties not available</p>
+    {% endif %}
+</form>
+</body>
+{% endblock x %}

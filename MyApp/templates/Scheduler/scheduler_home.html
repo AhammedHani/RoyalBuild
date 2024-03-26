@@ -198,14 +198,14 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{data.photo}}" alt="Profile" class="rounded-circle">
+            <img src="{{lg.photo}}" alt="Profile" class="rounded-circle" style="width: 36px; height: 36px;">
             <span class="d-none d-md-block dropdown-toggle ps-2"></span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{data.staff_name}}</h6>
-              <span>{{data.email}}</span>
+              <h6>{{lg.staff_name}}</h6>
+              <span>{{lg.email}}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -273,19 +273,7 @@
             <i class="bi bi-archive"></i><span>Stock</span>
         </a>
     </li>
-        {% comment %} <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/view_category">
-              <i class="bi bi-circle"></i><span>View</span>
-            </a>
-          </li>
-          <li>
-            <a href="/add_category">
-              <i class="bi bi-circle"></i><span>Add</span>
-            </a>
-          </li>
-        </ul> {% endcomment %}
-      </li><!-- End Components Nav -->
+    </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="/view_orders">
@@ -321,31 +309,48 @@
               <i class="bi bi-circle"></i><span>Add</span>
             </a>
           </li>
-        </ul> {% endcomment %}
-      </li><!-- End Tables Nav -->
+        </ul> 
+      </li>{% endcomment %}<!-- End Tables Nav -->
 
-      <li class="nav-item">
+      {% comment %} <li class="nav-item"> {% endcomment %}
         {% comment %} <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#"> {% endcomment %}
           
           <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="bi bi-tools"></i><span>Worksite</span>
+            <a class="nav-link collapsed" data-bs-target="#worksite-dropdown" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-tools"></i><span>Worksite</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
+            <ul id="worksite-dropdown" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="/add_worksite">
+                        <i class="bi bi-circle"></i><span>Add</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/view_worksite">
+                        <i class="bi bi-circle"></i><span>View</span>
+                    </a>
+                </li>
+            </ul> 
         </li>
-        {% comment %} <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="/add_vehicle">
-              <i class="bi bi-circle"></i><span>Add</span>
-            </a>
-          </li>
-          <li>
-            <a href="/view_vehicle">
-              <i class="bi bi-circle"></i><span>View</span>
-            </a>
-          </li>
-        </ul> 
-      </li>End Charts Nav{% endcomment %}
 
+      
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#staff-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-people"></i><span>Staffs</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="staff-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                  <a href="/view_duty">
+                      <i class="bi bi-circle"></i><span>View Duties</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="/view_staffs">
+                      <i class="bi bi-circle"></i><span>View Staffs</span>
+                  </a>
+              </li>
+          </ul> 
+      </li>
       {% comment %} <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#complaint-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-exclamation-square"></i><span>Complaint</span><i class="bi bi-chevron-down ms-auto"></i>

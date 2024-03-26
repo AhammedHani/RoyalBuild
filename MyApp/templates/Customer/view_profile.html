@@ -1,18 +1,18 @@
 {% extends 'Customer/home.html' %}
 {% block x %}
 
-<div class="container rounded bg-white mt-5 mb-5">
+<div class="container rounded bg-white mt-5 mb-5 border">
     <div class="row justify-content-center"> <!-- Added justify-content-center class -->
-        <div class="col-md-3 border-right">
+        <div class="col-md-3 border-right"><br><br>
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" height="150px"
                 src="{{data.photo}}"><span class="font-weight-bold"><br>{{data.customer_name}}</span><span class="text-black-50">{{data.email}}</span><span> </span></div>
         </div>
         <div class="col-md-5 border-right">
-            <div class="p-2 py-2">
+            <div class="p-2 py-2"><br><br>
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">View Profile </h4>
                 </div>
-                <table class="table">
+                <table class="table table-bordered">
                     <tr>
                         <td><label for="name">Name:</label></td>
                         <td><input type="text" class="form-control" id="name" name="name" value="{{ data.customer_name }}" readonly></td>
@@ -40,7 +40,7 @@
                 </table>
                 <div class="text-center">
                     <a href="/customer_edit_profile" class="btn btn-primary">Edit</a>
-                </div>
+                </div><br><br>
             </div>
         </div>
     </div>

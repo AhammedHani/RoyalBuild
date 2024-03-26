@@ -1,0 +1,39 @@
+{% extends 'Scheduler/scheduler_home.html' %}
+{% block x %}
+
+<body>
+
+<div class="container mt-5">
+
+    {% if data %}
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Product</th>
+                <th>Location</th>
+                <th>Photo1</th>
+                <th>Photo2</th>
+                <th>Photo3</th>
+                <th>Remark</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            {% for i in data %}
+                <tr>
+                    <td>{{ i.PRODUCT.product_name }}</td>
+                    <td>{{ i.worksite_location }}</td>
+                    <td><img src="{{ i.photo1 }}" alt="" class="img-thumbnail" style="width: 100px; height: 100px;" /></td>
+                    <td><img src="{{ i.photo2 }}" alt="" class="img-thumbnail" style="width: 100px; height: 100px;" /></td>
+                    <td><img src="{{ i.photo3 }}" alt="" class="img-thumbnail" style="width: 100px; height: 100px;" /></td>
+                    <td>{{ i.remark }}</td>
+                    <td><a href="/edit_worksite/{{ i.worksite_id }}" class="btn btn-warning btn-sm">Edit</a></td>
+                    <td><a href="/delete_worksite/{{ i.worksite_id }}" class="btn btn-danger btn-sm">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No worksites available.</p>
+    {% endif %}
+</div>
+
+</body>
+{% endblock x %}

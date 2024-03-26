@@ -1,0 +1,44 @@
+{% extends 'Customer/home.html' %}
+{% block x %}
+
+<body>
+
+<div class="container mt-5">
+
+  {% if data %}
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>S. No</th>
+          <th>Complaint Message</th>
+          <th>Customer</th>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.complaint_message }}</td>
+            <td>{{ i.CUSTOMER.customer_name }}</td>
+            <td>{{ i.date }}</td>
+            <td>
+              {% if i.status == 'replied' %}
+                <a href="/view_replied_complaint/{{i.complaint_id}}">Reply</a>
+              {% else %}
+                {{ i.status }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No complaints available.</p>
+  {% endif %}
+
+</div>
+
+</body>
+{% endblock x %}

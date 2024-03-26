@@ -1,0 +1,28 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+<body>
+
+<div class="container mt-5">
+
+  <form method="post" action="/complaint_reply_post/{{ data.complaint_id }}">
+    {% csrf_token %}
+
+    <table class="table table-bordered table-hover">
+      <tr>
+        <td><label for="complaint_reply">Complaint Reply</label></td>
+        <td><textarea class="form-control" id="complaint_reply" name="complaint_reply" required></textarea></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-center">
+          <button type="submit" class="btn btn-success">Submit</button>
+        </td>
+      </tr>
+    </table>
+
+  </form>
+
+</div>
+
+</body>
+
+{% endblock x %}

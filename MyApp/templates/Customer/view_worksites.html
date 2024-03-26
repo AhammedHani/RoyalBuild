@@ -1,0 +1,31 @@
+{% extends 'Customer/home.html' %}
+{% block x %}
+<body>
+
+{% for i in data %}
+    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="card">
+            <div class="card-img">
+                <img src="{{ i.photo1 }}" alt="Photo 1" class="img-fluid">
+                <img src="{{ i.photo2 }}" alt="Photo 2" class="img-fluid">
+                <img src="{{ i.photo3 }}" alt="Photo 3" class="img-fluid">
+            </div>
+            <div>
+                <h2>Location:</h2>
+                <p>{{ i.worksite_location }}</p>
+            </div>
+
+            <div>
+                <h2>Product Used:</h2>
+                <p>{{ i.PRODUCT.product_name }}</p>
+            </div>
+
+            <div>
+                <h2>Remark:</h2>
+                <p>{{ i.remark }}</p>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</body>
+{% endblock x %}

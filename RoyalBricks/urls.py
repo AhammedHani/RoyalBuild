@@ -38,6 +38,8 @@ urlpatterns = [
     path('edit_vehicle_post/',views.edit_vehicle_post),
     path('delete_vehicle/<id>',views.delete_vehicle),
     path('view_complaint/',views.view_complaint),
+    path('complaint_reply/<id>',views.complaint_reply),
+    path('complaint_reply_post/<id>',views.complaint_reply_post),
     path('view_review/',views.view_review),
     path('admin_change_password/',views.admin_change_password),
     path('admin_change_password_post/',views.admin_change_password_post),
@@ -60,8 +62,16 @@ urlpatterns = [
     path('scheduler_view_profile/',views.scheduler_view_profile),
     path('scheduler_edit_profile/',views.scheduler_edit_profile),
     path('scheduler_edit_profile_post/',views.scheduler_edit_profile_post),
-        
-
+    path('add_worksite/',views.add_worksite),    
+    path('add_worksite_post/',views.add_worksite_post),    
+    path('view_worksite/',views.view_worksite),
+    path('edit_worksite/<id>',views.edit_worksite),
+    path('edit_worksite_post/',views.edit_worksite_post),
+    path('delete_worksite/<id>',views.delete_worksite),
+    path('view_staffs/',views.view_staffs),
+    path('add_duty/<id>',views.add_duty),
+    path('add_duty_post/',views.add_duty_post),
+    path('view_duty/',views.view_duty),
     
     
     #customer
@@ -72,15 +82,18 @@ urlpatterns = [
     path('view_products2/<id>',views.view_products2), 
     path('add_order/<id>',views.add_order), 
     path('add_order_post/<id>',views.add_order_post), 
-    path('make_payment/',views.make_payment), 
     path('view_order/',views.view_order),  
     path('send_complaint/',views.send_complaint),  
     path('send_complaint_post/',views.send_complaint_post),  
+    path('view_customer_complaint/',views.view_customer_complaint),
+    path('view_replied_complaint/<id>',views.view_replied_complaint),
     path('customer_change_password/',views.customer_change_password),
     path('customer_change_password_post/',views.customer_change_password_post),
     path('customer_view_profile/',views.customer_view_profile),
     path('customer_edit_profile/',views.customer_edit_profile),
     path('customer_edit_profile_post/',views.customer_edit_profile_post),
+    path('view_worksites/',views.view_worksites),
+   
     
     
     

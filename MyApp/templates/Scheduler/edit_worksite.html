@@ -1,0 +1,49 @@
+{% extends 'Scheduler/scheduler_home.html' %}
+{% block x %}
+
+<body>
+<div id="form-container">
+    <form id="form1" name="form1" method="post" action="/edit_worksite_post/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table class="table table-bordered table-hover">
+            <br><br>
+            <tr>
+                <td>Product</td>
+                <td>
+                    <select id="product" name="product" required class="form-control">
+                        {% for i in data2 %}
+                            <option value="{{ i.product_id }}" {% if i.product_id == data.PRODUCT.product_id %}selected{% endif %}>{{ i.product_name }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <input type="hidden" name="id" value="{{ data.worksite_id }}">
+            </tr>
+            <tr>
+                <td>Location</td>
+                <td><input type="text" name="location" id="location" class="form-control" value="{{ data.worksite_location }}"/></td>
+            </tr>
+            <tr>
+                <td>Photo1</td>
+                <td><input type="file" name="photo1" id="photo1" class="form-control" value="{{ data.photo1 }}"/></td>
+            </tr>
+            <tr>
+                <td>Photo2</td>
+                <td><input type="file" name="photo2" id="photo2" class="form-control" value="{{ data.photo2 }}"/></td>
+            </tr>
+            <tr>
+                <td>Photo3</td>
+                <td><input type="file" name="photo3" id="photo3" class="form-control" value="{{ data.photo3 }}"/></td>
+            </tr>
+            <tr>
+                <td>Remark</td>
+                <td><input type="text" name="remark" id="remark" class="form-control" value="{{ data.remark }}"/></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Update" class="btn btn-primary"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+{% endblock x %}

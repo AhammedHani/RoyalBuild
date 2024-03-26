@@ -69,6 +69,7 @@ class complaint(models.Model):
     complaint_message = models.CharField(max_length=100)
     date = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
+    reply = models.CharField(max_length=100)
     CUSTOMER = models.ForeignKey(customer, on_delete=models.CASCADE,default=1)
     class Meta:
         db_table = "complaint"
@@ -87,7 +88,7 @@ class make_order(models.Model):
     date = models.CharField(max_length=100)
     quantity = models.CharField(max_length=100)
     status = models.CharField(max_length=100)  
-    amount = models.IntegerField(max_length=100)
+    amount = models.DecimalField(max_digits=5, decimal_places=2)
     CUSTOMER = models.ForeignKey(customer, on_delete=models.CASCADE,default=1)
     PRODUCT = models.ForeignKey(product, on_delete=models.CASCADE,default=1)
     class Meta:
@@ -100,7 +101,7 @@ class payment(models.Model):
     ifsc_code = models.CharField(max_length=100)
     date = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
-    amount = models.IntegerField(max_length=100)
+    amount = models.DecimalField(max_digits=5, decimal_places=2)
     ORDER = models.ForeignKey(make_order, on_delete=models.CASCADE,default=1)
     class Meta:
         db_table = "payment" 
@@ -114,3 +115,25 @@ class vehicle_allot(models.Model):
     VEHICLE = models.ForeignKey(vehicle, on_delete=models.CASCADE,default=1)
     class Meta:
         db_table = "vehicle_allot" 
+        
+class worksite(models.Model):
+    worksite_id = models.IntegerField(primary_key=True)
+    worksite_location = models.CharField(max_length=100)
+    photo1 = models.CharField(max_length=100)
+    photo2 = models.CharField(max_length=100)
+    photo3 = models.CharField(max_length=100)
+    remark = models.CharField(max_length=100)
+    PRODUCT = models.ForeignKey(product, on_delete=models.CASCADE,default=1)
+    class Meta:
+        db_table = "worksite" 
+        
+class duty(models.Model):
+    duty_id = models.IntegerField(primary_key=True)
+    job = models.CharField(max_length=100)
+    date = models.CharField(max_length=100)
+    time = models.CharField(max_length=100)
+    workstation = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    STAFF = models.ForeignKey(staff, on_delete=models.CASCADE,default=1)
+    class Meta:
+        db_table = "duty" 

@@ -1,0 +1,33 @@
+{% extends 'Scheduler/scheduler_home.html' %}
+{% block x %}
+
+<body>
+    <form action="/add_duty_post/" method="POST">
+        {% csrf_token %}
+        <table class="table table-bordered table-hover"><br><br>
+            <input type="hidden" name="staff" value="{{ data.staff_id }}">
+            <tr>
+                <td>Job:</td>
+                <td><input type="text" name="job" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>Date:</td>
+                <td><input type="date" name="date" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>Time:</td>
+                <td><input type="time" name="time" class="form-control"></td>
+            </tr>
+            <tr>
+                <td>Workstation:</td>
+                <td><input type="text" name="workstation" class="form-control"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <input type="submit" value="Add" class="btn btn-primary">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+{% endblock x %}
