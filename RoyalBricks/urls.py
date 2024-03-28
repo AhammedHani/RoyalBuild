@@ -8,6 +8,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('admin_home/',views.admin_home),
+    path('admin_dashboard/',views.admin_dashboard),
     path('add_category/',views.add_category),
     path('add_category_post/',views.add_category_post),
     path('view_category/',views.view_category),
@@ -93,10 +94,9 @@ urlpatterns = [
     path('customer_edit_profile/',views.customer_edit_profile),
     path('customer_edit_profile_post/',views.customer_edit_profile_post),
     path('view_worksites/',views.view_worksites),
-   
-    
-    
-    
+    path('add_review/<int:id>',views.add_review),
+    path('add_review_post/<id>',views.add_review_post),
+    path('view_review/<id>',views.view_review),
     
     
     #public
@@ -105,6 +105,9 @@ urlpatterns = [
     path('signin/',views.signin),
     path('signin_post/',views.signin_post),
     path('public_home/',views.public_home),
+    path('public_view_products/<id>',views.public_view_products),
+    path('public_view_products2/<id>',views.public_view_products2),
+    path('public_view_review/<id>',views.public_view_review),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -13,7 +13,7 @@
           <th>Complaint Message</th>
           <th>Customer</th>
           <th>Date</th>
-          <th>Status</th>
+
         </tr>
       </thead>
       <tbody>
@@ -25,7 +25,9 @@
             <td>{{ i.date }}</td>
             <td>
               {% if i.status == 'replied' %}
-                <a href="/view_replied_complaint/{{i.complaint_id}}">Reply</a>
+                <a href="/view_replied_complaint/{{i.complaint_id}}" class="btn btn-primary btn-sm" title="Replied">
+                  <i class="fas fa-reply"></i> <!-- Use the "reply" icon -->
+                </a>
               {% else %}
                 {{ i.status }}
               {% endif %}

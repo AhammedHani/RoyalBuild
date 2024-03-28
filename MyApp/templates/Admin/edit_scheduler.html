@@ -1,48 +1,44 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 
-</head>
 <body>
-
-<div class="container mt-5">
-
   <form method="post" action="/edit_scheduler_post/" enctype="multipart/form-data">
     {% csrf_token %}
-
     <table class="table table-bordered table-hover">
+      <br><br>
       <tr>
-        <td>Scheduler Name</td>
+        <th>Scheduler Name</th>
         <td>
           <input type="text" class="form-control" name="staff_name" value="{{ data.staff_name }}">
           <input type="hidden" name="id" value="{{ data.staff_id }}">
         </td>
       </tr>
       <tr>
-        <td>Photo</td>
+        <th>Photo</th>
         <td>
           <input type="file" class="form-control-file" name="photo">
         </td>
       </tr>
       <tr>
-        <td>Place</td>
+        <th>Place</th>
         <td>
           <input type="text" class="form-control" name="staff_place" value="{{ data.place }}">
         </td>
       </tr>
       <tr>
-        <td>Email</td>
+        <th>Email</th>
         <td>
-          <input type="email" class="form-control" name="staff_email" value="{{ data.email }}">
+          <input type="email" class="form-control" name="staff_email" value="{{ data.email }}" readonly>
         </td>
       </tr>
       <tr>
-        <td>Phone</td>
+        <th>Phone</th>
         <td>
           <input type="tel" class="form-control" name="staff_phone" value="{{ data.phone }}">
         </td>
       </tr>
       <tr>
-        <td>State</td>
+        <th>State</th>
         <td>
           <input type="text" class="form-control" name="staff_state" value="{{ data.state }}">
         </td>
@@ -54,8 +50,5 @@
       </tr>
     </table>
   </form>
-
-</div>
-
 </body>
 {% endblock x %}

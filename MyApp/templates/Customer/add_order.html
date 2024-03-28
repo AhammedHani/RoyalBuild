@@ -17,6 +17,10 @@
         }
         function valid1()
         {
+            if(form1.quantity.value=="")
+            {
+                form1.quantity.value=0;
+            }
             var result=parseFloat(form1.quantity.value)*parseFloat(form1.price.value);
             
             form1.amount.value=result;

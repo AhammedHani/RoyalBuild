@@ -36,7 +36,11 @@
         <td>{{ i.date }}</td>
         <td>{{ i.quantity }}</td>
         {% comment %} <td>{{ i.status }}</td> {% endcomment %}
-        <td><a href="/check_payment/{{i.order_id}}" class="btn btn-success btn-sm">Check Payment</a></td>
+        <td>
+          <a href="/check_payment/{{i.order_id}}" class="btn btn-success" title="Check Payment">
+            <i class="fas fa-money-check"></i>
+          </a>
+        </td>
       </tr>
       {% endfor %}
     </table>

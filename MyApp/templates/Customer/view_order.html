@@ -3,40 +3,35 @@
     {% if data %}
     <table class="table table-bordered table-hover">
             <tr>
-                <th>Order ID</th>
+                <th>SI.No</th>
+                {% comment %} <th>Order ID</th> {% endcomment %}
                 <th>Date</th>
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Amount</th>
-                <th>Status</th>
-                <th>Review</th> <!-- Added review column -->
+                <th>Order Status</th>
+                
 
             </tr>
             {% for i in data %}
             <tr>
-                <td>{{ i.order_id }}</td>
+                <td>{{ forloop.counter }}</td>
+                {% comment %} <td>{{ i.order_id }}</td> {% endcomment %}
                 <td>{{ i.date }}</td>
                 <td>{{ i.PRODUCT.product_name }}</td>
                 <td>{{ i.quantity }}</td>
                 <td>{{ i.amount }}</td>
                 <td>{{ i.status }}</td>
                 <td>
-                    <a href="#"></a>
-                    <div class="star-rating">
-                        <input type="radio" id="star5" name="rating" value="5" />
-                        <label for="star5" title="5 stars"></label>
-                        <input type="radio" id="star4" name="rating" value="4" />
-                        <label for="star4" title="4 stars"></label>
-                        <input type="radio" id="star3" name="rating" value="3" />
-                        <label for="star3" title="3 stars"></label>
-                        <input type="radio" id="star2" name="rating" value="2" />
-                        <label for="star2" title="2 stars"></label>
-                        <input type="radio" id="star1" name="rating" value="1" />
-                        <label for="star1" title="1 star"></label>
-                    </div>
-                    <textarea name="reason" placeholder="Enter your reason"></textarea>
+                    <a href="/add_review/{{i.order_id}}" class="btn btn-primary btn-sm" title="Review">
+                        <i class="fas fa-star"></i>
+                    </a>
                 </td>
-            </tr>
+                {% if i.status == 'confirmed' %}
+                    <td>
+                        <a href="/cancel_order/{{i.order_id}}" class="btn btn-danger btn-sm">Cancel Order</a>
+                    </td>
+                {% endif %}
             {% endfor %}
         </table>
     {% else %}

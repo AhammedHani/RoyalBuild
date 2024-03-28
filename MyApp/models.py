@@ -78,8 +78,11 @@ class review(models.Model):
     review_id = models.IntegerField(primary_key=True)
     review_message = models.CharField(max_length=100)
     date = models.CharField(max_length=100)
+    star = models.IntegerField()
     status = models.CharField(max_length=100)
     CUSTOMER = models.ForeignKey(customer, on_delete=models.CASCADE,default=1)
+    PRODUCT = models.ForeignKey(product, on_delete=models.CASCADE,default=1)
+    
     class Meta:
         db_table = "review"
         
@@ -89,6 +92,7 @@ class make_order(models.Model):
     quantity = models.CharField(max_length=100)
     status = models.CharField(max_length=100)  
     amount = models.DecimalField(max_digits=5, decimal_places=2)
+    payment_method =  models.CharField(max_length=100)  
     CUSTOMER = models.ForeignKey(customer, on_delete=models.CASCADE,default=1)
     PRODUCT = models.ForeignKey(product, on_delete=models.CASCADE,default=1)
     class Meta:

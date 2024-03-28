@@ -1,15 +1,12 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 <body>
-
-<div class="container mt-5">
-
   <form method="post" action="/complaint_reply_post/{{ data.complaint_id }}">
     {% csrf_token %}
-
     <table class="table table-bordered table-hover">
+      <br><br>
       <tr>
-        <td><label for="complaint_reply">Complaint Reply</label></td>
+        <th>Complaint Reply</th>
         <td><textarea class="form-control" id="complaint_reply" name="complaint_reply" required></textarea></td>
       </tr>
       <tr>
@@ -18,11 +15,6 @@
         </td>
       </tr>
     </table>
-
   </form>
-
-</div>
-
 </body>
-
 {% endblock x %}

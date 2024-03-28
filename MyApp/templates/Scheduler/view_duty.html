@@ -31,7 +31,8 @@
                 <td>{{ i.date }}</td>
                 <td>{{ i.time }}</td>
                 <td>{{ i.workstation }}</td>
-                <td>{{ i.status }}</td>
+                <td><span class="badge bg-warning">{{i.status}}</span></td>
+                
             </tr>
             {% endfor %}
         </table>

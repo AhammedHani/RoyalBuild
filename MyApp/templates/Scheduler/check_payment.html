@@ -10,7 +10,7 @@
             <th>IFSC Code</th>
             <th>Fee</th>
             <th>Date</th>
-            {% comment %} <th>Status</th> {% endcomment %}
+            <th>Status</th>
         </tr>
         <tr>
             <td>{{data.ORDER.order_id}}</td>
@@ -19,9 +19,15 @@
             <td>{{data.ifsc_code}}</td>
             <td>{{data.amount}}</td>
             <td>{{data.date}}</td>
-            {% comment %} <td>{{data.ORDER.status}}</td> {% endcomment %}
-        <td><a href="/schedule_order/{{data.ORDER.order_id}}" class="btn btn-success btn-sm">Accept</a></td>
-        <td><a href="/reject_order/{{ data.ORDER.order_id }}" class="btn btn-danger btn-sm">Reject</a></td>
+            {% if data.status == 'COD' %}
+            <td><span class="badge bg-warning">{{data.status}}</span></td>
+            {% else %}
+            <td><span class="badge bg-success">{{data.status}}</span></td>
+
+            {% endif %}
+            
+        <td><a href="/schedule_order/{{data.ORDER.order_id}}" class="btn btn-success btn-sm" title="Accept"><i class="fas fa-check"></i></a></td>
+        <td><a href="/reject_order/{{ data.ORDER.order_id }}" class="btn btn-danger btn-sm" title="Reject"><i class="fas fa-times"></i></a></td>
     </tr>
     </table>
 </body>

@@ -1,0 +1,28 @@
+{% extends 'Customer/home.html' %}
+{% block x %}
+    {% if data %}
+        <table  class="table table-bordered table-hover">
+            <tr>
+                <th>Star</th>
+                <th>Review Message</th>
+                <th>Date</th>
+                {% comment %} <th>Status</th> {% endcomment %}
+                <th>Customer</th>
+                <th>Product</th>
+            </tr>
+            {% for i in data %}
+                <tr>
+                    <td>{{ i.star }}</td>
+                    <td>{{ i.review_message }}</td>
+                    <td>{{ i.date }}</td>
+                    {% comment %} <td>{{ i.status }}</td> {% endcomment %}
+                    <td>{{ i.CUSTOMER.customer_name }}</td>
+                    <td>{{ i.PRODUCT.product_name }}</td>
+                   
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No reviews found.</p>
+    {% endif %}
+{% endblock x %}

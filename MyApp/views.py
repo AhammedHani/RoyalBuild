@@ -69,6 +69,9 @@ def admin_home(request):
     data = login.objects.get(username=admin_id)
     return render(request,'Admin/admin_home.html',{'data':data})
 
+def admin_dashboard(request):
+    return render(request,'Admin/dashboard.html')
+
 def add_category(request):
     return render(request,'Admin/add_category.html')
 
@@ -232,7 +235,7 @@ def add_staff_post(request):
     return HttpResponse('''<Script>alert("ADDED");window.location="/add_staff/";</Script>''')
     
 def view_staff(request):
-    data = staff.objects.filter(status="active")
+    data = staff.objects.filter(status="active" and "not active")
     return render(request, 'Admin/view_staff.html', {'data': data})
 
 def edit_staff(request,id):
@@ -404,6 +407,9 @@ def admin_change_password_post(request):
     else:
         return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/admin_change_password/";</Script>''')
 
+def admin_view_review(request,id):
+    data = review.objects.get(review_id=id)
+    return render(request, 'Admin/view_review.html', {'data': data})
 
 # Scheduler
 
@@ -466,7 +472,7 @@ def schedule_order(request,id):
  
 def schedule_order_post(request,id):
     data1=make_order.objects.get(order_id=id)
-    data1.status="approved"
+    data1.status="confirmed"
     data1.save()
     q1=data1.quantity
     data2=product.objects.get(product_id=data1.PRODUCT_id)
@@ -492,7 +498,15 @@ def schedule_order_post(request,id):
 
 def reject_order(request, id):
     data = make_order.objects.get(order_id=id)
-    data.status = "rejected"
+    # qty=data.quantity
+    # pro=make_order.objects.get(PRODUCT_id=data.PRODUCT_id)
+    # pro.quantity+=qty
+    # pro.save()
+    if data.payment_method=='BANK':
+        data.status="refunded"
+    else:
+            
+        data.status = "rejected"
     data.save()
     return HttpResponse('''<Script>
                             if (confirm("Are you sure you want to reject this order?")) {
@@ -671,6 +685,9 @@ def add_duty_post(request):
     data.status = "pending"
     data.STAFF = staff_obj
     data.save()
+    data1=staff.objects.get(staff_id=request.POST.get('staff'))
+    data1.status="not active"
+    data1.save()
     return HttpResponse('''<script>alert("DUTY ADDED");window.location="/view_staffs/";</script>''')
     
 def view_duty(request):
@@ -679,6 +696,8 @@ def view_duty(request):
     
     data = duty.objects.filter(status="pending")
     return render(request, 'Scheduler/view_duty.html', {'lg': lg, 'data': data})
+    
+
 # customer
 
 def customer_home(request):
@@ -715,6 +734,7 @@ def add_order_post(request,id):
     data1.amount=float(request.session['qty'])*float(data11.price)
     data10=customer.objects.get(email=request.session['customers'])
     data1.CUSTOMER_id=data10.customer_id
+    data1.payment_method=request.POST.get('payment_method')
     data1.status="pending"
     from datetime import datetime
     data1.date=datetime.now().strftime('%Y-%m-%d')
@@ -828,7 +848,43 @@ def customer_change_password_post(request):
 def view_worksites(request):
     data = worksite.objects.all()
     return render(request, 'Customer/view_worksites.html', {'data': data})
+
+def add_review(request,id):
+    return render(request, 'Customer/add_review.html',{'id':id})
+
+def add_review_post(request,id):
+    data = review()
+    data.star = request.POST.get('review')
+    data.review_message = request.POST.get('message')
+    data.date = datetime.now().strftime('%Y-%m-%d')
+    data.status ="active"
+    data.ORDER_id = id
+    data2=customer.objects.get(email=request.session['customers'])
+    data.CUSTOMER_id =data2.customer_id
+    data.PRODUCT_id = make_order.objects.get(order_id=id).PRODUCT_id  
+    data.save()
+    return HttpResponse('''<script>alert("REVIEW ADDED");window.location="/view_order/";</script>''')
+
+def view_review(request,id):
+    data = review.objects.filter(PRODUCT_id=id)
+    return render(request, 'Customer/view_review.html', {'data': data})
+    
+
+
 # Public
 
 def public_home(request):
-    return render(request,'Public/public_home.html')
+    data = category.objects.all()
+    return render(request,'Public/public_home.html',{'data':data})
+
+def public_view_products(request,id):
+    data = product.objects.filter(CATEGORY_id=id)
+    return render(request, 'Public/public_view_products.html', {'data': data})
+
+def public_view_products2(request,id):
+    data = product.objects.get(product_id=id)
+    return render(request, 'Public/public_view_products2.html', {'data': data})
+
+def public_view_review(request,id):
+    data = review.objects.filter(PRODUCT_id=id)
+    return render(request, 'Public/public_view_review.html', {'data': data})

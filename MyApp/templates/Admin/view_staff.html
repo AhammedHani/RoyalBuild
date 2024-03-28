@@ -2,11 +2,9 @@
 {% block x %}
 
 <body>
-
-<div class="container mt-5">
-
   {% if data %}
     <table class="table table-bordered table-hover">
+      <br><br>
         <tr>
           <th>Name</th>
           <th>Photo</th>
@@ -23,18 +21,14 @@
             <td>{{ i.email }}</td>
             <td>{{ i.phone }}</td>
             <td>{{ i.state }}</td>
-            <td><a href="/edit_staff/{{i.staff_id}}" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="/delete_staff/{{i.staff_id}}" class="btn btn-danger btn-sm">Delete</a></td>
-
-            <td><a href="/add_scheduler/{{i.staff_id}}" class="btn btn-success btn-sm">Scheduler</a></td>
-            
+            <td><a href="/edit_staff/{{i.staff_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
+            <td><a href="/delete_staff/{{i.staff_id}}" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td>
+            <td><a href="/add_scheduler/{{i.staff_id}}" class="btn btn-success btn-sm"title="Scheduler"><i class="fas fa-calendar-plus"></i></a></td>          
           </tr>
         {% endfor %}
     </table>
   {% else %}
     <p>No staff available.</p>
   {% endif %}
-</div>
-
 </body>
 {% endblock x %}

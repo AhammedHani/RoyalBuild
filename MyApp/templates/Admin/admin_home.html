@@ -2,6 +2,7 @@
 <html lang="en">
 {% load static %}
 <head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -253,7 +254,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="/admin_home">
+        <a class="nav-link " href="/admin_dashboard">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -265,7 +266,7 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="/add_category">
+            <a href="/add_category/#scroll">
               <i class="bi bi-circle"></i><span>Add</span>
             </a>
           </li>
@@ -446,7 +447,7 @@
       <div class="row">
 
         <!-- Left side columns -->
-        <div >
+        {% comment %} <div>
           <div class="row">
 
             <!-- Sales Card -->
@@ -636,13 +637,13 @@
                 </div>
 
               </div>
-            </div><!-- End Reports -->
+            </div><!-- End Reports --> {% endcomment %}
 
             <!-- Recent Sales -->
             <div class="col-12">
               <div class="card recent-sales overflow-auto">
 
-                <div class="filter">
+                {% comment %} <div class="filter">
                   <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
@@ -653,12 +654,11 @@
                     <li><a class="dropdown-item" href="#">This Month</a></li>
                     <li><a class="dropdown-item" href="#">This Year</a></li>
                   </ul>
-                </div>
+                </div> {% endcomment %}
 
                 <div class="card-body">
                   {% block x%}
                   {% endblock%}
-
                 </div>
 
               </div>
@@ -1059,7 +1059,7 @@
   <script src="{% static 'Admin/assets/vendor/php-email-form/validate.js' %}"></script>
 
   <!-- Template Main JS File -->
-  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="{% static 'Admin/assets/js/main.js' %}"></script>
 
 </body>
 

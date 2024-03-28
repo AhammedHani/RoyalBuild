@@ -1,67 +1,67 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 
-</head>
 <body>
-
-<div class="container mt-5">
   <form method="post" action="/edit_product_post/" enctype="multipart/form-data">
     {% csrf_token %}
-
     <table class="table table-bordered table-hover">
+      <br><br>
+      <tr align="center">
+        <td colspan="2"><img src="{{data.photo}}" alt="" width="100px" height="100px"></td>
+      </tr>
       <tr>
-        <td>Product Name</td>
+        <th>Product Name</th>
         <td><input type="text" class="form-control" name="product_name" value="{{ data.product_name }}"></td>
         <input type="hidden" name="id" value="{{ data.product_id }}">
       </tr>
       <tr>
-        <td>Photo</td>
-        <td><input type="file" class="form-control-file" name="photo"></td>
+        <th>Photo</th>
+        <td><input type="file" class="form-control" name="photo"></td>
       </tr>
       <!-- Add Detail 1 -->
       <tr>
-        <td>Detail 1</td>
+        <th>Detail 1</th>
         <td><input type="text" class="form-control" name="detail_1" value="{{ data.detail1 }}"></td>
       </tr>
       <!-- Add Detail 2 -->
       <tr>
-        <td>Detail 2</td>
+        <th>Detail 2</th>
         <td><input type="text" class="form-control" name="detail_2" value="{{ data.detail2 }}"></td>
       </tr>
       <!-- Add Detail 3 -->
       <tr>
-        <td>Detail 3</td>
+        <th>Detail 3</th>
         <td><input type="text" class="form-control" name="detail_3" value="{{ data.detail3 }}"></td>
       </tr>
       <!-- Add Detail 4 -->
       <tr>
-        <td>Detail 4</td>
+        <th>Detail 4</th>
         <td><input type="text" class="form-control" name="detail_4" value="{{ data.detail4 }}"></td>
       </tr>
       <!-- Add Detail 5 -->
       <tr>
-        <td>Detail 5</td>
+        <th>Detail 5</th>
         <td><input type="text" class="form-control" name="detail_5" value="{{ data.detail5 }}"></td>
       </tr>
       <!-- Add Detail 6 -->
       <tr>
-        <td>Detail 6</td>
+        <th>Detail 6</th>
         <td><input type="text" class="form-control" name="detail_6" value="{{ data.detail6 }}"></td>
       </tr>
       <tr>
-        <td>Description</td>
+        <th>Description</th>
         <td><textarea class="form-control" name="product_description" rows=7>{{ data.description }}</textarea></td>
       </tr>
       <tr>
-        <td>Price</td>
+        <th>Price</th>
         <td><input type="text" class="form-control" name="product_price" value="{{ data.price }}"></td>
       </tr>
       <tr>
-        <td>Quantity</td>
+        <th>Quantity</th>
         <td><input type="text" class="form-control" name="product_quantity" value="{{ data.quantity }}"></td>
       </tr>
       <tr>
-        <td>Category Type</td>
+        <th>Category Type</th>
         <td>
           <select class="form-control" name="category_type">
             {% for i in data2 %}
@@ -77,7 +77,5 @@
       </tr>
     </table>
   </form>
-</div>
-
 </body>
 {% endblock x %}

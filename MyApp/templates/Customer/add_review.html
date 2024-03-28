@@ -1,0 +1,80 @@
+{% extends 'Customer/home.html' %}
+{% block x %}
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .rate {
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+        }
+        .rate:not(:checked) > input {
+            position:absolute;
+            top:-9999px;
+        }
+        .rate:not(:checked) > label {
+            float:right;
+            width:1em;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            font-size:30px;
+            color:#ccc;
+        }
+        .rate:not(:checked) > label:before {
+            content: '★ ';
+        }
+        .rate > input:checked ~ label {
+            color: #ffc700;    
+        }
+        .rate:not(:checked) > label:hover,
+        .rate:not(:checked) > label:hover ~ label {
+            color: #deb217;  
+        }
+        .rate > input:checked + label:hover,
+        .rate > input:checked + label:hover ~ label,
+        .rate > input:checked ~ label:hover,
+        .rate > input:checked ~ label:hover ~ label,
+        .rate > label:hover ~ input:checked ~ label {
+            color: #c59b08;
+        }
+
+        .form-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 50%;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+</head>
+<body>    
+    <div class="form-box">
+        <form method="POST" action="/add_review_post/{{id}}">
+            {% csrf_token %}
+            <div class="rate">
+                <input type="radio" id="star5" name="review" value="5" />
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="review" value="4" />
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="review" value="3" />
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="review" value="2" />
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="review" value="1" />
+                <label for="star1" title="text">1 star</label>
+            </div>
+            <br>
+            <br>
+            <textarea name="message" id="message" class="form-control" style="width: 100%; height:100px;"></textarea><br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+{% endblock x %}

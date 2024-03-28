@@ -286,8 +286,20 @@
           <h2>Services</h2>
           <p>" Comprehensive solutions for all your construction needs - from materials to delivery, we've got you covered "</p>
         </div>
-        
-        <div class="row gy-4">
+
+        <div class="row gy-4">  
+          {% for ct in data %}
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                  <div class="card">
+                    <div class="card-img">
+                      <img src="{{ct.photo}}" alt="" class="img-fluid">
+                    </div>
+                     <h3><a href="/public_view_products/{{ct.category_id}}" class="stretched-link">{{ct.category_name}}</a></h3>
+                     <p>{{ct.description}}</p>
+                  </div>
+                </div>
+          {% endfor %}
+        {% comment %} <div class="row gy-4">
 
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
           <div class="card">
@@ -347,7 +359,7 @@
             <h3><a href="service-details.html" class="stretched-link">Others</a></h3>
             <p>Explore various building materials for your project needs, covering essentials and finishing touches, with a diverse range to meet all requirements.</p>
           </div>
-        </div><!-- End Card Item -->
+        </div><!-- End Card Item --> {% endcomment %}
 
 
       <!--  <div class="row">

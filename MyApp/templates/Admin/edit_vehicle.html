@@ -1,24 +1,20 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 
-</head>
 <body>
-
-<div class="container mt-5">
-
   <form method="post" action="/edit_vehicle_post/">
     {% csrf_token %}
-
     <table class="table table-bordered table-hover">
+      <br><br>
       <tr>
-        <td>Vehicle Number</td>
+        <th>Vehicle Number</th>
         <td>
           <input type="text" class="form-control" name="vehicle_number" value="{{ data.vehicle_number }}">
           <input type="hidden" name="id" value="{{ data.vehicle_id }}">
         </td>
       </tr>
       <tr>
-        <td>Type</td>
+        <th>Type</th>
         <td>
           <input type="text" class="form-control" name="vehicle_type" value="{{ data.type }}">
         </td>
@@ -30,8 +26,5 @@
       </tr>
     </table>
   </form>
-
-</div>
-
 </body>
 {% endblock x %}

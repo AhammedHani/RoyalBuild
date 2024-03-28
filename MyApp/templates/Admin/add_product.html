@@ -1,64 +1,63 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
-</head>
+
 <body>
-<div id="form-container">
   <form id="form1" name="form1" method="post" action="/add_product_post/" enctype="multipart/form-data">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
       <br><br>
       <tr>
-        <td>Product Name</td>
+        <th>Product Name</th>
         <td><input type="text" name="product_name" id="product_name" class="form-control"/></td>
       </tr>
       <tr>
-        <td>Photo</td>
+        <th>Photo</th>
         <td><input type="file" name="product_photo" id="product_photo" class="form-control"/></td>
       </tr>
       <!-- Add Detail 1 -->
       <tr>
-        <td>Detail 1</td>
+        <th>Detail 1</th>
         <td><input type="text" name="detail_1" id="detail_1" class="form-control"/></td>
       </tr>
       <!-- Add Detail 2 -->
       <tr>
-        <td>Detail 2</td>
+        <th>Detail 2</th>
         <td><input type="text" name="detail_2" id="detail_2" class="form-control"/></td>
       </tr>
       <!-- Add Detail 3 -->
       <tr>
-        <td>Detail 3</td>
+        <th>Detail 3</th>
         <td><input type="text" name="detail_3" id="detail_3" class="form-control"/></td>
       </tr>
       <!-- Add Detail 4 -->
       <tr>
-        <td>Detail 4</td>
+        <th>Detail 4</th>
         <td><input type="text" name="detail_4" id="detail_4" class="form-control"/></td>
       </tr>
       <!-- Add Detail 5 -->
       <tr>
-        <td>Detail 5</td>
+        <th>Detail 5</th>
         <td><input type="text" name="detail_5" id="detail_5" class="form-control"/></td>
       </tr>
       <!-- Add Detail 6 -->
       <tr>
-        <td>Detail 6</td>
+        <th>Detail 6</th>
         <td><input type="text" name="detail_6" id="detail_6" class="form-control"/></td>
       </tr>
       <tr>
-        <td>Description</td>
+        <th>Description</th>
         <td><textarea name="product_description" id="product_description" class="form-control"></textarea></td>
       </tr>
       <tr>
-        <td>Price</td>
+        <th>Price</th>
         <td><input type="text" name="product_price" id="product_price" class="form-control"/></td>
       </tr>
       <tr>
-        <td>Quantity</td>
+        <th>Quantity</th>
         <td><input type="text" name="product_quantity" id="product_quantity" class="form-control"/></td>
       </tr>
       <tr>
-        <td>Category Type</td>
+        <th>Category Type</th>
         <td>
           <select name="category_type" id="category_type" class="form-control">
             {% for i in data %}
@@ -72,6 +71,5 @@
       </tr>
     </table>
   </form>
-</div>
 </body>
 {% endblock x %}

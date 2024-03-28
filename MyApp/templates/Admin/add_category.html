@@ -1,25 +1,21 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
   
-</head>
 <body>
-
-<!-- Your form goes here -->
-<div id="form-container">
   <form id="form1" name="form1" method="post" action="/add_category_post/" enctype="multipart/form-data">
     {% csrf_token %}
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover" id="scroll">
       <br><br>
       <tr>
-        <td>Category name</td>
+        <th>Category Name</th>
         <td><input type="text" name="textfield" id="textfield" class="form-control"/></td>
       </tr>
       <tr>
-        <td>Photo</td>
+        <th>Photo</th>
         <td><input type="file" name="photo" id="photo" class="form-control"/></td>
       </tr>
       <tr>
-        <td>Description</td>
+        <th>Description</th>
         <td><textarea name="description" id="description" class="form-control"></textarea></td>
       </tr>
       <tr>
@@ -27,7 +23,5 @@
       </tr>
     </table>
   </form>
-</div>
-
 </body>
 {% endblock x %}

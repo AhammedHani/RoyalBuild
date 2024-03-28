@@ -2,40 +2,29 @@
 {% block x %}
 
 <body>
-
-<div class="container mt-5">
-
   {% if data %}
     <table class="table table-bordered table-hover">
-      <thead>
+      <br><br>
         <tr>
           <th>S. No</th>
           <th>Customer</th>
           <th>Complaint Message</th>
           <th>Date</th>
-          {% comment %} <th>Status</th> {% endcomment %}
         </tr>
-      </thead>
-      <tbody>
         {% for i in data %}
           <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ i.CUSTOMER.customer_name }}</td>
             <td>{{ i.complaint_message }}</td>
             <td>{{ i.date }}</td>
-            {% comment %} <td>{{ i.status }}</td> {% endcomment %}
             <td>
               <a href="/complaint_reply/{{i.complaint_id}}" class="btn btn-success btn-sm">Reply</a>
             </td>
           </tr>
         {% endfor %}
-      </tbody>
     </table>
   {% else %}
     <p>No complaints available.</p>
   {% endif %}
-
-</div>
-
 </body>
 {% endblock x %}

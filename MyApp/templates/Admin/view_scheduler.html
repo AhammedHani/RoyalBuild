@@ -1,13 +1,10 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 
-</head>
 <body>
-
-<div class="container mt-5">
-
   {% if data %}
     <table class="table table-bordered table-hover">
+      <br><br>
         <tr>
           <th>Name</th>
           <th>Photo</th>
@@ -24,16 +21,13 @@
             <td>{{ i.email }}</td>
             <td>{{ i.phone }}</td>
             <td>{{ i.state }}</td>
-            <td><a href="/edit_scheduler/{{i.staff_id}}" class="btn btn-warning btn-sm">Edit</a></td>
-            <td><a href="/delete_scheduler/{{i.staff_id}}" class="btn btn-danger btn-sm">Delete</a></td>
-            
+            <td><a href="/edit_scheduler/{{i.staff_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
+            <td><a href="/delete_scheduler/{{i.staff_id}}"  class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td>            
           </tr>
         {% endfor %}
     </table>
   {% else %}
-    <p>No staff available.</p>
+    <p>No scheduler available.</p>
   {% endif %}
-</div>
-
 </body>
 {% endblock x %}
