@@ -45,7 +45,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="/admin_home" class="logo d-flex align-items-center">&nbsp;&nbsp;
+      <a href="#" class="logo d-flex align-items-center">&nbsp;&nbsp;
         <img src="{% static 'Admin/assets/img/logo.png' %}" alt="">&nbsp;
         <span class="d-none d-lg-block">ROYAL BRICKS</span>
       </a>
@@ -221,7 +221,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            {% comment %} <li>
               <a class="dropdown-item d-flex align-items-center" href="/admin_change_password">
                 <!-- BEGIN: ed8c6549bwf9 -->
                 <i class="bi bi-key"></i>
@@ -231,7 +231,7 @@
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>
+            </li> {% endcomment %}
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="#">
@@ -254,7 +254,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="/admin_dashboard">
+        <a class="nav-link " href="/admin_home">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -356,7 +356,7 @@
     </li><!-- End Complaint Nav -->
       
     <li class="nav-item">
-      <a class="nav-link collapsed" href="/view_review">
+      <a class="nav-link collapsed" href="/admin_view_review">
           <i class="bi bi-star"></i><span>Reviews</span>
       </a>
   </li><!-- End Reviews Nav -->

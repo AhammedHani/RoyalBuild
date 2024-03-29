@@ -2,9 +2,9 @@
 {% block x %}
 
 <body>
+  <br><br>
   {% if data %}
     <table class="table table-bordered table-hover">
-      <br><br>
         <tr>
           <th>S. No</th>
           <th>Name</th>
@@ -22,7 +22,7 @@
         </tr>
         {% for i in data %}
           <tr>
-            <td>{{ forloop.counter }}
+            <td>{{ forloop.counter }} </td>
             <td>{{ i.product_name }}</td>
             <td><img src="{{ i.photo }}" alt="{{ i.product_name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
             <td>{{ i.description }}</td>

@@ -4,9 +4,10 @@
 <body>
     <form method="POST" enctype="multipart/form-data" action="/add_worksite_post/">
         {% csrf_token %}
-        <table class="table table-bordered table-hover"><br><br>
+        <table class="table table-bordered table-hover">
+            <br><br>
             <tr>
-                <td><label for="product">Product:</label></td>
+                <th>Product</th>
                 <td>
                     <select id="product" name="product" required class="form-control">
                         <option value="" selected disabled>Select product</option>
@@ -17,23 +18,23 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="location">Location:</label></td>
+                <th>Location</th>
                 <td><input type="text" id="location" name="location" required class="form-control"></td>
             </tr>
             <tr>
-                <td><label for="photo1">Photo 1:</label></td>
+                <th>Photo 1</th>
                 <td><input type="file" id="photo1" name="photo1" accept="image/*" required class="form-control"></td>
             </tr>
             <tr>
-                <td><label for="photo2">Photo 2:</label></td>
+                <th>Photo 2</th>
                 <td><input type="file" id="photo2" name="photo2" accept="image/*" required class="form-control"></td>
             </tr>
             <tr>
-                <td><label for="photo3">Photo 3:</label></td>
+                <th>Photo 3</th>
                 <td><input type="file" id="photo3" name="photo3" accept="image/*" required class="form-control"></td>
             </tr>
             <tr>
-                <td><label for="remark">Remark:</label></td>
+                <th>Remark</th>
                 <td><textarea id="remark" name="remark" required class="form-control"></textarea></td>
             </tr>
             <tr>

@@ -1,0 +1,27 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+
+<body>
+  <br><br>
+  {% if data %}
+    <table class="table table-bordered table-hover">
+        <tr>
+          <th>S. No</th>
+          <th>Categories</th>
+          <th>Products</th>
+          <th>Photo</th>
+        </tr>
+        {% for i in data %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{i.PRODUCT.CATEGORY.category_name}}</td>
+            <td>{{ i.PRODUCT.product_name }}</td>
+            <td><img src="{{ i.photo }}" alt="{{ i.product_name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
+            <td><a href="" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No reviews found.</p>
+{% endif %}
+{% endblock x %}

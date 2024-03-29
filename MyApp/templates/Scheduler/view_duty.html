@@ -2,18 +2,11 @@
 {% block x %}
 
 <body>
+<br><br>
 <form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
-        {% csrf_token %}
-
-    {% comment %} <table class="table table-bordered">
-        <tr><br><br>
-            <td>
-            <input type="text" name="textfield" id="textfield" placeholder="Search by Name" class="form-control " required/></td>
-            <td width="80px"><input type="submit" name="button" id="button" value="Search" class="btn btn-success"/></td>
-        </tr>
-    </table> {% endcomment %}
+{% csrf_token %}
     {% if data %}
-        <table class="table table-bordered"><br><br>
+        <table class="table table-bordered table-hover">
             <tr>
                 <th>SL.NO</th>
                 <th>Staff</th>
@@ -31,8 +24,9 @@
                 <td>{{ i.date }}</td>
                 <td>{{ i.time }}</td>
                 <td>{{ i.workstation }}</td>
-                <td><span class="badge bg-warning">{{i.status}}</span></td>
-                
+                <td>
+                <span class="badge rounded-pill bg-warning"</span>{{i.status}}</span>
+                </td>
             </tr>
             {% endfor %}
         </table>

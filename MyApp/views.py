@@ -67,10 +67,10 @@ def signin_post(request):
 def admin_home(request):
     admin_id = request.session.get('admins')
     data = login.objects.get(username=admin_id)
-    return render(request,'Admin/admin_home.html',{'data':data})
+    return render(request,'Admin/dashboard.html',{'data':data})
 
-def admin_dashboard(request):
-    return render(request,'Admin/dashboard.html')
+# def admin_dashboard(request):
+#     return render(request,'Admin/dashboard.html')
 
 def add_category(request):
     return render(request,'Admin/add_category.html')
@@ -235,7 +235,7 @@ def add_staff_post(request):
     return HttpResponse('''<Script>alert("ADDED");window.location="/add_staff/";</Script>''')
     
 def view_staff(request):
-    data = staff.objects.filter(status="active" and "not active")
+    data = staff.objects.exclude(status="scheduler")
     return render(request, 'Admin/view_staff.html', {'data': data})
 
 def edit_staff(request,id):
@@ -379,7 +379,7 @@ def complaint_reply_post(request,id):
     var1.save()
     return HttpResponse('''<script>alert("REPLIED");window.location="/view_complaint/";</script>''')
 
-def view_review(request):
+def admin_view_review(request):
     data = review.objects.all()
     return render(request,'Admin/view_review.html', {'data': data})
 
@@ -388,10 +388,10 @@ def admin_view_profile(request):
     data = login.objects.get(username=admin_id)
     return render(request, 'Admin/view_profile.html', {'data': data})
 
-def admin_change_password(request):
-    val=request.session.get('admins')
-    var=login.objects.get(username =val)
-    return render(request,"Admin/admin_change_password.html",{'data':var})
+# def admin_change_password(request):
+#     val=request.session.get('admins')
+#     var=login.objects.get(username =val)
+#     return render(request,"Admin/admin_change_password.html",{'data':var})
 
 def admin_change_password_post(request):
     oldpass=request.POST['textfield']
@@ -403,9 +403,9 @@ def admin_change_password_post(request):
             ress = res.update(password=newpass)
             return HttpResponse('''<script>alert('PASSWORD CHANGED SUCCESSFULLY');window.location="/admin_home/"</script>''')
         else:
-            return HttpResponse('''<Script>alert("PASSWORD DOES NOT MATCH");window.location="/admin_change_password/";</Script>''')
+            return HttpResponse('''<Script>alert("PASSWORD DOES NOT MATCH");window.location="/admin_view_profile/";</Script>''')
     else:
-        return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/admin_change_password/";</Script>''')
+        return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/admin_view_profile/";</Script>''')
 
 def admin_view_review(request,id):
     data = review.objects.get(review_id=id)
@@ -416,7 +416,10 @@ def admin_view_review(request,id):
 def scheduler_home(request):
     staff_id = request.session.get('schedulers')
     lg = staff.objects.get(email=staff_id)
-    return render(request,'Scheduler/scheduler_home.html',{'lg':lg})
+    return render(request,'Scheduler/dashboard.html',{'lg':lg})
+
+# def scheduler_dashboard(request):
+#     return render(request,'Scheduler/dashboard.html')
 
 def view_category2(request):
     staff_id = request.session.get('schedulers')
@@ -522,10 +525,10 @@ def scheduler_view_profile(request):
     lg = staff.objects.get(email=staff_id)
     return render(request, 'Scheduler/view_profile.html', {'lg': lg})
 
-def scheduler_edit_profile(request):
-    staff_id = request.session.get('schedulers')
-    lg = staff.objects.get(email=staff_id)
-    return render(request, 'Scheduler/edit_profile.html', {'lg': lg})
+# def scheduler_edit_profile(request):
+#     staff_id = request.session.get('schedulers')
+#     lg = staff.objects.get(email=staff_id)
+#     return render(request, 'Scheduler/edit_profile.html', {'lg': lg})
 
 def scheduler_edit_profile_post(request):
     if 'photo' in request.FILES:
@@ -555,11 +558,11 @@ def scheduler_edit_profile_post(request):
         return HttpResponse('''<script>alert("EDITED");window.location="/scheduler_view_profile/";</script>''')
 
 
-def scheduler_change_password(request):
-    staff_id=request.session.get('schedulers')
-    lg = staff.objects.get(email=staff_id)
-    data=login.objects.get(username=staff_id)
-    return render(request,"Scheduler/scheduler_change_password.html",{'lg':lg,'data':data})
+# def scheduler_change_password(request):
+#     staff_id=request.session.get('schedulers')
+#     lg = staff.objects.get(email=staff_id)
+#     data=login.objects.get(username=staff_id)
+#     return render(request,"Scheduler/scheduler_change_password.html",{'lg':lg,'data':data})
 
 def scheduler_change_password_post(request):
     oldpass=request.POST['textfield']
@@ -571,9 +574,9 @@ def scheduler_change_password_post(request):
             ress = res.update(password=newpass)
             return HttpResponse('''<script>alert('PASSWORD CHANGED SUCCESSFULLY');window.location="/scheduler_home/"</script>''')
         else:
-            return HttpResponse('''<Script>alert("PASSWORD DOES NOT MATCH");window.location="/scheduler_change_password/";</Script>''')
+            return HttpResponse('''<Script>alert("PASSWORD DOES NOT MATCH");window.location="/scheduler_view_profile/";</Script>''')
     else:
-        return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/scheduler_change_password/";</Script>''')
+        return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/scheduler_view_profile/";</Script>''')
 
 def add_worksite(request):
     staff_id=request.session.get('schedulers')

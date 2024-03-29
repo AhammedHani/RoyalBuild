@@ -8,7 +8,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('admin_home/',views.admin_home),
-    path('admin_dashboard/',views.admin_dashboard),
+    # path('admin_dashboard/',views.admin_dashboard),
     path('add_category/',views.add_category),
     path('add_category_post/',views.add_category_post),
     path('view_category/',views.view_category),
@@ -41,14 +41,15 @@ urlpatterns = [
     path('view_complaint/',views.view_complaint),
     path('complaint_reply/<id>',views.complaint_reply),
     path('complaint_reply_post/<id>',views.complaint_reply_post),
-    path('view_review/',views.view_review),
-    path('admin_change_password/',views.admin_change_password),
+    path('admin_view_review/',views.admin_view_review),
+    # path('admin_change_password/',views.admin_change_password),
     path('admin_change_password_post/',views.admin_change_password_post),
     path('admin_view_profile/',views.admin_view_profile),    
     
     # Scheduler
     
     path('scheduler_home/',views.scheduler_home),
+    # path('scheduler_dashboard/',views.scheduler_dashboard),
     path('view_category2/',views.view_category2),
     path('view_product2/<id>',views.view_product2),  
     path('edit_quantity/<id>',views.edit_quantity),  
@@ -58,10 +59,10 @@ urlpatterns = [
     path('schedule_order/<id>',views.schedule_order),  
     path('schedule_order_post/<id>',views.schedule_order_post),  
     path('reject_order/<id>', views.reject_order),
-    path('scheduler_change_password/',views.scheduler_change_password),
+    # path('scheduler_change_password/',views.scheduler_change_password),
     path('scheduler_change_password_post/',views.scheduler_change_password_post),
     path('scheduler_view_profile/',views.scheduler_view_profile),
-    path('scheduler_edit_profile/',views.scheduler_edit_profile),
+    # path('scheduler_edit_profile/',views.scheduler_edit_profile),
     path('scheduler_edit_profile_post/',views.scheduler_edit_profile_post),
     path('add_worksite/',views.add_worksite),    
     path('add_worksite_post/',views.add_worksite_post),    
@@ -73,7 +74,7 @@ urlpatterns = [
     path('add_duty/<id>',views.add_duty),
     path('add_duty_post/',views.add_duty_post),
     path('view_duty/',views.view_duty),
-    
+
     
     #customer
     path('customer_home/',views.customer_home),

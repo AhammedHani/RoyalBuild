@@ -2,10 +2,9 @@
 {% block x %}
 <body>
     <br><br>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-hover">
         <tr>
             <th>Order ID</th>
-            {% comment %} <th>Customer Name</th> {% endcomment %}
             <th>Account Number</th>
             <th>IFSC Code</th>
             <th>Fee</th>
@@ -14,15 +13,14 @@
         </tr>
         <tr>
             <td>{{data.ORDER.order_id}}</td>
-            {% comment %} <td>{{data.ORDER.CUSTOMER.customer_name}}</td> {% endcomment %}
             <td>{{data.acc_number}}</td>
             <td>{{data.ifsc_code}}</td>
             <td>{{data.amount}}</td>
             <td>{{data.date}}</td>
             {% if data.status == 'COD' %}
-            <td><span class="badge bg-warning">{{data.status}}</span></td>
+            <td><span class="badge rounded-pill bg-warning">{{data.status}}</span></td>
             {% else %}
-            <td><span class="badge bg-success">{{data.status}}</span></td>
+            <td><span class="badge rounded-pill bg-success">{{data.status}}</span></td>
 
             {% endif %}
             

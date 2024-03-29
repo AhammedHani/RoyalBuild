@@ -2,10 +2,10 @@
 {% block x %}
 
 <body>
+  <br><br>
   <form method="post" action="/add_staff_post/" enctype="multipart/form-data">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
-      <br><br>
       <tr>
         <th>Staff Name</th>
         <td><input type="text" class="form-control" id="staff_name" name="staff_name" required></td>

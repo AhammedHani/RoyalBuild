@@ -1,16 +1,219 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
+{% load static %}
 
-<div class="container rounded bg-white mt-5 mb-5 border"> <!-- Added border class -->
-    <div class="row justify-content-center"> <!-- Added justify-content-center class -->
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                <h4 class="text-right"><b>View Profile</b></h4>
-                <img class="rounded-circle mt-5" width="150px" height="150px" src="{% static 'Admin/assets/img/RoyalBricks.jpeg' %}">
-                <span class="font-weight-bold"><br>{{data.username}}</span>
-                <span class="text-black-50"></span>
-            </div>
+<body>
+  <div class="pagetitle"><br>
+    <h1>Profile</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin_home">Home</a></li>
+        <li class="breadcrumb-item active">Profile</li>
+      </ol>
+    </nav> 
+  </div>
+
+  <section class="section profile">
+    <div class="row">
+      <div class="col-xl-4">
+
+        <div class="card">
+          <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+
+            <img src="{% static 'Admin/assets/img/RoyalBricks.jpeg' %}" alt="Profile" class="rounded-circle" width="120px" height="120px">
+            <h2>Afan</h2>
+            <h3>{{data.username}}</h3>
+            {% comment %} <div class="social-links mt-2">
+              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div> {% endcomment %}
+          </div>
         </div>
+
+      </div>
+
+      <div class="col-xl-8">
+
+        <div class="card">
+          <div class="card-body pt-3">
+            <!-- Bordered Tabs -->
+            <ul class="nav nav-tabs nav-tabs-bordered" role="tablist">
+
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview" aria-selected="true" role="tab">Overview</button>
+              </li>
+
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password" aria-selected="false" tabindex="-1" role="tab">Change Password</button>
+              </li>
+
+            </ul>
+            <div class="tab-content pt-2">
+
+              <div class="tab-pane fade show active profile-overview" id="profile-overview" role="tabpanel">
+                
+                <h5 class="card-title">Profile Details</h5>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label ">Name</div>
+                  <div class="col-lg-9 col-md-8">Afan</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Place</div>
+                  <div class="col-lg-9 col-md-8">Calicut</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">State</div>
+                  <div class="col-lg-9 col-md-8">Kerala</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Email</div>
+                  <div class="col-lg-9 col-md-8">royalassociatescalicut@gmail.com</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Phone</div>
+                  <div class="col-lg-9 col-md-8">9048449634</div>
+                </div>
+
+              </div>
+
+              {% comment %} <div class="tab-pane fade profile-edit pt-3" id="profile-edit" role="tabpanel">
+
+                <!-- Profile Edit Form -->
+                <form method="POST" action="/scheduler_edit_profile_post/" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="row mb-3">
+                    <label for="Name" class="col-md-4 col-lg-3 col-form-label">Name</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="name" type="text" class="form-control" id="name" value="{{ lg.staff_name }}">
+                    </div>
+                  </div>
+                  
+                  <div class="row mb-3">
+                    <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Photo</label>
+                    <div class="col-md-8 col-lg-9">
+                      <img src="{{ lg.photo }}" alt="Profile">
+                      {% comment %} <div class="pt-2">
+                        <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                        <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                      </div> 
+
+                      <div class="pt-2">
+                        <input type="file" class="form-control" id="photo" name="photo" value="{{ lg.photo }}">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="Place" class="col-md-4 col-lg-3 col-form-label">Place</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="place" type="text" class="form-control" id="place" value="{{ lg.place }}">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="State" class="col-md-4 col-lg-3 col-form-label">State</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="state" type="text" class="form-control" id="state" value="{{ lg.state }}">
+                    </div>
+                  </div>
+
+   
+                  <div class="row mb-3">
+                    <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="email" type="email" class="form-control" id="Email" value="{{ lg.email }}" readonly>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="phone" type="text" class="form-control" id="Phone" value="{{ lg.phone }}">
+                    </div>
+                  </div>
+
+
+                  {% comment %} <div class="row mb-3">
+                    <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+                </form><!-- End Profile Edit Form -->
+
+              </div> {% endcomment %}
+
+              <div class="tab-pane fade pt-3" id="profile-change-password" role="tabpanel">
+                <!-- Change Password Form -->
+                <form method="POST" action="/admin_change_password_post/">
+                  {% csrf_token %}
+                  <div class="row mb-3">
+                    <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input type="password" name="textfield" id="textfield"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required class="form-control"/></td>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input type="password" name="textfield2" id="textfield2"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required class="form-control"/></td>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input type="password" name="textfield3" id="textfield3"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required class="form-control"/></td>
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form><!-- End Change Password Form -->
+
+              </div>
+
+            </div><!-- End Bordered Tabs -->
+
+          </div>
+        </div>
+
+      </div>
     </div>
-</div>
+  </section>
+</body>
 {% endblock x %}

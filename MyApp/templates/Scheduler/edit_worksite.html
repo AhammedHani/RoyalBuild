@@ -2,13 +2,13 @@
 {% block x %}
 
 <body>
-<div id="form-container">
+    <br><br>
     <form id="form1" name="form1" method="post" action="/edit_worksite_post/" enctype="multipart/form-data">
         {% csrf_token %}
         <table class="table table-bordered table-hover">
             <br><br>
             <tr>
-                <td>Product</td>
+                <th>Product</th>
                 <td>
                     <select id="product" name="product" required class="form-control">
                         {% for i in data2 %}
@@ -19,23 +19,23 @@
                 <input type="hidden" name="id" value="{{ data.worksite_id }}">
             </tr>
             <tr>
-                <td>Location</td>
+                <th>Location</th>
                 <td><input type="text" name="location" id="location" class="form-control" value="{{ data.worksite_location }}"/></td>
             </tr>
             <tr>
-                <td>Photo1</td>
+                <th>Photo1</th>
                 <td><input type="file" name="photo1" id="photo1" class="form-control" value="{{ data.photo1 }}"/></td>
             </tr>
             <tr>
-                <td>Photo2</td>
+                <th>Photo2</th>
                 <td><input type="file" name="photo2" id="photo2" class="form-control" value="{{ data.photo2 }}"/></td>
             </tr>
             <tr>
-                <td>Photo3</td>
+                <th>Photo3</th>
                 <td><input type="file" name="photo3" id="photo3" class="form-control" value="{{ data.photo3 }}"/></td>
             </tr>
             <tr>
-                <td>Remark</td>
+                <th>Remark</th>
                 <td><input type="text" name="remark" id="remark" class="form-control" value="{{ data.remark }}"/></td>
             </tr>
             <tr>
@@ -43,7 +43,5 @@
             </tr>
         </table>
     </form>
-</div>
-
 </body>
 {% endblock x %}

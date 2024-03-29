@@ -2,13 +2,12 @@
 {% block x %}
 
 <body>
-    <form method="post" action="/edit_quantity_post/{{data.product_id}}">
-        {%csrf_token%}
-<div class="container mt-5">
-
-  <table class="table table-bordered">
+<form method="post" action="/edit_quantity_post/{{data.product_id}}">
+{%csrf_token%}
+  <table class="table table-bordered table-hover">
+    <br><br>
     <tr>
-        <td>Quantity</td>
+        <th>Quantity</th>
         <td><input type="text" class="form-control" name="new_quantity" value="{{ data.quantity }}"></td>
       </tr>
       <tr>
@@ -16,10 +15,7 @@
           <button type="submit" class="btn btn-primary">Update</button>
         </td>
       </tr>
-
   </table>
-
-</div>
 </form>
 </body>
 {% endblock x %}

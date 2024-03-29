@@ -2,40 +2,36 @@
 {% block x %}
 
 <body>
+<br><br>
 <form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
-    {% csrf_token %}
-
-  <table class="table table-bordered">
-    <tr><br><br>
-      {% comment %} <td>
-      <input type="text" name="textfield" id="textfield" placeholder="Search by Name" class="form-control " required/></td>
+{% csrf_token %}
+  {% comment %} <table class="table table-bordered">
+    <tr>
+      <td><input type="text" name="textfield" id="textfield" placeholder="Search by Name" class="form-control " required/></td>
       <td width="80px"><input type="submit" name="button" id="button" value="Search" class="btn btn-success"/></td>
-    </tr> {% endcomment %}
-  </table>
+    </tr>
+  </table> {% endcomment %}
   {% if data %}
-    <table class="table table-bordered">
+    <table class="table table-bordered table-hover">
       <tr>
-        <th>SL.NO</th>
-        <th>Name</th>
+        <th> SL.NO </th>
+        <th> Name </th>
+        <th> Phone </th>
         <th> Category </th>
         <th> Product </th>
-        <th> Photo </th>
-        {% comment %} <th> Phone </th> {% endcomment %}
         <th> Date </th>
         <th> Quantity </th>
-        {% comment %} <th> Status </th> {% endcomment %}
       </tr>
       {% for i in data %}
       <tr>
         <td>{{ forloop.counter }}</td>
         <td>{{ i.CUSTOMER.customer_name }}</td>
+        <td>{{ i.CUSTOMER.phone }}</td>
         <td>{{ i.PRODUCT.CATEGORY.category_name }}</td>
-        <td>{{ i.PRODUCT.product_name }}</td>
-        <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" style="max-width: 100px; max-height: 100px;" /></td>
-        {% comment %} <td>{{ i.CUSTOMER.phone }}</td> {% endcomment %}
+        <td>{{ i.PRODUCT.product_name }}<br>
+        <img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" style="max-width: 100px; max-height: 100px;" /></td>
         <td>{{ i.date }}</td>
         <td>{{ i.quantity }}</td>
-        {% comment %} <td>{{ i.status }}</td> {% endcomment %}
         <td>
           <a href="/check_payment/{{i.order_id}}" class="btn btn-success" title="Check Payment">
             <i class="fas fa-money-check"></i>

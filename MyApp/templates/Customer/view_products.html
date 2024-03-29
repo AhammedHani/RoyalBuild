@@ -8,18 +8,22 @@
         <h2>PRODUCTS</h2>
       </div>  
       <div class="row gy-4">
-        {% for ct in data %}
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="card" style="width: 305px; margin: 0 auto;">
-                    <div class="card-img">
-                      <a href="/view_products2/{{ ct.product_id }}">
-                      <img width="305" height="225" src="{{ct.photo}}" alt="" class="img-fluid" >
+        {% if data %}
+            {% for ct in data %}
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card" style="width: 305px; height: 225; margin: 0 auto;">
+                        <div class="card-img">
+                          <a href="/view_products2/{{ ct.product_id }}">
+                          <img width="305" height="225" src="{{ct.photo}}" alt="" class="img-fluid" >
+                        </div>
+                          <h3>{{ct.product_name}}</h3></a>
+                          <p>Rs&nbsp;{{ct.price}}</p>              
                     </div>
-                      <h3>{{ct.product_name}}</h3></a>
-                      <p>Rs&nbsp;{{ct.price}}</p>              
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center;">No products available.</p>
+        {% endif %}
       </div>
     </section>
 

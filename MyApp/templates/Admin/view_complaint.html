@@ -2,9 +2,9 @@
 {% block x %}
 
 <body>
+  <br><br>
   {% if data %}
     <table class="table table-bordered table-hover">
-      <br><br>
         <tr>
           <th>S. No</th>
           <th>Customer</th>
@@ -18,7 +18,7 @@
             <td>{{ i.complaint_message }}</td>
             <td>{{ i.date }}</td>
             <td>
-              <a href="/complaint_reply/{{i.complaint_id}}" class="btn btn-success btn-sm">Reply</a>
+              <a href="/complaint_reply/{{i.complaint_id}}" class="btn btn-primary btn-sm">Reply</a>
             </td>
           </tr>
         {% endfor %}

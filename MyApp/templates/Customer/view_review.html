@@ -6,7 +6,6 @@
                 <th>Star</th>
                 <th>Review Message</th>
                 <th>Date</th>
-                {% comment %} <th>Status</th> {% endcomment %}
                 <th>Customer</th>
                 <th>Product</th>
             </tr>
@@ -15,10 +14,8 @@
                     <td>{{ i.star }}</td>
                     <td>{{ i.review_message }}</td>
                     <td>{{ i.date }}</td>
-                    {% comment %} <td>{{ i.status }}</td> {% endcomment %}
                     <td>{{ i.CUSTOMER.customer_name }}</td>
                     <td>{{ i.PRODUCT.product_name }}</td>
-                   
                 </tr>
             {% endfor %}
         </table>

@@ -2,10 +2,10 @@
 {% block x %}
 
 <body>
+  <br><br>
   <form method="post" action="/edit_product_post/" enctype="multipart/form-data">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
-      <br><br>
       <tr align="center">
         <td colspan="2"><img src="{{data.photo}}" alt="" width="100px" height="100px"></td>
       </tr>
