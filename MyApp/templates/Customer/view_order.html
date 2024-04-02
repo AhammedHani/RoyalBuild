@@ -9,9 +9,7 @@
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Amount</th>
-                <th>Order Status</th>
-                
-
+                <th>Order Status</th>   
             </tr>
             {% for i in data %}
             <tr>
@@ -23,14 +21,19 @@
                 <td>{{ i.amount }}</td>
                 <td>{{ i.status }}</td>
                 <td>
-                    <a href="/add_review/{{i.order_id}}" class="btn btn-primary btn-sm" title="Review">
-                        <i class="fas fa-star"></i>
-                    </a>
-                </td>
+                {% if i.status == 'delivered' %}
+                <a href="/add_review/{{i.order_id}}" class="btn btn-primary btn-sm" title="Review">
+                    <i class="fas fa-star"></i>
+                </a> </td>
+                {% else %}
+            
+                {% endif %}
                 {% if i.status == 'confirmed' %}
                     <td>
                         <a href="/cancel_order/{{i.order_id}}" class="btn btn-danger btn-sm">Cancel Order</a>
                     </td>
+                {% else %}
+                    <td></td>
                 {% endif %}
             {% endfor %}
         </table>

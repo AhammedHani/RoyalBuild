@@ -7,17 +7,19 @@
     <table class="table table-bordered table-hover">
         <tr>
           <th>S. No</th>
-          <th>Categories</th>
-          <th>Products</th>
-          <th>Photo</th>
+          <th>Category</th>
+          <th>Product</th>
+          <th>description</th>
+          <th>Date</th>
         </tr>
         {% for i in data %}
           <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{i.PRODUCT.CATEGORY.category_name}}</td>
-            <td>{{ i.PRODUCT.product_name }}</td>
-            <td><img src="{{ i.photo }}" alt="{{ i.product_name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
-            <td><a href="" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
+            <td>{{ i.PRODUCT.product_name }}<br>
+            <img src="{{ i.PRODUCT.photo }}" alt="{{ i.PRODUCT.product_name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
+            <td>{{ i.review_message }}</td>
+            <td>{{ i.date }}</td>
         </tr>
         {% endfor %}
     </table>

@@ -10,30 +10,30 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="{% static 'Public/assets/img/favicon.png' %}" rel="icon">
-  <link href="{% static 'Public/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+ <!-- Favicons -->
+ <link href="{% static 'Public/assets/img/favicon.png' %}" rel="icon">
+ <link href="{% static 'Public/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+ <!-- Google Fonts -->
+ <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="{% static 'Public/assets/vendor/aos/aos.css' %}" rel="stylesheet">
-  <link href="{% static 'Public/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-  <link href="{% static 'Public/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
-  <link href="{% static 'Public/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
-  <link href="{% static 'Public/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
-  <link href="{% static 'Public/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
-  <link href="{% static 'Public/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+ <!-- Vendor CSS Files -->
+ <link href="{% static 'Public/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+ <link href="{% static 'Public/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+ <link href="{% static 'Public/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+ <link href="{% static 'Public/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+ <link href="{% static 'Public/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+ <link href="{% static 'Public/assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+ <link href="{% static 'Public/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
-  <link href="{% static 'Public/assets/css/style.css' %}" rel="stylesheet">
+ <link href="{% static 'Public/assets/css/style.css' %}" rel="stylesheet">
 
 </head>
 
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top ">
+  <header id="header" class="fixed-top header-inner-pages">
     <div class="container d-flex align-items-center">
       <h1 class="logo me-auto"><a href="#">Royal Bricks</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
@@ -41,22 +41,10 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="/customer_home">Home</a></li>
-          <li><a class="nav-link scrollto" href="/view_categories/#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="/view_order/">Order</a></li>
-          <li><a class="nav-link scrollto" href="/view_worksites/">Worksite</a></li>
-          <li class="dropdown"><a href="#"><span>Complaint</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="/send_complaint">Send</a></li>
-              <li><a href="/view_customer_complaint/">View</a></li>
-            </ul>
-          </li>
-          <li class="dropdown"><a href="#"><span>Others</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="/customer_view_profile">My Profile</a></li>
-              <li><a href="/customer_change_password">Change Password</a></li>
-            </ul>
-          </li>
+          <li><a class="nav-link scrollto active" href="/public_home">Home</a></li>
+          <li><a class="nav-link scrollto" href="/public_home/#about">About</a></li>
+          <li><a class="nav-link scrollto" href="/public_view_categories/">Services</a></li>
+          <li><a class="nav-link   scrollto" href="/public_home/#portfolio">Portfolio</a></li>
           <!--<li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -83,46 +71,43 @@
     </div>
   </header><!-- End Header -->
 
-  <!-- ======= Hero Section ======= -->
-  
-  <section id="hero" class="d-flex align-items-center">
-
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <Center><h1>CRAFTING EXCELLENCE<br>BUILDING LEGACIES</h1>
-          <h2>Royal Bricks Redefining Construction Excellence</h2></center>
-          <div class="d-flex justify-content-center" style="margin-top: 0em;">
-            <a href="/view_categories/#services" class="btn-get-started scrollto">Get Started</a>
-            {% comment %} <a href="/signin" class="btn-get-started scrollto">SIGN IN</a> {% endcomment %}
-            <!--<a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>-->
-          </div>
-        </div>
-        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-          <img src="{% static 'Public/assets/img/1.png' %}" class="img-fluid animated" alt="" style=" height: 500px; width:100%">
-        </div>
-      </div>
-    </div>
-  </section><!-- End Hero -->
-  
   <main id="main">
 
-    {% block x%}
-    {% endblock%}
+    <!-- ======= Breadcrumbs ======= -->
+    {% comment %} <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
 
-    <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-    }
-    
-    footer {
-        margin-top: auto;
-    }
-    </style>
+        <ol>
+          <li><a href="/customer_home">Home</a></li>
+          <li>Products</li>
+        </ol>
+        <h2>Inner Page</h2>
 
-    <footer id="footer">
+      </div>
+    </section><!-- End Breadcrumbs --> {% endcomment %}
+<br><br>
+    <section class="inner-page">
+      <div class="container">
+        {% block x%}
+        {% endblock%}
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+  }
+  
+  footer {
+      margin-top: auto;
+  }
+  </style>
+ <footer id="footer"> {% comment %} 
     <div class="footer-top">
       <div class="container">
         <div class="row">
@@ -174,7 +159,7 @@
 
         </div>
       </div>
-    </div>
+    </div> {% endcomment %}
 
     <div class="container footer-bottom clearfix">
       <div class="copyright">

@@ -41,7 +41,7 @@ urlpatterns = [
     path('view_complaint/',views.view_complaint),
     path('complaint_reply/<id>',views.complaint_reply),
     path('complaint_reply_post/<id>',views.complaint_reply_post),
-    path('admin_view_review/',views.admin_view_review),
+    path('admin_view_review/', views.admin_view_review),
     # path('admin_change_password/',views.admin_change_password),
     path('admin_change_password_post/',views.admin_change_password_post),
     path('admin_view_profile/',views.admin_view_profile),    
@@ -74,6 +74,7 @@ urlpatterns = [
     path('add_duty/<id>',views.add_duty),
     path('add_duty_post/',views.add_duty_post),
     path('view_duty/',views.view_duty),
+    path('view_delivery_staff/',views.view_delivery_staff),
 
     
     #customer
@@ -95,10 +96,16 @@ urlpatterns = [
     path('customer_edit_profile/',views.customer_edit_profile),
     path('customer_edit_profile_post/',views.customer_edit_profile_post),
     path('view_worksites/',views.view_worksites),
-    path('add_review/<int:id>',views.add_review),
+    path('add_review/<id>',views.add_review),
     path('add_review_post/<id>',views.add_review_post),
-    path('view_review/<id>',views.view_review),
+    # path('view_review/<id>',views.view_review),
     
+    #staff
+    path('staff_home/',views.staff_home),
+    path('staff_view_duty/',views.staff_view_duty),
+    path('finish_duty/<id>',views.finish_duty),
+    path('view_delivery/',views.view_delivery),
+    path('confirm_delivery/<id>',views.confirm_delivery),
     
     #public
     path('signup/',views.signup),
@@ -106,9 +113,10 @@ urlpatterns = [
     path('signin/',views.signin),
     path('signin_post/',views.signin_post),
     path('public_home/',views.public_home),
+    path('public_view_categories/',views.public_view_categories),
     path('public_view_products/<id>',views.public_view_products),
     path('public_view_products2/<id>',views.public_view_products2),
-    path('public_view_review/<id>',views.public_view_review),
+    # path('public_view_review/<id>',views.public_view_review),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

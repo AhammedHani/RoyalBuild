@@ -114,6 +114,7 @@ class vehicle_allot(models.Model):
     vehicle_allot_id = models.IntegerField(primary_key=True)
     date = models.CharField(max_length=100)
     time = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
     ORDER = models.ForeignKey(make_order, on_delete=models.CASCADE,default=1)
     STAFF = models.ForeignKey(staff, on_delete=models.CASCADE,default=1)
     VEHICLE = models.ForeignKey(vehicle, on_delete=models.CASCADE,default=1)

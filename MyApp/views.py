@@ -57,6 +57,9 @@ def signin_post(request):
                 elif type=="customer":
                     request.session['customers']=username
                     return redirect("/customer_home")
+                elif type=="staff":
+                    request.session['staffs']=username
+                    return redirect("/staff_home")
                 else:
                     return HttpResponse('''<Script>alert("Invalid type");window.location="/signin/";</Script>''')
         if flag==0:
@@ -231,6 +234,11 @@ def add_staff_post(request):
     data.photo=uploaded_file_url
     data.status = "active"
     data.save()
+    data1=login()
+    data1.username=request.POST.get('staff_email')
+    data1.password=request.POST.get('staff_phone')
+    data1.type="staff"
+    data1.save()
     
     return HttpResponse('''<Script>alert("ADDED");window.location="/add_staff/";</Script>''')
     
@@ -258,6 +266,7 @@ def edit_staff_post(request):
         var1.email=request.POST.get('staff_email')
         var1.phone=request.POST.get('staff_phone')
         var1.state=request.POST.get('staff_state')
+        
         var1.save()
         return HttpResponse('''<script>alert("EDITED");window.location="/view_staff/"</script> ''')
     
@@ -268,6 +277,7 @@ def edit_staff_post(request):
         var1.email=request.POST.get('staff_email')
         var1.phone=request.POST.get('staff_phone')
         var1.state=request.POST.get('staff_state')
+        
         var1.save()
         
     return HttpResponse('''<Script>alert("EDITED");window.location="/view_staff/";</Script>''')
@@ -407,10 +417,6 @@ def admin_change_password_post(request):
     else:
         return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/admin_view_profile/";</Script>''')
 
-def admin_view_review(request,id):
-    data = review.objects.get(review_id=id)
-    return render(request, 'Admin/view_review.html', {'data': data})
-
 # Scheduler
 
 def scheduler_home(request):
@@ -469,35 +475,48 @@ def schedule_order(request,id):
     lg = staff.objects.get(email=staff_id)
     
     data1 = make_order.objects.get(order_id=id)
-    data2=vehicle.objects.all()
-    data3=staff.objects.all()
+    data2=vehicle.objects.filter(status="available")
+    data3=staff.objects.filter(status="active")
     return render(request, 'Scheduler/schedule_order.html', {'lg':lg, 'data1': data1,'data2':data2,'data3':data3,})
  
 def schedule_order_post(request,id):
     data1=make_order.objects.get(order_id=id)
-    data1.status="confirmed"
-    data1.save()
-    q1=data1.quantity
-    data2=product.objects.get(product_id=data1.PRODUCT_id)
-    q2=data2.quantity
-    result=int(q2)-int(q1)
-    data2.quantity=result
-    data2.save()
-    
-    staff_id = request.POST.get('staff')
-    vehicle_id = request.POST.get('vehicle')
-    selected_staff = staff.objects.get(staff_id=staff_id)
-    selected_vehicle = vehicle.objects.get(vehicle_id=vehicle_id)
-    
-    data4 = vehicle_allot()
-    data4.date = request.POST.get('deliveryDate')
-    data4.time = request.POST.get('deliveryTime')
-    data4.ORDER = data1
-    data4.STAFF = selected_staff 
-    data4.VEHICLE = selected_vehicle  
-    data4.save()
-    
-    return HttpResponse('''<Script>alert("SCHEDULED");window.location="/view_orders/";</Script>''')
+    d1=product.objects.get(product_id=data1.PRODUCT_id)
+    qty=int(d1.quantity)
+    if qty==0:
+        data1.status="out of stock"
+        data1.save()
+        return HttpResponse('''<script>alert("STOCK NOT AVALIABLE");window.location="/view_orders/";</script>''')
+    else:   
+        data1.status="confirmed"
+        data1.save()
+        q1=data1.quantity
+        data2=product.objects.get(product_id=data1.PRODUCT_id)
+        q2=data2.quantity
+        result=int(q2)-int(q1)
+        data2.quantity=result
+        data2.save()
+        
+        staff_id = request.POST.get('staff')
+        vehicle_id = request.POST.get('vehicle')
+        selected_staff = staff.objects.get(staff_id=staff_id)
+        selected_vehicle = vehicle.objects.get(vehicle_id=vehicle_id)
+        
+        data4 = vehicle_allot()
+        data4.date = request.POST.get('deliveryDate')
+        data4.time = request.POST.get('deliveryTime')
+        data4.ORDER = data1
+        data4.STAFF = selected_staff 
+        data4.VEHICLE = selected_vehicle  
+        data4.save()
+        data5=staff.objects.get(staff_id=staff_id)
+        data5.status="inactive"
+        data5.save()
+        data5=vehicle.objects.get(vehicle_id=vehicle_id)
+        data5.status="unavailable"
+        data5.save()
+        
+        return HttpResponse('''<Script>alert("SCHEDULED");window.location="/view_orders/";</Script>''')
 
 def reject_order(request, id):
     data = make_order.objects.get(order_id=id)
@@ -507,8 +526,7 @@ def reject_order(request, id):
     # pro.save()
     if data.payment_method=='BANK':
         data.status="refunded"
-    else:
-            
+    else:        
         data.status = "rejected"
     data.save()
     return HttpResponse('''<Script>
@@ -689,7 +707,7 @@ def add_duty_post(request):
     data.STAFF = staff_obj
     data.save()
     data1=staff.objects.get(staff_id=request.POST.get('staff'))
-    data1.status="not active"
+    data1.status="inactive"
     data1.save()
     return HttpResponse('''<script>alert("DUTY ADDED");window.location="/view_staffs/";</script>''')
     
@@ -699,6 +717,16 @@ def view_duty(request):
     
     data = duty.objects.filter(status="pending")
     return render(request, 'Scheduler/view_duty.html', {'lg': lg, 'data': data})
+
+def view_delivery_staff(request):
+    staff_id = request.session.get('schedulers')
+    lg = staff.objects.get(email=staff_id)
+    
+    data=staff.objects.filter(status="inactive")
+    data1=vehicle_allot.objects.filter(STAFF_id__in=[ct.staff_id for ct in data])
+    return render(request, 'Scheduler/view_delivery_staff.html', {'lg': lg, 'data': data1})
+    
+    
     
 
 # customer
@@ -718,54 +746,95 @@ def view_products(request,id):
     data5 = product.objects.filter(CATEGORY_id=id)
     return render(request, 'Customer/view_products.html', {'data': data5})
 
-def view_products2(request,id):
-    request.session['cc']=id
+
+
+
+from django.db.models import Count, Avg
+
+def view_products2(request, id):
+    request.session['cc'] = id
     data = product.objects.get(product_id=id)
-    return render(request, 'Customer/view_products2.html', {'data': data})
+    d1 = review.objects.filter(PRODUCT_id=id).order_by('-date')
+    reviews = review.objects.filter(PRODUCT_id=id)
+    data2 = reviews
+
+    # Initialize star_counts as a dictionary with an entry for each star rating from 1 to 5
+    star_counts = {star: {'count': 0, 'percentage': 0} for star in range(1, 6)}
+
+    # Update the count and percentage for each star rating based on the reviews
+    total_reviews = reviews.count()
+    for star, count in reviews.values_list('star').annotate(count=Count('star')):
+        star_counts[star] = {
+            'count': count,
+            'percentage': (count / total_reviews) * 100,
+        }
+
+    # Calculate the overall rating
+    average_rating = reviews.aggregate(Avg('star'))['star__avg']
+    overall_rating = float(average_rating) if average_rating is not None else None
+
+    return render(request, 'Customer/view_products2.html', {'d1':d1,'data': data, 'data2': data2, 'star_counts': star_counts, 'overall_rating': overall_rating})
+
+
+
+
+# def view_review(request,id):
+#     data = review.objects.filter(PRODUCT_id=id)
+#     return render(request, 'Customer/view_review.html', {'data': data})
 
 def add_order(request,id):
     data = product.objects.get(product_id=id)
     return render(request, 'Customer/add_order.html',{'id':id,'data':data})
 
 def add_order_post(request,id):
-    request.session['pid']=id
-    request.session['qty']=request.POST.get('quantity')
-    data1=make_order()
-    data1.quantity=request.session['qty']
-    data1.PRODUCT_id=request.session['pid']
-    data11=product.objects.get(product_id=request.session['pid'])
-    data1.amount=float(request.session['qty'])*float(data11.price)
-    data10=customer.objects.get(email=request.session['customers'])
-    data1.CUSTOMER_id=data10.customer_id
-    data1.payment_method=request.POST.get('payment_method')
-    data1.status="pending"
-    from datetime import datetime
-    data1.date=datetime.now().strftime('%Y-%m-%d')
-    data1.save()
-    d1=make_order.objects.last()
-    
-    data2=payment()
-    data2.acc_number=request.POST.get('acc_number')
-    data2.ifsc_code=request.POST.get('ifsc_code')
-    data2.branch=request.POST.get('branch')
-    data2.amount=float(request.session['qty'])*float(data11.price)
-    data2.ORDER_id=d1.order_id
-    m=request.POST.get('payment_method')
-    if(m=="BANK"):
-        data2.status="PAID"
-    else:
-        data2.status="COD"    
-            
-    data2.date=datetime.now().strftime('%Y-%m-%d')
-    data2.save()
-    c2=data11.CATEGORY
-    return HttpResponse('''<script>alert("ORDERED");window.location="/view_products/'''+str(c2.category_id)+'''"</script> ''')
+    d1=product.objects.get(product_id=id)
+    qty=int(d1.quantity)
+    qty1=int(request.session['qty'])
+    if qty==0:
+        return HttpResponse('''<script>alert("STOCK NOT AVALIABLE");window.location="/view_products/";</script>''')
+    else:   
+        request.session['pid']=id
+        request.session['qty']=request.POST.get('quantity')
+        data1=make_order()
+        data1.quantity=request.session['qty']
+        data1.PRODUCT_id=request.session['pid']
+        data11=product.objects.get(product_id=request.session['pid'])
+        data1.amount=float(request.session['qty'])*float(data11.price)
+        data10=customer.objects.get(email=request.session['customers'])
+        data1.CUSTOMER_id=data10.customer_id
+        data1.payment_method=request.POST.get('payment_method')
+        data1.status="pending"
+        from datetime import datetime
+        data1.date=datetime.now().strftime('%Y-%m-%d')
+        data1.save()
+        d1=make_order.objects.last()
+        
+        data2=payment()
+        data2.acc_number=request.POST.get('acc_number')
+        data2.ifsc_code=request.POST.get('ifsc_code')
+        data2.branch=request.POST.get('branch')
+        data2.amount=float(request.session['qty'])*float(data11.price)
+        data2.ORDER_id=d1.order_id
+        m=request.POST.get('payment_method')
+        if(m=="BANK"):
+            data2.status="PAID"
+        else:
+            data2.status="COD"    
+                
+        data2.date=datetime.now().strftime('%Y-%m-%d')
+        data2.save()
+        c2=data11.CATEGORY
+        return HttpResponse('''<script>alert("ORDERED");window.location="/view_products/'''+str(c2.category_id)+'''"</script> ''')
 
 def view_order(request):
     customer_id = request.session.get('customers')
     data2 = customer.objects.get(email=customer_id)
     data = make_order.objects.filter(CUSTOMER_id=data2.customer_id).order_by('-order_id')
     return render(request, 'Customer/view_order.html', {'data': data})
+
+# def cancel_order(request,id):
+#     data2 = customer.objects.get(email=customer_id
+#     return HttpResponse('''<script>alert("CANCEL REQUEST SENT");window.location="/view_order/";</script>''')
 
 def send_complaint(request):
     return render(request, 'Customer/send_complaint.html')
@@ -867,10 +936,6 @@ def add_review_post(request,id):
     data.PRODUCT_id = make_order.objects.get(order_id=id).PRODUCT_id  
     data.save()
     return HttpResponse('''<script>alert("REVIEW ADDED");window.location="/view_order/";</script>''')
-
-def view_review(request,id):
-    data = review.objects.filter(PRODUCT_id=id)
-    return render(request, 'Customer/view_review.html', {'data': data})
     
 
 
@@ -880,14 +945,83 @@ def public_home(request):
     data = category.objects.all()
     return render(request,'Public/public_home.html',{'data':data})
 
+def public_view_categories(request):
+    data = category.objects.all()
+    return render(request, 'Public/public_view_categories.html', {'data': data})
+
 def public_view_products(request,id):
     data = product.objects.filter(CATEGORY_id=id)
     return render(request, 'Public/public_view_products.html', {'data': data})
 
-def public_view_products2(request,id):
+def public_view_products2(request, id):
+    request.session['cc'] = id
     data = product.objects.get(product_id=id)
-    return render(request, 'Public/public_view_products2.html', {'data': data})
+    d1 = review.objects.filter(PRODUCT_id=id).order_by('-date')
+    reviews = review.objects.filter(PRODUCT_id=id)
+    data2 = reviews
 
-def public_view_review(request,id):
-    data = review.objects.filter(PRODUCT_id=id)
-    return render(request, 'Public/public_view_review.html', {'data': data})
+    # Initialize star_counts as a dictionary with an entry for each star rating from 1 to 5
+    star_counts = {star: {'count': 0, 'percentage': 0} for star in range(1, 6)}
+
+    # Update the count and percentage for each star rating based on the reviews
+    total_reviews = reviews.count()
+    for star, count in reviews.values_list('star').annotate(count=Count('star')):
+        star_counts[star] = {
+            'count': count,
+            'percentage': (count / total_reviews) * 100,
+        }
+
+    # Calculate the overall rating
+    average_rating = reviews.aggregate(Avg('star'))['star__avg']
+    overall_rating = float(average_rating) if average_rating is not None else None
+
+    return render(request, 'Public/public_view_products2.html', {'d1':d1,'data': data, 'data2': data2, 'star_counts': star_counts, 'overall_rating': overall_rating})
+
+
+# def public_view_review(request,id):
+#     data = review.objects.filter(PRODUCT_id=id)
+#     return render(request, 'Public/public_view_review.html', {'data': data})
+
+
+
+
+
+#staff
+
+def staff_home(request): 
+    return render(request,'Staff/staff_home.html')
+
+def staff_view_duty(request):
+    data = staff.objects.get(email=request.session['staffs'])
+    data1=duty.objects.filter(STAFF_id=data.staff_id,status="pending")
+    return render(request, 'Staff/staff_view_duty.html', {'data': data1})
+
+def finish_duty(request,id):
+    data=duty.objects.get(duty_id=id)
+    data.status="completed"
+    data.save()
+    data1=staff.objects.get(staff_id=data.STAFF_id)
+    data1.status="active"
+    data1.save()
+    return HttpResponse('''<script>alert("DUTY COMPLETED");window.location="/staff_view_duty/";</script>''')
+
+def view_delivery(request):
+    data=request.session.get('staffs')
+    data2=staff.objects.get(email=data)
+    data3=vehicle_allot.objects.filter(STAFF_id=data2).exclude(status="completed")
+    return render(request, 'Staff/view_delivery.html', {'data3': data3})
+
+def confirm_delivery(request,id):
+    data=vehicle_allot.objects.get(vehicle_allot_id=id)
+    data.status="completed"
+    data.save()
+    data5=make_order.objects.get(order_id=data.ORDER_id)
+    data5.status="delivered"
+    data5.save()
+    data1=staff.objects.get(staff_id=data.STAFF_id)
+    data1.status="active"
+    data1.save()
+    data2=vehicle.objects.get(vehicle_id=data.VEHICLE_id)
+    data2.status="available"
+    data2.save()
+    return HttpResponse('''<script>alert("DELIVERED");window.location="/view_delivery/";</script>''')

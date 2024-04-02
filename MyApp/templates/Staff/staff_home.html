@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Scheduler - Royal Bricks</title>
+  <title>Staff - Royal Bricks</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -263,24 +263,29 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="/scheduler_home">
+        <a class="nav-link " href="#">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="/view_category2">
-            <i class="bi bi-archive"></i><span>Stock</span>
+        <a class="nav-link collapsed"  href="/staff_view_duty">
+          <i class="bi bi-briefcase"></i><span>Duty</span>
         </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="/view_delivery">
+        <i class="bi bi-truck"></i><span>Delivery</span>
+      </a>
+  </li>
     </li>
 
-      <li class="nav-item">
+      {% comment %} <li class="nav-item">
         <a class="nav-link collapsed" href="/view_orders">
             <i class="bi bi-cart"></i><span>Orders</span>
         </a>
-    </li>
+    </li> {% endcomment %}
         {% comment %} <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
            <li>
             <a href="/view_product">
@@ -316,7 +321,7 @@
       {% comment %} <li class="nav-item"> {% endcomment %}
         {% comment %} <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#"> {% endcomment %}
           
-          <li class="nav-item">
+          {% comment %} <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#worksite-dropdown" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-tools"></i><span>Worksite</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
@@ -332,10 +337,10 @@
                     </a>
                 </li>
             </ul> 
-        </li>
+        </li> {% endcomment %}
 
       
-        <li class="nav-item">
+        {% comment %} <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#staff-nav" data-bs-toggle="collapse" href="#">
               <i class="bi bi-people"></i><span>Staffs</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
@@ -346,17 +351,12 @@
                   </a>
               </li>
               <li>
-                <a href="/view_delivery_staff">
-                    <i class="bi bi-circle"></i><span>View Delivery Duties</span>
-                </a>
-            </li>
-              <li>
                   <a href="/view_staffs">
                       <i class="bi bi-circle"></i><span>View Staffs</span>
                   </a>
               </li>
           </ul> 
-      </li>
+      </li> {% endcomment %}
       {% comment %} <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#complaint-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-exclamation-square"></i><span>Complaint</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -383,18 +383,18 @@
         </ul>
       </li><!-- End Reviews Nav --> {% endcomment %}
       
-      <li class="nav-item">
+      {% comment %} <li class="nav-item">
         <a class="nav-link collapsed" href="#">
           <i class="bi bi-file-text"></i><span>Reports</span></i>
         </a>
-        {% comment %} <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="icons-bootstrap.html">
               <i class="bi bi-circle"></i><span>View</span>
             </a>
           </li>
-        </ul> {% endcomment %}
-      </li><!-- End Reports Nav -->
+        </ul>
+      </li><!-- End Reports Nav --> {% endcomment %}
       
 
 
