@@ -25,7 +25,11 @@
                 <td>{{ i.time }}</td>
                 <td>{{ i.workstation }}</td>
                 <td>
-                <span class="badge rounded-pill bg-warning"</span>{{i.status}}</span>
+                {% if i.status == 'completed' %}
+                    <span class="badge rounded-pill bg-success">{{ i.status }}</span>
+                {% else %}
+                    <span class="badge rounded-pill bg-warning">{{ i.status }}</span>
+                {% endif %}
                 </td>
             </tr>
             {% endfor %}

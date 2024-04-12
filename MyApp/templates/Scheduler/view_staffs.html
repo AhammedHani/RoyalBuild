@@ -2,29 +2,48 @@
 {% block x %}
 
 <body>
-<br><br>
+  <br><br>
+  <form id="form1" name="form1" method="post" action="/view_staffs_post/">
+    {% csrf_token %}
+  <div style="float: left;">
+    <select name="textfield" id="textfield" class="form-select">
+      <option value="" disabled selected>Select Staff Category</option>
+      <option value="Driver">Driver</option>
+      <option value="Labour">Labour</option>
+    </select>
+  </div>
+  <div style="float: left;">&nbsp;
+    <input type="submit" name="button" id="button" value="Search" class="btn btn-info"/>
+  </div>
+  <br><br><br>
   {% if data %}
+  <div style="text-align: center;">
     <table class="table table-bordered table-hover">
         <tr>
+          <th>S. No</th>
+          <th>Post</th>
           <th>Name</th>
           <th>Photo</th>
-          <th>Place</th>
+          <th>Address</th>
           <th>Email</th>
           <th>Phone</th>
-          <th>State</th>
         </tr>
         {% for i in data %}
           <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.post }}</td>
             <td>{{ i.staff_name }}</td>
-            <td><img src="{{ i.photo }}" alt="{{ i.staff_name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
-            <td>{{ i.place }}</td>
+            <td><img src="{{ i.photo }}" alt="{{ i.staff_name }}" class="img-thumbnail" style="width: 100px; height: 100px;"></td>
+            <td>{{ i.address }}<br>
+            {{i.pin}}<br>
+            {{i.state}}</td>
             <td>{{ i.email }}</td>
             <td>{{ i.phone }}</td>
-            <td>{{ i.state }}</td>
             <td><a href="/add_duty/{{i.staff_id}}" class="btn btn-primary btn-sm" title="Duty"><i class="fas fa-tasks"></i></a></td>
           </tr>
         {% endfor %}
     </table>
+  </div>
   {% else %}
     <p>No staff available.</p>
   {% endif %}

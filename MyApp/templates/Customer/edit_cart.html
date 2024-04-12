@@ -1,0 +1,22 @@
+{% extends 'Customer/home.html' %}
+{% block x %}
+
+<body>
+  <br><br>
+  <form method="post" action="/edit_cart_post/{{data.cart_id}}">
+    {% csrf_token %}
+    <table class="table table-bordered table-hover">
+      <tr>
+        <th>Quantity</th>
+        <td>
+          <input type="text" class="form-control" name="quantity" value="{{ data.quantity }}">
+        </td>
+    </tr>
+        <td colspan="2" class="text-center">
+          <button type="submit" class="btn btn-primary">Update</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</body>
+{% endblock x %}

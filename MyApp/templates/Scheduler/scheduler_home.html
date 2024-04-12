@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Scheduler - Royal Bricks</title>
+  <title>Scheduler - Royal Associates</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -47,7 +47,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="#" class="logo d-flex align-items-center">&nbsp;&nbsp;
         <img src="{% static 'Admin/assets/img/logo.png' %}" alt="">&nbsp;
-        <span class="d-none d-lg-block">ROYAL BRICKS</span>
+        <span class="d-none d-lg-block">Royal Associates</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -205,7 +205,7 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{lg.staff_name}}</h6>
+              <h6>{{lg.scheduler_name}}</h6>
               <span>{{lg.email}}</span>
             </li>
             <li>
@@ -243,7 +243,7 @@
             </li> {% endcomment %}
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="/logout">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -277,28 +277,43 @@
     </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/view_orders">
-            <i class="bi bi-cart"></i><span>Orders</span>
+        <a class="nav-link collapsed" data-bs-target="#order-dropdown" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-cart"></i><span>Orders</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-    </li>
-        {% comment %} <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-           <li>
-            <a href="/view_product">
-              <i class="bi bi-circle"></i><span>View</span>
+        <ul id="order-dropdown" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/view_orders">
+              <i class="bi bi-circle"></i><span>Process Orders</span>
             </a>
           </li>
           <li>
-            <a href="/add_product">
-              <i class="bi bi-circle"></i><span>Add</span>
+            <a href="/orders_history">
+              <i class="bi bi-circle"></i><span>Orders History</span>
             </a>
           </li>
-        </ul> 
-      </li><!-- End Forms Nav -->
+          <li>
+            <a href="/view_cancel_request">
+              <i class="bi bi-circle"></i><span>Cancel Request</span>
+            </a>
+          </li>
+          <li>
+            <a href="/view_return">
+              <i class="bi bi-circle"></i><span>Return Request</span>
+            </a>
+          </li>
+        </ul>
+      </li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-people"></i><span>Staff</span>
+      {% comment %} <li class="nav-item">
+        <a class="nav-link collapsed" href="/view_cancel_request">
+          <i class="bi bi-x-circle"></i><span>Cancel Request</span>
         </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/view_return">
+            <i class="bi bi-arrow-return-left"></i><span>Return Request</span>
+        </a>
+    </li> {% endcomment %}
         {% comment %} <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="/view_staff">
@@ -311,7 +326,7 @@
             </a>
           </li>
         </ul> 
-      </li>{% endcomment %}<!-- End Tables Nav -->
+      </li><!-- End Tables Nav -->
 
       {% comment %} <li class="nav-item"> {% endcomment %}
         {% comment %} <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#"> {% endcomment %}
@@ -342,7 +357,7 @@
           <ul id="staff-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li>
                   <a href="/view_duty">
-                      <i class="bi bi-circle"></i><span>View Duties</span>
+                      <i class="bi bi-circle"></i><span>View Staff Duties</span>
                   </a>
               </li>
               <li>
@@ -352,7 +367,7 @@
             </li>
               <li>
                   <a href="/view_staffs">
-                      <i class="bi bi-circle"></i><span>View Staffs</span>
+                      <i class="bi bi-circle"></i><span>Avaliable Staffs</span>
                   </a>
               </li>
           </ul> 
@@ -1059,7 +1074,7 @@
   
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Royal Bricks</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>Royal Associates</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->

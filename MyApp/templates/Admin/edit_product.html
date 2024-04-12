@@ -20,45 +20,45 @@
       </tr>
       <!-- Add Detail 1 -->
       <tr>
-        <th>Detail 1</th>
-        <td><input type="text" class="form-control" name="detail_1" value="{{ data.detail1 }}"></td>
+        <th>Color</th>
+        <td>
+          <select name="detail_1" id="detail_1" value={{}}}class="form-control">
+            <option value="Red">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Grey">Grey</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+          </select>
+        </td>
       </tr>
       <!-- Add Detail 2 -->
       <tr>
-        <th>Detail 2</th>
-        <td><input type="text" class="form-control" name="detail_2" value="{{ data.detail2 }}"></td>
+        <th>Dimension</th>
+        <td>
+        <select name="detail_2" id="detail_2" class="form-control">
+          <option value="Small">200 X 100 X50 mm</option>
+          <option value="Medium">220 X 97 X 60 mm</option>
+          <option value="Large">222 X 106 X73 mm</option>
+          <option value="big">big</option>
+        </select>
+      </td>
       </tr>
       <!-- Add Detail 3 -->
       <tr>
-        <th>Detail 3</th>
-        <td><input type="text" class="form-control" name="detail_3" value="{{ data.detail3 }}"></td>
-      </tr>
-      <!-- Add Detail 4 -->
-      <tr>
-        <th>Detail 4</th>
-        <td><input type="text" class="form-control" name="detail_4" value="{{ data.detail4 }}"></td>
-      </tr>
-      <!-- Add Detail 5 -->
-      <tr>
-        <th>Detail 5</th>
-        <td><input type="text" class="form-control" name="detail_5" value="{{ data.detail5 }}"></td>
-      </tr>
-      <!-- Add Detail 6 -->
-      <tr>
-        <th>Detail 6</th>
-        <td><input type="text" class="form-control" name="detail_6" value="{{ data.detail6 }}"></td>
+        <th>Strength</th>
+        <td><input type="text" name="detail_4" id="detail_4" class="form-control"/></td>
       </tr>
       <tr>
         <th>Description</th>
         <td><textarea class="form-control" name="product_description" rows=7>{{ data.description }}</textarea></td>
       </tr>
       <tr>
-        <th>Price</th>
-        <td><input type="text" class="form-control" name="product_price" value="{{ data.price }}"></td>
-      </tr>
-      <tr>
         <th>Quantity</th>
         <td><input type="text" class="form-control" name="product_quantity" value="{{ data.quantity }}"></td>
+      </tr>
+      <tr>
+        <th>Price</th>
+        <td><input type="text" class="form-control" name="product_price" value="{{ data.price }}"></td>
       </tr>
       <tr>
         <th>Category Type</th>
@@ -67,6 +67,18 @@
             {% for i in data2 %}
               <option value="{{ i.category_id }}">{{ i.category_name }}</option>
             {% endfor %}
+          </select>
+        </td>
+      </tr>
+      <tr style="display:none" id="shape">
+        <th>Shape</th>
+        <td>
+          <select name="detail_3" id="detail_3" class="form-control">
+            <option value="Square">Square</option>
+            <option value="Rectangle">Rectangle</option>
+            <option value="Circle">Circle</option>
+            <option value="Triangle">Triangle</option>
+            <option value="Hexagon">Hexagon</option>
           </select>
         </td>
       </tr>

@@ -79,7 +79,7 @@
     <div class="product-container">
         <div class="sample1">
             <div class="img-thumbnail" bis_skin_checked="1">
-                <img width="800" height="500"
+                <img style="width: 800px; height: 500px; object-fit: cover;"
                     src={{data.photo}}
                     class="woocommerce-main-image img-responsive" alt=""
                     href=""
@@ -95,35 +95,104 @@
             class="woocommerce-Price-currencySymbol">Rs</span>&nbsp;{{data.price}}</bdi></span></h4></b>
             <hr class="styled-break" style="background-color: #000;">
             <div class="other-info">
-                <p>{{data.detail1}}</p>
-                <p>{{data.detail2}}</p>
-                <p>{{data.detail3}}</p>
-                <p>{{data.detail4}}</p>
+                {% comment %} <p>{{data.color}}</p><br>
+                <p>{{data.size}}</p><br>
+                <p>{{data.shape}}</p><br> {% endcomment %}
+                {% if data.CATEGORY.category_name == 'Bricks' or data.CATEGORY.category_name == 'Paving' %}
+                    <p>Color: {{data.color}}</p><br>
+                    <p>Dimension: {{data.size}}</p><br>
+                {% endif %}
+                {% if data.CATEGORY.category_name == 'Paving' %}
+                    <p>Shape:{{data.shape}}</p><br>
+                {% endif %}
+                {% comment %} <p>{{data.detail4}}</p>
                 <p>{{data.detail5}}</p>
-                <p>{{data.detail6}}</p>
-                <hr class="styled-break" style="background-color: #000;">
+                <p>{{data.detail6}}</p> {% endcomment %}
+                {% comment %} <hr class="styled-break" style="background-color: #000;"> {% endcomment %}
+                {% if data.CATEGORY.category_name == 'Bricks' or data.CATEGORY.category_name == 'Paving' %}
+                    <hr class="styled-break" style="background-color: #000;">
+                {% endif %}
                 <p>{{data.description}}</p>
             </div>
             <hr class="styled-break" style="background-color: #000;">
-
+            <style>
+                /* Button Style */
+                .button {
+                    display: inline-block;
+                    padding: 12px 24px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    border: none;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    outline: none;
+                    transition: background-color 0.3s ease, color 0.3s ease;
+                    position: relative;
+                    overflow: hidden;
+                    background-color: rgba(40, 58, 90, 0.9); /* Navy blue background */
+                    color: #fff;
+                }
+                
+                .button:hover {
+                    background-color: #fff; /* White background on hover */
+                    color: rgba(40, 58, 90, 0.9); /* Navy blue text on hover */
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Add shadow on hover */
+                }
+                </style>
+                <style>
+                    /* Order Button Style */
+                    a.btn-order {
+                        display: inline-block;
+                        padding: 12px 24px; /* Same padding as the "Add to Cart" button */
+                        font-size: 16px; /* Same font size as the "Add to Cart" button */
+                        font-weight: 600; /* Same font weight as the "Add to Cart" button */
+                        text-transform: uppercase; /* Same text transformation as the "Add to Cart" button */
+                        border: none; /* No border */
+                        border-radius: 6px; /* Same border radius as the "Add to Cart" button */
+                        cursor: pointer; /* Pointer cursor on hover */
+                        outline: none; /* No outline */
+                        transition: background-color 0.3s ease, color 0.3s ease; /* Same transition effect as the "Add to Cart" button */
+                        background-color: #fff !important; /* White background */
+                        color: rgba(40, 58, 90, 0.9) !important; /* Navy blue text */
+                    }
+                    
+                    a.btn-order:hover {
+                        background-color: rgba(40, 58, 90, 0.9) !important; /* Navy blue background on hover */
+                        color: #f0f0f0 !important; /* Slightly off-white text on hover */
+                    }
+</style>
             <div class="quantity-container">
                 <div class="quantity-table">
                     <div class="quantity-cell">
                         <button class="quantity-button" onclick="decrementQuantity()">-</button>
                     </div>
                     <div class="quantity-cell">
-                        <input type="number" class="quantity-input" value="1" min="1">
+                        <form name="f1" method="post" action="/add_to_cart_post/{{data.product_id}}">
+                            {% csrf_token %}
+                            <input type="number" name="a" class="quantity-input" value="1" >
+                        
+                      {% comment %} <script>
+                        function valid()
+                        {
+                                
+                        }
+                       
+                      </script> {% endcomment %}
+
                     </div>
                     <div class="quantity-cell">
-                        <form name="f1">
+                       
                         <button class="quantity-button" onclick="incrementQuantity()" type="button">+</button>
-                    <input type="text" name="txt">   
+                    </div>&nbsp
+                    <button class="button"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
                     </form>
-                    </div>
+                   
                 </div>
                 
-                <button class="add-to-cart-button">ADD TO CART</button>
-                <a href="/add_order/{{data.product_id}}" class="order-now-button">ORDER</a>
+              
+                <a href="/add_order/{{data.product_id}}" class="btn btn-secondary btn-order order-button"><i class="fas fa-bolt"></i> BUY NOW</a>
+
             </div>
         </div>
     </div>

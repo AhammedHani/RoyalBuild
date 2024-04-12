@@ -1,0 +1,43 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+
+<body>
+    <br><br>
+    <form id="form1" name="form1" method="post" action="/view_sales_report2/">
+        {% csrf_token %}
+        <table class="table table-bordered table-hover">
+          <tr>
+            <th>Month</th>
+            <td>
+            <select id="monthInput" name="month" class="form-select">
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+            </td>
+          </tr>
+          <tr>
+            <th>Year</th>
+            <td>
+              <select id="yearInput" name="year" class="form-select">
+                {% for y in years %}
+                  <option value="{{ y }}">{{ y }}</option>
+                {% endfor %}
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Submit" class="btn btn-success"/></td>
+          </tr>
+        </table>
+</body>
+{% endblock x %}

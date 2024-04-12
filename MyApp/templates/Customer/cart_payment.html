@@ -1,0 +1,91 @@
+{% extends 'Customer/home.html' %}
+{% block x %}
+<head>
+    <script>
+        function valid()
+        {
+            if(form1.payment_method.value=="BANK")
+            {
+               
+                document.getElementById("payment").style.display='block';
+            }
+            if(form1.payment_method.value=="COD")
+            {
+               
+                document.getElementById("payment").style.display='none';
+            }
+        }
+        function valid1()
+        {
+            if(form1.quantity.value=="")
+            {
+                form1.quantity.value=0;
+            }
+            var result=parseFloat(form1.quantity.value)*parseFloat(form1.price.value);
+            
+            form1.amount.value=result;
+        }
+    </script>
+</head>
+<body>
+    <div id="form-container">
+        <form id="form1" name="form1" method="post" action="/cart_orders1/">
+          {% csrf_token %}
+          <table class="table table-bordered table-hover">
+            <br><br>
+            <tr>
+                <th>Payment:</th>
+                <td>
+                    <select name="payment_method" id="payment_method" class="form-control" onChange="valid();" required>
+                        <option value="" selected disabled>Select Payment Method</option>
+                        <option value="BANK">BANK</option>
+                        <option value="COD">COD</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>
+                    <input type="text" name="amount" id="amount" class="form-control" value={{amount}} readonly/>
+                </td>
+            </tr>
+            <input type="hidden" name="price" value={{data.price}}>
+        {% comment %} <tr>
+            <th>Quantity:</th>
+            <td><input type="text" id="quantity" name="quantity" min="1" class="form-control" required onKeyup="valid1();"></td>
+        </tr> {% endcomment %}
+    </table>
+    <center>
+<table style="display:none" id="payment" class="table table-bordered table-hover" >
+    <tr>
+        <th>Account Number</th>
+        <td>
+            <input type="text" name="acc_number" id="account_number" class="form-control"/>
+        </td>
+    </tr>
+    <tr>
+        <th>IFSC Code</th>
+        <td>
+            <input type="text" name="ifsc_code" id="ifsc_code" class="form-control"/>
+        </td>
+    </tr>
+    <tr>
+        <th>Branch</th>
+        <td>
+            <input type="text" name="branch" id="branch" class="form-control"/>
+        </td>
+    </tr>
+</table>
+
+
+    <table>
+        <tr>
+            <td colspan="2" class="text-center">
+                <button type="submit" name="button" id="button" class="btn btn-success">Submit</button>
+            </td>
+        </tr>
+    </table>
+</center>
+</form>
+</body>
+{% endblock x %}

@@ -1,0 +1,36 @@
+{% extends 'Customer/home.html' %}
+{% block x %}
+
+<body>
+  {% if data %}
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>S. No</th>
+          <th>Product</th>
+          <th>Quantity</th>
+          {% comment %} <th>Date</th> {% endcomment %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in data %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.PRODUCT.product_name }}</td>
+            <td>{{ i.quantity }}</td>
+            {% comment %} <td>{{ i.date }}</td> {% endcomment %}
+            <td><a href="/edit_cart/{{i.cart_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
+            <td><a href="/delete_cart/{{i.cart_id}}" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td>
+          </tr>
+          
+        {% endfor %}
+        <td colspan="6" class="text-center">
+          <a href="/cart_orders" class="btn btn-primary" title="Proceed">Proceed</a>
+        </td>
+      </tbody>
+    </table>
+  {% else %}
+    <p>No products available.</p>
+  {% endif %}
+</body>
+{% endblock x %}

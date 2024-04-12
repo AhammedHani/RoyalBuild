@@ -17,12 +17,11 @@
           <div class="card-img">
             <img src="{{ct.photo}}" alt="" class="img-fluid">
           </div>
-           <h3><a href="/view_products/{{ct.category_id}}" class="stretched-link">{{ct.category_name}}</a></h3>
+           <h3><a href="/public_category_sub/{{ct.category_id}}" class="stretched-link">{{ct.category_name}}</a></h3>
            <p>{{ct.description}}</p>
         </div>
       </div>
 {% endfor %}
       </div>
 </section>
-
 {% endblock x %}

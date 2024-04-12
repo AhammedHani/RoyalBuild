@@ -1,11 +1,20 @@
 {% extends 'Scheduler/scheduler_home.html' %}
 {% block x %}
 
+<style>
+    .table td img {
+      width: 36px;
+      height: 36px;
+      border-radius: 100%; 
+  }
+  </style>
 <body>
     <br><br>
     {% if data %}
+    <div style="text-align: center;">
         <table class="table table-bordered table-hover">
             <tr>
+                <th>S. No</th>
                 <th>Product</th>
                 <th>Location</th>
                 <th>Photo1</th>
@@ -15,17 +24,19 @@
             </tr>
             {% for i in data %}
                 <tr>
-                    <td>{{ i.PRODUCT.product_name }}</td>
+                    <td>{{ forloop.counter }}</td>
+                    <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.product_name }}</td>
                     <td>{{ i.worksite_location }}</td>
-                    <td><img src="{{ i.photo1 }}" alt="" class="img-thumbnail" style="width: 100px; height: 100px;" /></td>
-                    <td><img src="{{ i.photo2 }}" alt="" class="img-thumbnail" style="width: 100px; height: 100px;" /></td>
-                    <td><img src="{{ i.photo3 }}" alt="" class="img-thumbnail" style="width: 100px; height: 100px;" /></td>
+                    <td><img src="{{ i.photo1 }}" alt="" class="img-thumbnail" style="width: 100px; height: 80px;" /></td>
+                    <td><img src="{{ i.photo2 }}" alt="" class="img-thumbnail" style="width: 100px; height: 80px;" /></td>
+                    <td><img src="{{ i.photo3 }}" alt="" class="img-thumbnail" style="width: 100px; height: 80px;" /></td>
                     <td>{{ i.remark }}</td>
                     <td><a href="/edit_worksite/{{ i.worksite_id }}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
                     <td><a href="/delete_worksite/{{ i.worksite_id }}" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>
             {% endfor %}
         </table>
+    </div>
     {% else %}
         <p>No worksites available.</p>
     {% endif %}

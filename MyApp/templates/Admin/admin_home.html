@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Admin - Royal Bricks</title>
+  <title>Admin - Royal Associates</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -47,7 +47,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="#" class="logo d-flex align-items-center">&nbsp;&nbsp;
         <img src="{% static 'Admin/assets/img/logo.png' %}" alt="">&nbsp;
-        <span class="d-none d-lg-block">ROYAL BRICKS</span>
+        <span class="d-none d-lg-block">Royal Associates</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -234,7 +234,7 @@
             </li> {% endcomment %}
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="/public_home">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -309,10 +309,10 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#staff-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-people"></i><span>Staff</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="staff-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="/add_staff">
               <i class="bi bi-circle"></i><span>Add</span>
@@ -320,16 +320,36 @@
           </li>
           <li>
             <a href="/view_staff">
-              <i class="bi bi-circle"></i><span>View Staff</span>
+              <i class="bi bi-circle"></i><span>View</span>
+            </a>
+          </li>
+          {% comment %} <li>
+            <a href="/view_scheduler">
+              <i class="bi bi-circle"></i><span>View Scheduler</span>
+            </a>
+          </li> {% endcomment %}
+        </ul>
+      </li><!-- End Staff Nav -->
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#scheduler-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-person-check"></i><span>Scheduler</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="scheduler-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/add_scheduler">
+              <i class="bi bi-circle"></i><span>Add</span>
             </a>
           </li>
           <li>
             <a href="/view_scheduler">
-              <i class="bi bi-circle"></i><span>View Scheduler</span>
+              <i class="bi bi-circle"></i><span>View</span>
             </a>
           </li>
         </ul>
-      </li><!-- End Tables Nav -->
+      </li><!-- End Scheduler Nav -->
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
@@ -367,8 +387,30 @@
         </a>
         <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>View</span>
+            <a href="/staff_report1">
+              <i class="bi bi-circle"></i><span>Staff Report</span>
+            </a>
+            
+          </li>
+        </ul>
+        <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/product_report1">
+              <i class="bi bi-circle"></i><span>Product Report</span>
+            </a>
+          </li>
+        </ul>
+        <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/sales_report1">
+              <i class="bi bi-circle"></i><span>Sales Report 1</span>
+            </a>
+          </li>
+        </ul>
+        <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/sales_report2">
+              <i class="bi bi-circle"></i><span>Sales Report 2</span>
             </a>
           </li>
         </ul>
@@ -1035,7 +1077,7 @@
   
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Royal Bricks</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>Royal Associates</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->

@@ -3,15 +3,23 @@
 
 <body>
   <br><br>
-  <form method="post" action="/add_vehicle_post/">
+  <form method="post" action="/add_vehicle_post/" enctype="multipart/form-data">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
+      <tr>
+        <th>Vehicle Name</th>
+        <td><input type="text" class="form-control" id="vehicle_name" name="vehicle_name" required></td>
+      </tr>
       <tr>
         <th>Vehicle Number</th>
         <td><input type="text" class="form-control" id="vehicle_number" name="vehicle_number" required></td>
       </tr>
       <tr>
-        <th>Vehicle Type</th>
+        <tr>
+          <th>Photo</th>
+          <td><input type="file" class="form-control" id="photo" name="photo" required></td>
+        </tr>
+        <th>Type</th>
         <td>
         <input type="text" class="form-control" id="vehicle_type" name="vehicle_type" required></input>
         </td>

@@ -3,29 +3,45 @@
 
 <body>
   <br><br>
+  <form id="form1" name="form1" method="post" action="/view_scheduler_post/">
+    {% csrf_token %}
+  <table class="pull-left">
+    <tr>
+      <td>
+      <input type="text" name="textfield" id="textfield" placeholder="Enter Scheduler Name"  class="form-control"/></td>
+      <td><input type="submit" name="button" id="button" value="Search" class="btn btn-info"/></td>
+    </tr>
+  </table>
+  <br>
   {% if data %}
+  <div style="text-align: center;">
     <table class="table table-bordered table-hover">
         <tr>
+          <th>S. No</th>
           <th>Name</th>
           <th>Photo</th>
-          <th>Place</th>
+          <th>Address</th>
+          <th>Pin</th>
+          <th>state</th>
           <th>Email</th>
           <th>Phone</th>
-          <th>State</th>
         </tr>
         {% for i in data %}
           <tr>
-            <td>{{ i.staff_name }}</td>
-            <td><img src="{{ i.photo }}" alt="{{ i.staff_name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
-            <td>{{ i.place }}</td>
+            <td>{{ forloop.counter}}</td>
+            <td>{{ i.scheduler_name }}</td>
+            <td><img src="{{ i.photo }}" alt="{{ i.staff_name }}" class="img-thumbnail" style="width: 100px; height: 80px;"></td>
+            <td>{{ i.address }}</td>
+            <td>{{ i.pin }}</td>
+            <td>{{ i.state }}</td>
             <td>{{ i.email }}</td>
             <td>{{ i.phone }}</td>
-            <td>{{ i.state }}</td>
-            <td><a href="/edit_scheduler/{{i.staff_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
-            <td><a href="/delete_scheduler/{{i.staff_id}}"  class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td>            
+            <td><a href="/edit_scheduler/{{i.scheduler_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
+            <td><a href="/delete_scheduler/{{i.scheduler_id}}"  class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td>            
           </tr>
         {% endfor %}
     </table>
+  </div>
   {% else %}
     <p>No scheduler available.</p>
   {% endif %}

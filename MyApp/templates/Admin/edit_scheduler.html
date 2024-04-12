@@ -9,38 +9,43 @@
       <tr>
         <th>Scheduler Name</th>
         <td>
-          <input type="text" class="form-control" name="staff_name" value="{{ data.staff_name }}">
-          <input type="hidden" name="id" value="{{ data.staff_id }}">
+          <input type="text" class="form-control" name="scheduler_name" value="{{ data.scheduler_name }}">
+          <input type="hidden" name="id" value="{{ data.scheduler_id }}">
         </td>
       </tr>
       <tr>
         <th>Photo</th>
         <td>
-          <input type="file" class="form-control-file" name="photo">
+          <input type="file" class="form-control" name="scheduler_photo">
         </td>
       </tr>
       <tr>
-        <th>Place</th>
+        <th>Address</th>
         <td>
-          <input type="text" class="form-control" name="staff_place" value="{{ data.place }}">
+          <input type="text" class="form-control" name="address" value="{{ data.address }}">
         </td>
       </tr>
+      <th>Pin</th>
+      <td>
+        <input type="text" class="form-control" name="pin" value="{{ data.pin }}">
+      </td>
+    </tr>
+    <tr>
+      <th>State</th>
+      <td>
+        <input type="text" class="form-control" name="state" value="{{ data.state }}">
+      </td>
+    </tr>
       <tr>
         <th>Email</th>
         <td>
-          <input type="email" class="form-control" name="staff_email" value="{{ data.email }}" readonly>
+          <input type="email" class="form-control" name="email" value="{{ data.email }}" readonly>
         </td>
       </tr>
       <tr>
         <th>Phone</th>
         <td>
-          <input type="tel" class="form-control" name="staff_phone" value="{{ data.phone }}">
-        </td>
-      </tr>
-      <tr>
-        <th>State</th>
-        <td>
-          <input type="text" class="form-control" name="staff_state" value="{{ data.state }}">
+          <input type="tel" class="form-control" name="phone" value="{{ data.phone }}">
         </td>
       </tr>
       <tr>

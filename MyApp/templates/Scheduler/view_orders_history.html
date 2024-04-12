@@ -1,0 +1,80 @@
+{% extends 'Scheduler/scheduler_home.html' %}
+{% block x %}
+<style>
+    .table td img {
+        width: 36px;
+        height: 36px;
+        border-radius: 100%; 
+    }
+</style>
+<br><br>
+<form id="form1" name="form1" method="post" action="/orders_history_post/">
+  {% csrf_token %}
+<div style="float: left;">
+  <select name="textfield" id="textfield" class="form-select">
+    <option value="" disabled selected>Select a status</option>
+    <option value="delivered">Delivered</option>
+    <option value="cancelled">Cancelled</option>
+    <option value="pending">Pending</option>
+    <option value="returned">Returned</option>
+    <option value="cancel requested">Cancel Request</option>
+    <option value="return requested">Return Request</option>
+
+  </select>
+</div>
+<div style="float: left;">&nbsp;
+  <input type="submit" name="button" id="button" value="Search" class="btn btn-info"/>
+</div>
+<br><br><br>
+<body>
+<form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
+{% csrf_token %}
+    {% if data %}
+    <div style="text-align: center;">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th> S. No </th>
+                <th> Date </th>
+                <th> Customer Details </th>
+                <th> Category </th>
+                <th> Product </th>
+                <th> Quantity </th>
+                <th> Status </th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.CUSTOMER.customer_name }}<br>
+                    {{ i.CUSTOMER.address }}<br>
+                    {{ i.CUSTOMER.pin }}<br>
+                    {{ i.CUSTOMER.email }}<br>
+                    {{ i.CUSTOMER.phone }}</td>
+                <td><img src="{{ i.PRODUCT.CATEGORY.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.CATEGORY.category_name }}</td>
+                <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.product_name }}</td>
+                <td>{{ i.quantity }}</td>
+                <td>
+                        {% if i.status == 'delivered' %}
+                        <span class="badge rounded-pill bg-success">Delivered</span>
+                        {% elif i.status == 'cancelled' %}
+                        <span class="badge rounded-pill bg-danger">Cancelled</span>
+                        {% elif i.status == 'pending' %}
+                        <span class="badge rounded-pill bg-warning">Pending</span>
+                        {% elif i.status == 'cancel requested' %}
+                        <span class="badge rounded-pill bg-secondary">Cancel Request</span>
+                        {% elif i.status == 'return requested' %}
+                        <span class="badge rounded-pill bg-info">Return Request</span>
+                        {% else %}
+                        {{ i.status }}
+                        {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+        <p>Orders not available</p>
+    {% endif %}
+</form>
+</body>
+{% endblock x %}

@@ -3,45 +3,53 @@
 
 <body>
   <br><br>
+  <form id="form1" name="form1" method="post" action="/view_product_post/">
+    {% csrf_token %}
+  <table class="pull-left">
+    <tr>
+      <td>
+      <input type="text" name="textfield" id="textfield" placeholder="Enter Product Name"  class="form-control"/></td>
+      <td><input type="submit" name="button" id="button" value="Search" class="btn btn-info"/></td>
+    </tr>
+  </table>
+  <br>
   {% if data %}
+  <div style="text-align: center;">
     <table class="table table-bordered table-hover">
         <tr>
           <th>S. No</th>
-          <th>Name</th>
-          <th>Photo</th>
-          <th>Description</th>
-          <th>Detail 1</th>
-          <th>Detail 2</th>
-          <th>Detail 3</th>
-          <th>Detail 4</th>
-          <th>Detail 5</th>
-          <th>Detail 6</th>
-          <th>Price</th>
-          <th>Quantity</th>
           <th>Category</th>
+          <th>Product</th>
+          <th>Photo</th>
+          <th>Size</th>
+          <th>Color</th>
+          <th>Shape</th>
+          {% comment %} <th>Strength</th> {% endcomment %}
+          <th>Description</th>
+          <th>Quantity</th>
+          <th>Price</th>
         </tr>
         {% for i in data %}
           <tr>
             <td>{{ forloop.counter }} </td>
-            <td>{{ i.product_name }}</td>
-            <td><img src="{{ i.photo }}" alt="{{ i.product_name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
-            <td>{{ i.description }}</td>
-            <!-- Add Detail Fields -->
-            <td>{{ i.detail1 }}</td>
-            <td>{{ i.detail2 }}</td>
-            <td>{{ i.detail3 }}</td>
-            <td>{{ i.detail4 }}</td>
-            <td>{{ i.detail5 }}</td>
-            <td>{{ i.detail6 }}</td>
-            <!-- End of Detail Fields -->
-            <td>{{ i.price }}</td>
-            <td>{{ i.quantity }}</td>
             <td>{{ i.CATEGORY.category_name }}</td>
+            <td>{{ i.product_name }}</td>
+            <td><img src="{{ i.photo }}" alt="{{ i.product_name }}" class="img-thumbnail" style="width: 100px; height: 80px;"></td>
+            <!-- Add Detail Fields -->
+            <td>{{ i.size }}</td>
+            <td>{{ i.color }}</td>
+            <td>{{ i.shape }}</td>
+            {% comment %} <td>{{ i.strength }}</td> {% endcomment %}
+            <!-- End of Detail Fields -->
+            <td>{{ i.description }}</td>
+            <td>{{ i.quantity }}</td>
+            <td>{{ i.price }}</td>
             <td><a href="/edit_product/{{i.product_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
             <td><a href="/delete_product/{{i.product_id}}" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></td>
           </tr>
         {% endfor %}
     </table>
+    </div>
   {% else %}
     <p>No products available.</p>
   {% endif %}

@@ -1,6 +1,12 @@
 {% extends 'Scheduler/scheduler_home.html' %}
 {% block x %}
-
+<style>
+  .table td img {
+    width: 36px;
+    height: 36px;
+    border-radius: 100%; 
+}
+</style>
 <body>
 <br><br>
 <form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
@@ -12,25 +18,27 @@
     </tr>
   </table> {% endcomment %}
   {% if data %}
+  <div style="text-align: center;">
     <table class="table table-bordered table-hover">
       <tr>
-        <th> SL.NO </th>
-        <th> Name </th>
-        <th> Phone </th>
+        <th> S. No </th>
+        <th> Date </th>
+        <th> Customer Details </th>
         <th> Category </th>
         <th> Product </th>
-        <th> Date </th>
         <th> Quantity </th>
       </tr>
       {% for i in data %}
       <tr>
         <td>{{ forloop.counter }}</td>
-        <td>{{ i.CUSTOMER.customer_name }}</td>
-        <td>{{ i.CUSTOMER.phone }}</td>
-        <td>{{ i.PRODUCT.CATEGORY.category_name }}</td>
-        <td>{{ i.PRODUCT.product_name }}<br>
-        <img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" style="max-width: 100px; max-height: 100px;" /></td>
         <td>{{ i.date }}</td>
+        <td>{{ i.CUSTOMER.customer_name }}<br>
+          {{ i.CUSTOMER.address }}<br>
+          {{ i.CUSTOMER.pin }}<br>
+          {{ i.CUSTOMER.email }}<br>
+          {{ i.CUSTOMER.phone }}</td>
+        <td><img src="{{ i.PRODUCT.CATEGORY.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.CATEGORY.category_name }}</td>
+        <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.product_name }}</td>
         <td>{{ i.quantity }}</td>
         <td>
           <a href="/check_payment/{{i.order_id}}" class="btn btn-success" title="Check Payment">
@@ -40,6 +48,7 @@
       </tr>
       {% endfor %}
     </table>
+  </div>
   {% else %}
     <p>Orders not available</p>
   {% endif %}

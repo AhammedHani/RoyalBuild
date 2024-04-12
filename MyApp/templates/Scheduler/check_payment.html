@@ -2,21 +2,22 @@
 {% block x %}
 <body>
     <br><br>
+    <div style="text-align: center;">
     <table class="table table-bordered table-hover">
         <tr>
-            <th>Order ID</th>
+            <th>Branch</th>
             <th>Account Number</th>
             <th>IFSC Code</th>
             <th>Fee</th>
-            <th>Date</th>
+            {% comment %} <th>Date</th> {% endcomment %}
             <th>Status</th>
         </tr>
         <tr>
-            <td>{{data.ORDER.order_id}}</td>
+            <td>{{data.branch}}</td>
             <td>{{data.acc_number}}</td>
             <td>{{data.ifsc_code}}</td>
             <td>{{data.amount}}</td>
-            <td>{{data.date}}</td>
+            {% comment %} <td>{{data.date}}</td> {% endcomment %}
             {% if data.status == 'COD' %}
             <td><span class="badge rounded-pill bg-warning">{{data.status}}</span></td>
             {% else %}
@@ -28,5 +29,6 @@
         <td><a href="/reject_order/{{ data.ORDER.order_id }}" class="btn btn-danger btn-sm" title="Reject"><i class="fas fa-times"></i></a></td>
     </tr>
     </table>
+    </div>
 </body>
 {% endblock x %}

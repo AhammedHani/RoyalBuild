@@ -19,12 +19,9 @@ class product(models.Model):
     product_id = models.IntegerField(primary_key=True)
     product_name = models.CharField(max_length=100)
     photo = models.FileField()
-    detail1 =  models.CharField(max_length=100)
-    detail2 =  models.CharField(max_length=100)
-    detail3 =  models.CharField(max_length=100)
-    detail4 =  models.CharField(max_length=100)
-    detail5 =  models.CharField(max_length=100)
-    detail6 =  models.CharField(max_length=100)
+    color =  models.CharField(max_length=100)
+    size =  models.CharField(max_length=100)
+    shape = models.CharField(max_length=100)
     description = models.TextField()
     price = models.CharField(max_length=100)
     quantity = models.CharField(max_length=100)
@@ -48,17 +45,34 @@ class staff(models.Model):
     staff_id = models.IntegerField(primary_key=True)
     staff_name = models.CharField(max_length=100)
     photo = models.FileField()
-    place = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    pin = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
+    post = models.CharField(max_length=100)
+    type = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     class Meta:
         db_table = "staff"
+        
+class scheduler(models.Model):
+    scheduler_id = models.IntegerField(primary_key=True)
+    scheduler_name = models.CharField(max_length=100)
+    photo = models.FileField()
+    address = models.CharField(max_length=100)
+    pin = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100)
+    class Meta:
+        db_table = "scheduler"
 
 class vehicle(models.Model):
     vehicle_id = models.IntegerField(primary_key=True)
+    vehicle_name = models.CharField(max_length=100)
     vehicle_number = models.CharField(max_length=100)
+    photo = models.FileField()
     type = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
     class Meta:
@@ -89,6 +103,8 @@ class review(models.Model):
 class make_order(models.Model):
     order_id = models.IntegerField(primary_key=True)
     date = models.CharField(max_length=100)
+    month = models.CharField(max_length=100)
+    year = models.CharField(max_length=100)
     quantity = models.CharField(max_length=100)
     status = models.CharField(max_length=100)  
     amount = models.DecimalField(max_digits=5, decimal_places=2)
@@ -142,3 +158,23 @@ class duty(models.Model):
     STAFF = models.ForeignKey(staff, on_delete=models.CASCADE,default=1)
     class Meta:
         db_table = "duty" 
+        
+class returns(models.Model):
+    returns_id = models.IntegerField(primary_key=True)
+    date = models.CharField(max_length=100)
+    reason = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    ORDER = models.ForeignKey(make_order, on_delete=models.CASCADE,default=1)
+    class Meta:
+        db_table = "returns" 
+        
+class cart(models.Model):
+    cart_id = models.IntegerField(primary_key=True)
+    date = models.CharField(max_length=100)
+    quantity = models.CharField(max_length=100)
+    amount = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    PRODUCT = models.ForeignKey(product, on_delete=models.CASCADE,default=1)
+    CUSTOMER = models.ForeignKey(customer, on_delete=models.CASCADE,default=1)
+    class Meta:
+        db_table = "cart"        

@@ -22,8 +22,10 @@
                 <td>{{ i.status }}</td>
                 <td>
                 {% if i.status == 'delivered' %}
+                
                 <a href="/add_review/{{i.order_id}}" class="btn btn-primary btn-sm" title="Review">
                     <i class="fas fa-star"></i>
+                    
                 </a> </td>
                 {% else %}
             
@@ -31,6 +33,10 @@
                 {% if i.status == 'confirmed' %}
                     <td>
                         <a href="/cancel_order/{{i.order_id}}" class="btn btn-danger btn-sm">Cancel Order</a>
+                    </td>
+                {% elif i.status == 'delivered' %}
+                    <td>
+                        <a href="/add_return/{{i.order_id}}" class="btn btn-warning btn-sm">Return Order</a>
                     </td>
                 {% else %}
                     <td></td>

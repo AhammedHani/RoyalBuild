@@ -3,21 +3,31 @@
 
 <body>
   <br><br>
-  <form method="post" action="/edit_vehicle_post/">
+  <form method="post" action="/edit_vehicle_post/" enctype="multipart/form-data">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
       <tr>
-        <th>Vehicle Number</th>
+        <th>Vehicle Name</th>
         <td>
-          <input type="text" class="form-control" name="vehicle_number" value="{{ data.vehicle_number }}">
+          <input type="text" class="form-control" name="vehicle_name" value="{{ data.vehicle_name }}">
           <input type="hidden" name="id" value="{{ data.vehicle_id }}">
         </td>
       </tr>
       <tr>
-        <th>Type</th>
+        <th>Vehicle Number</th>
         <td>
-          <input type="text" class="form-control" name="vehicle_type" value="{{ data.type }}">
+          <input type="text" class="form-control" name="vehicle_number" value="{{ data.vehicle_number }}">
         </td>
+      </tr>
+      <tr>
+        <th>Photo</th>
+        <td><input type="file" name="photo" id="photo" class="form-control"/></td>
+      </tr>
+      <tr>
+      <th>Type</th>
+      <td>
+        <input type="text" class="form-control" name="vehicle_type" value="{{ data.type }}">
+      </td>
       </tr>
       <tr>
         <td colspan="2" class="text-center">

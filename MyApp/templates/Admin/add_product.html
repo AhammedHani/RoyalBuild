@@ -1,7 +1,54 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
+<head>
+  <style>
+    <style>
+      .form-table {
+        border: 1px solid #000; /* Change the color as needed */
+        width: 100%; /* Adjust as needed */
+      }
+    </style>
+  <script>
+    function valid()
+    {
 
-<body>
+      var c=document.getElementById("category_type").value;
+  
+      if(c==9)
+      {
+        document.getElementById("dim").style.display="block";
+        document.getElementById("dim1").style.display="block";
+        document.getElementById("shaps").style.display="block";
+      }
+      
+      else if(c==7)
+      {
+        document.getElementById("dim").style.display="block";
+        document.getElementById("dim1").style.display="block";
+        document.getElementById("shaps").style.display="none";
+        
+      }
+      else{
+        document.getElementById("dim").style.display="none";
+        document.getElementById("dim1").style.display="none";
+        document.getElementById("shaps").style.display="none";
+      }
+      
+      
+
+
+    }
+    function valid1()
+    {
+
+        document.getElementById("shaps").style.display="none";
+        document.getElementById("dim").style.display="none";
+        document.getElementById("dim1").style.display="none";
+      
+    }
+  </script>
+</head>
+<body onload="valid1()">
   <br><br>
   <form id="form1" name="form1" method="post" action="/add_product_post/" enctype="multipart/form-data">
     {% csrf_token %}
@@ -15,35 +62,12 @@
         <td><input type="file" name="product_photo" id="product_photo" class="form-control"/></td>
       </tr>
       <!-- Add Detail 1 -->
-      <tr>
-        <th>Detail 1</th>
-        <td><input type="text" name="detail_1" id="detail_1" class="form-control"/></td>
-      </tr>
-      <!-- Add Detail 2 -->
-      <tr>
-        <th>Detail 2</th>
-        <td><input type="text" name="detail_2" id="detail_2" class="form-control"/></td>
-      </tr>
+     
       <!-- Add Detail 3 -->
-      <tr>
-        <th>Detail 3</th>
-        <td><input type="text" name="detail_3" id="detail_3" class="form-control"/></td>
-      </tr>
-      <!-- Add Detail 4 -->
-      <tr>
-        <th>Detail 4</th>
+      {% comment %} <tr>
+        <th>Strength</th>
         <td><input type="text" name="detail_4" id="detail_4" class="form-control"/></td>
-      </tr>
-      <!-- Add Detail 5 -->
-      <tr>
-        <th>Detail 5</th>
-        <td><input type="text" name="detail_5" id="detail_5" class="form-control"/></td>
-      </tr>
-      <!-- Add Detail 6 -->
-      <tr>
-        <th>Detail 6</th>
-        <td><input type="text" name="detail_6" id="detail_6" class="form-control"/></td>
-      </tr>
+      </tr> {% endcomment %}
       <tr>
         <th>Description</th>
         <td><textarea name="product_description" id="product_description" class="form-control"></textarea></td>
@@ -58,18 +82,82 @@
       </tr>
       <tr>
         <th>Category Type</th>
+     
         <td>
-          <select name="category_type" id="category_type" class="form-control">
+          <select name="category_type" id="category_type" class="form-select" onChange="valid();" required>
+            <option value="" disabled selected>Select a category</option>
             {% for i in data %}
             <option value="{{ i.category_id }}">{{ i.category_name }}</option>
             {% endfor %}
           </select>
+      </td>
+    </tr>
+  </table>
+  <table class="table table-bordered table-hover">
+    {% comment %} <div id="dim1">
+      <table width="1150px" border="1px" height="50px"> {% endcomment %}
+        <tr id= "dim1">
+        <th>color</th>
+        <td>
+          <select name="detail_1" id="detail_1" class="form-select">
+            <option value="" disabled selected>Select a color</option>
+            <option value="Red">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Grey">Grey</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+          </select>
         </td>
       </tr>
-      <tr>
-        <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Add" class="btn btn-success"/></td>
-      </tr>
-    </table>
+    {% comment %} </table> {% endcomment %}
+  {% comment %} </div> {% endcomment %}
+  {% comment %} </table> {% endcomment %}
+
+    <!-- Add Detail 2 -->
+{% comment %} <br>
+  <div id="dim">
+    <table width="1150px" border="1px" height="50px"> {% endcomment %}
+      <tr id= "dim">
+      <th>Dimension</th>
+      <td>
+      <select name="detail_2" id="detail_2" class="form-select">
+        <option value="" disabled selected>Select a Dimension</option>
+        <option>200 X 100 X50 mm</option>
+        <option>220 X 97 X 60 mm</option>
+        <option>222 X 106 X73 mm</option>
+        <option>200 x 100 x 100 mm</option>
+      </select>
+    </td>
+    </tr>
+  {% comment %} </table> {% endcomment %}
+</div>
+
+
+{% comment %} 
+<div id="shaps">
+  <table width="1050px" border="1px"> {% endcomment %}
+    <tr id="shaps">
+      {% comment %} <td style="width:250px;padding:4px"> {% endcomment %}
+      <th>shape</th>
+      <td>
+        <select name="detail_3" class="form-select">
+          <option value="" disabled selected>Select a shape</option>
+          <option value="Square">Square</option>
+          <option value="Rectangle">Rectangle</option>
+          <option value="Circle">Circle</option>
+          <option value="Triangle">Triangle</option>
+          <option value="Hexagon">Hexagon</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+    
+           
+          
+<div class="text-center">
+  <input type="submit" name="button" id="button" value="Add" class="btn btn-success"/>
+</div>
+    
   </form>
 </body>
 {% endblock x %}

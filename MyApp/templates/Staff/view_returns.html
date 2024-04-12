@@ -1,0 +1,43 @@
+{% extends 'Staff/staff_home.html' %}
+{% block x %}
+
+<body>
+<br><br>
+<form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
+{% csrf_token %}
+    {% if data3 %}
+        <table class="table table-bordered table-hover">
+            <tr>
+                {% comment %} <th>SL.NO</th> {% endcomment %}
+                <th>Customer Name</th>
+                <th>Address</th>
+                <th>Pin</th>
+                <th>Phone</th>
+                <th>Date</th>
+                <th>Time</th>
+                {% comment %} <th>Status</th> {% endcomment %}
+            </tr>
+            <tr>
+                {% for data3 in data3 %}
+                {% comment %} <td>{{ forloop.counter }}</td> {% endcomment %}
+                <td>{{ data3.ORDER.CUSTOMER.customer_name }}</td>
+                <td>{{ data3.ORDER.CUSTOMER.address }}</td>
+                <td>{{ data3.ORDER.CUSTOMER.pin }}</td>
+                <td>{{ data3.ORDER.CUSTOMER.phone }}</td>
+                <td>{{ data3.date }}</td>
+                <td>{{ data3.time }}</td>
+                {% comment %} <td>
+                <span class="badge rounded-pill bg-warning"</span>{{i.status}}</span>
+                </td> {% endcomment %}
+                <td>
+                    <a href="/view_returns_post/{{data3.vehicle_allot_id}}" class="btn btn-primary btn-sm">Confirm</a>
+                </td>
+                {% endfor %}
+            </tr>
+        </table>
+    {% else %}
+        <p>Delivery not available</p>
+    {% endif %}
+</form>
+</body>
+{% endblock x %}

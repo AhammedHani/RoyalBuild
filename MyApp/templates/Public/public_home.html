@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Royal Bricks</title>
+  <title>Royal Associates</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -42,7 +42,7 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
-      <h1 class="logo me-auto"><a href="#">Royal Bricks</a></h1>
+      <h1 class="logo me-auto"><a href="#">Royal Associates</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -51,7 +51,7 @@
           <li><a class="nav-link scrollto active" href="/public_home">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
           <li><a class="nav-link scrollto" href="/public_view_categories/#services">Services</a></li>
-          <li><a class="nav-link   scrollto" href="#portfolio">Portfolio</a></li>
+          <li><a class="nav-link scrollto" href="/public_view_worksites">Worksites</a></li>
           <!--<li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -70,7 +70,7 @@
             </ul>
           </li>-->
           <!--<li><a class="nav-link scrollto" href="#contact">Contact</a></li>-->
-          <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
+          <li><a class="getstarted scrollto" href="/signin">Sign In</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -85,10 +85,10 @@
       <div class="row">
         <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
           <Center><h1>CRAFTING EXCELLENCE<br>BUILDING LEGACIES</h1>
-          <h2>Royal Bricks Redefining Construction Excellence</h2></center>
+          <h2>Royal Associates Redefining Construction Excellence</h2></center>
           <div class="d-flex justify-content-center" style="margin-top: 0em;">
-            <a href="/signup" class="btn-get-started scrollto">REGISTER</a>
-            <a href="/signin" class="btn-get-started scrollto">SIGN IN</a>
+            {% comment %} <a href="/signup" class="btn-get-started scrollto">REGISTER</a> {% endcomment %}
+            <a href="#about" class="btn-get-started scrollto">Get Started</a>
             <!--<a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>-->
           </div>
         </div>
@@ -151,17 +151,17 @@
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0"> 
             <!--<a href="#" class="btn-learn-more">Learn More</a>-->
-            <p>Welcome to Royal Bricks,</p>
-            <p>Discover the simplicity of building with Royal Bricks, your trusted brick manufacturer. Situated in Elettil Vattoli, our factory produces a range of superior building materials – Bricks, Pots, Sands, Metals, Interlocks, and more.</p>
+            <p>Welcome to Royal Associates,</p>
+            <p>Discover the simplicity of building with Royal Associates, your trusted brick manufacturer. Situated in Elettil Vattoli, our factory produces a range of superior building materials – Bricks, Pots, Sands, Metals, Interlocks, and more.</p>
             <p>Your Convenient Building Partner,</p>
             <p>We've crafted this online store with one goal in mind – to provide you with an easy and convenient shopping experience. Say goodbye to the frustrations of traditional material procurement. Now, you can order bricks and building essentials from anywhere, at any time, using your phone or computer.</p>
-            <p>Why Royal Bricks?</P>
+            <p>Why Royal Associates?</P>
            <ul>
               <li><i class="ri-check-double-line"></i> <b>Quality Materials:</b> Our bricks and building supplies meet the highest standards.</li>
               <li><i class="ri-check-double-line"></i> <b>Variety:</b> From bricks to interlocks, find everything you need in one place.</li>
               <li><i class="ri-check-double-line"></i> <b>Convenience:</b> Shop effortlessly online, saving time and eliminating hassle.</li>
             </ul>
-            <p>Revolutionize Building with Royal Bricks - Quality, Simplified.</P>
+            <p>Revolutionize Building with Royal Associates - Quality, Simplified.</P>
           </div>
         </div>
 
@@ -294,7 +294,7 @@
                     <div class="card-img">
                       <img src="{{ct.photo}}" alt="" class="img-fluid">
                     </div>
-                     <h3><a href="/public_view_products/{{ct.category_id}}" class="stretched-link">{{ct.category_name}}</a></h3>
+                     <h3><a href="/public_category_sub/{{ct.category_id}}" class="stretched-link">{{ct.category_name}}</a></h3>
                      <p>{{ct.description}}</p>
                   </div>
                 </div>
@@ -435,7 +435,7 @@
     </section>--><!-- End Cta Section -->
 
     <!-- ======= Portfolio Section ======= -->
-    <section id="portfolio" class="portfolio">
+    {% comment %} <section id="portfolio" class="portfolio">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -545,7 +545,7 @@
         </div>
 
       </div>
-    </section><!-- End Portfolio Section -->
+    </section><!-- End Portfolio Section --> {% endcomment %}
 
     <!-- ======= Team Section ======= -->
     <!--<section id="team" class="team section-bg">
@@ -848,7 +848,7 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>Royal Bricks</h3>
+            <h3>Royal Associates</h3>
             <p>
               Elettil Vattoli, Kozhikode<br>
               Kerala, 673572<br>
@@ -861,28 +861,27 @@
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/public_home">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#about">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/public_view_worksites">Worksites</a></li>
+              {% comment %} <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li> {% endcomment %}
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Services</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/public_category_sub/7">Bricks</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/public_category_sub/9">Pavings</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/public_category_sub/10">Sands</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/public_category_sub/11">Metals</a></li>
             </ul>
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Social Networks</h4>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+            <p></p>
             <div class="social-links mt-3">
               <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
               <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -898,7 +897,7 @@
 
     <div class="container footer-bottom clearfix">
       <div class="copyright">
-        &copy; Copyright <strong><span>Royal Bricks</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>Royal Associates</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->

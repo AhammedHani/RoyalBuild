@@ -1,0 +1,38 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+
+<body>
+<br><br>
+<form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
+{% csrf_token %}
+    {% if data %}
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>SL.NO</th>
+                <th>Staff</th>
+                <th>Job</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Workstation</th>
+                <th>Status</th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.STAFF.staff_name }}</td>
+                <td>{{ i.job }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.time }}</td>
+                <td>{{ i.workstation }}</td>
+                <td>
+                <span class="badge rounded-pill bg-warning"></span>{{i.status}}</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Duties not available</p>
+    {% endif %}
+</form>
+</body>
+{% endblock x %}
