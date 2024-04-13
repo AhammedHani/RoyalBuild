@@ -1,6 +1,13 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 
+<style>
+  .table td img {
+     width: 36px; 
+     height: 36px; 
+     border-radius: 100%; 
+}
+</style>
 <body>
   <br><br>
   <form id="form1" name="form1" method="post" action="/view_staff_post/">
@@ -18,24 +25,32 @@
     <table class="table table-bordered table-hover">
         <tr>
           <th>S. No</th>
-          <th>Staff Name</th>
-          <th>Photo</th>
+          <th>Staff</th>
+          <th>Date of Birth</th>
+          <th>Nationality</th>
           <th>Address</th>
-          <th>Pin</th>
-          <th>State</th>
           <th>Email</th>
           <th>Phone</th>
+          <th>Aadhaar</th>
+          <th>Qualification</th>
+          <th>Remark</th>
+          <th>Post</th>
         </tr>
         {% for i in data %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ i.staff_name }}</td>
-            <td><img src="{{ i.photo }}" alt="{{ i.staff_name }}" class="img-thumbnail" style="width: 100px; height: 80px;"></td>
-            <td>{{ i.address }}</td>
-            <td>{{ i.pin }}</td>
-            <td>{{ i.state }}</td>
+            <td><img src="{{ i.photo }}" alt="{{ i.staff_name }}" class="img-thumbnail"><br>{{ i.staff_name }}</td>
+            <td>{{ i.dob }}</td>
+            <td>{{ i.nationality }}</td>
+            <td>{{ i.address }}<br>
+            {{ i.pin }}<br>
+            {{ i.state }}</td>
             <td>{{ i.email }}</td>
             <td>{{ i.phone }}</td>
+            <td>{{ i.aadhaar }}</td>
+            <td>{{ i.qualification }}</td>
+            <td>{{ i.remark }}</td>
+            <td>{{ i.post }}</td>
             <td><a href="/edit_staff/{{i.staff_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
             <td><a href="/delete_staff/{{i.staff_id}}" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td>
             {% comment %} <td><a href="/add_scheduler/{{i.staff_id}}" class="btn btn-success btn-sm"title="Scheduler"><i class="fas fa-calendar-plus"></i></a></td>           {% endcomment %}

@@ -11,7 +11,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{% static 'Public/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'Public/assets/img/11.png' %}" rel="icon">
   <link href="{% static 'Public/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -162,15 +162,23 @@
           </div>
 
           <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Social Networks</h4>
-            {% comment %} <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p> {% endcomment %}
+            <style>
+              .logo1 {
+                  position: relative;
+                  top: 20px;  /* adjust this value as needed */
+                  left: 80px;  /* adjust this value as needed */
+              }
+          </style>
+            <img class="logo1" src="{% static 'Public/assets/img/12.png' %}" alt="Logo" style="max-width: 100%;">
+            {% comment %} <h4>Our Social Networks</h4>
+            <p></p>
             <div class="social-links mt-3">
               <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
               <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
               <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
               <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
               <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-            </div>
+            </div> {% endcomment %}
           </div>
 
         </div>

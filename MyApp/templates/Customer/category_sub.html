@@ -1,5 +1,76 @@
 {% extends 'Customer/home.html' %}
 {% block x %}
+
+<script>
+  function valid()
+  {
+    var category=form1.c1.value;
+    if(category=="Paving")
+    {
+        document.getElementById("shape").style.display="table-row";
+    }
+    else
+    {
+        document.getElementById("shape").style.display="none";
+    }
+  }
+</script>
+<body onload="valid()">
+  <br>
+  <form id="form1" name="form1" method="post" action="/view_categories1/" enctype="multipart/form-data">
+    <input type="hidden" name="c1" value={{data.category_name}}>
+    {% csrf_token %}
+    <table class="table table-bordered table-hover">
+      <tr>
+        <th>Color</th>
+        <td>
+          <select name="color" id="detail_1" class="form-select">
+            <option value="Red">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Grey">Grey</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+          </select>
+        </td>
+      </tr>
+      <!-- Add Detail 2 -->
+      <tr>
+        <th>Dimension</th>
+        <td>
+          <select name="size" id="detail_2" class="form-select">
+            <option>200 X 100 X50 mm</option>
+            <option>220 X 97 X 60 mm</option>
+            <option>222 X 106 X73 mm</option>
+            <option>200 x 100 x 100 mm</option>
+          </select>
+        </td>
+      </tr>
+      <!-- Add Detail 3 -->
+      <tr id="shape" style="display:none">
+        <th>Shape</th>
+        <td>
+          <select name="detail_3" class="form-select dropdown">
+            <option value="" disabled selected>Select a shape</option>
+            <option value="Square">Square</option>
+            <option value="Rectangle">Rectangle</option>
+            <option value="Circle">Circle</option>
+            <option value="Triangle">Triangle</option>
+            <option value="Hexagon">Hexagon</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Submit" class="btn btn-success"/></td>
+      </tr>
+    </table>
+  </form>
+</body>
+{% endblock x %}
+
+
+{% comment %} {% extends 'Customer/home.html' %}
+{% block x %}
+
 <script>
   function valid()
   {
@@ -25,60 +96,48 @@ if(category=="Paving")
     <input type="hidden" name="c1" value={{data.category_name}}>
     {% csrf_token %}
     <table class="table table-bordered table-hover">
-        <tr>
-            <th>Color</th>
-            <td>
-              <select name="color" id="detail_1" class="form-control">
-                <option value="Red">Red</option>
-                <option value="Blue">Blue</option>
-                <option value="Grey">Grey</option>
-                <option value="Black">Black</option>
-                <option value="White">White</option>
-              </select>
-            </td>
-          </tr>
-          <!-- Add Detail 2 -->
-          <tr>
-            <th>Dimension</th>
-            <td>
-            <select name="size" id="detail_2" class="form-control">
-              <option>200 X 100 X50 mm</option>
-              <option>220 X 97 X 60 mm</option>
-              <option>222 X 106 X73 mm</option>
-              <option >200 x 100 x 100 mm</option>
-            </select>
-          </td>
-          </tr>
-          {% comment %} </table> {% endcomment %}
-          <!-- Add Detail 3 -->
-          {% comment %} <div style="display:none" id="shape">
-            <table width="1300px" border="1px" height="50px">
-              <tr>
-                <td style="width:470px;padding:4px">
-                <b>shape</b>
-          
-                </td> {% endcomment %}
-                <tr id="shape">
-                  <th>Shape</th>
-                <td>
-                  <select name="detail_3" class="form-select">
-                    <option value="" disabled selected>Select a shape</option>
-                    <option value="Square">Square</option>
-                    <option value="Rectangle">Rectangle</option>
-                    <option value="Circle">Circle</option>
-                    <option value="Triangle">Triangle</option>
-                    <option value="Hexagon">Hexagon</option>
-                  </select>
-          
-                </td>
-              </tr>
-            </table>
-              
-                     
-          <br><br>
+      <tr>
+        <th>Color</th>
+        <td>
+          <select name="color" id="detail_1" class="form-select">
+            <option value="Red">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Grey">Grey</option>
+            <option value="Black">Black</option>
+            <option value="White">White</option>
+          </select>
+        </td>
+      </tr>
+      <!-- Add Detail 2 -->
+      <tr>
+        <th>Dimension</th>
+        <td>
+          <select name="size" id="detail_2" class="form-select">
+            <option>200 X 100 X50 mm</option>
+            <option>220 X 97 X 60 mm</option>
+            <option>222 X 106 X73 mm</option>
+            <option>200 x 100 x 100 mm</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+      <!-- Add Detail 3 -->
+      <table class="table table-bordered table-hover">
+      <tr id="shape" style="display:none">
+        <th>Shape</th>
+        <td>
+          <select name="detail_3" class="form-select dropdown">
+            <option value="" disabled selected>Select a shape</option>
+            <option value="Square">Square</option>
+            <option value="Rectangle">Rectangle</option>
+            <option value="Circle">Circle</option>
+            <option value="Triangle">Triangle</option>
+            <option value="Hexagon">Hexagon</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
         <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Submit" class="btn btn-success"/></td>
-      </tr></div>
-    
-  </form>
-</body>
-{% endblock x %}
+      </tr>
+    </table>
+{% endblock x %} {% endcomment %}

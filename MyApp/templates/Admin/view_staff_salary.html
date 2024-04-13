@@ -1,0 +1,50 @@
+{% extends 'Admin/admin_home.html' %}
+{% block x %}
+
+<style>
+  .table td img {
+     width: 36px; 
+     height: 36px; 
+     border-radius: 100%; 
+}
+</style>
+<body>
+  <br><br>
+  <form id="form1" name="form1" method="post" action="">
+    {% csrf_token %}
+  <table class="pull-left">
+    <tr>
+      <td>
+      <input type="text" name="textfield" id="textfield" placeholder="Enter Staff Name"  class="form-control"/></td>
+      <td><input type="submit" name="button" id="button" value="Search" class="btn btn-info"/></td>
+    </tr>
+  </table>
+  <br>
+  {% if data %}
+  <div style="text-align: center;">
+    <table class="table table-bordered table-hover">
+        <tr>
+          <th>S. No</th>
+          <th>Staff</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Salary</th>
+        </tr>
+        {% for i in data %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><img src="{{ i.STAFF.photo }}" alt="{{ i.STAFF.staff_name }}" class="img-thumbnail"><br>{{ i.STAFF.staff_name }}</td>
+            <td>{{ i.STAFF.email }}</td>
+            <td>{{ i.STAFF.phone }}</td>
+            <td>{{ i.basic_salary }}</td>
+          
+            {% comment %} <td><a href="/add_wage/{{i.staff_id}}" class="btn btn-primary btn-sm" title="Allot Wage">Add Wage</a></td> {% endcomment %}
+          </tr>
+        {% endfor %}
+    </table>
+  </div>
+  {% else %}
+    <p>No staff available.</p>
+  {% endif %}
+</body>
+{% endblock x %}

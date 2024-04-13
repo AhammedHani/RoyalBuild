@@ -6,6 +6,9 @@
   <form method="post" action="/edit_staff_post/" enctype="multipart/form-data">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
+      <tr align="center">
+        <td colspan="2"><img src="{{data.photo}}" alt="" width="100px" height="100px"></td>
+      </tr>
       <tr>
         <th>Staff Name</th>
         <td>
@@ -20,24 +23,30 @@
         </td>
       </tr>
       <tr>
+        <tr>
+          <th>Date of Birth</th>
+          <td><input type="date" class="form-control" id="dob" name="dob" value="{{ data.dob }}"></td>
+        </tr>
+        <tr>
+          <th>Nationality</th>
+          <td><input type="text" class="form-control" id="nationality" name="nationality" value="{{ data.nationality }}"></td>
+        </tr>
+        <tr>
+          <th>State</th>
+          <td><input type="text" class="form-control" id="state" name="state" value="{{ data.state }}"></td>
+        </tr>
+        <tr>
         <th>Address</th>
         <td>
           <input type="text" class="form-control" name="address" value="{{ data.address }}">
         </td>
       </tr>
-      <tr>
         <tr>
           <th>Pin</th>
           <td>
             <input type="text" class="form-control" name="pin" value="{{ data.pin }}">
           </td>
         </tr>
-      <tr>
-        <th>State</th>
-        <td>
-          <input type="tel" class="form-control" name="state" value="{{ data.state }}">
-        </td>
-      </tr>
       <tr>
         <th>Email</th>
         <td>
@@ -51,12 +60,29 @@
         </td>
       </tr>
       <tr>
+        <tr>
+          <th>Aadhaar</th>
+          <td><input type="text" class="form-control" id="aadhaar" name="aadhaar" value="{{ data.aadhaar }}"></td>
+        </tr>
+        <tr>
+          <tr>
+          <tr>
+            <th>Qualification</th>
+            <td><input type="text" class="form-control" id="qualification" name="qualification" value="{{ data.qualification }}"></td>
+          </tr>
+          <tr>
+            <tr>
+              <th>Remark</th>
+              <td><input type="text" class="form-control" id="remark" name="remark" value="{{ data.remark }}"></td>
+            </tr>
         <th>Post</th>
         <td>
           <select class="form-select" id="post" name="post" required>
             <option value="" disabled selected>Select a post</option>
-            <option value="Driver">Driver</option>
-            <option value="Labour">Labour</option>
+            <option value="driver">Driver</option>
+            <option value="labour">Labour</option>
+            <option value="accountant">Accountant</option>
+            <option value="manager">Manager</option>
           </select>
         </td>
       </tr>
@@ -76,6 +102,10 @@
             </label>
           </div>
         </td>
+        <tr>
+          <th>Salary</th>
+          <td><input type="text" class="form-control" id="salary" name="salary" value="{{ data.salary }}"></td>
+        </tr>
       <tr>
       <tr>
         <td colspan="2" class="text-center">

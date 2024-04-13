@@ -6,6 +6,9 @@
   <form method="post" action="/edit_vehicle_post/" enctype="multipart/form-data">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
+      <tr align="center">
+        <td colspan="2"><img src="{{data.photo}}" alt="" width="100px" height="100px"></td>
+      </tr>
       <tr>
         <th>Vehicle Name</th>
         <td>

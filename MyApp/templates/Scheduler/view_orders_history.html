@@ -54,19 +54,23 @@
                 <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.product_name }}</td>
                 <td>{{ i.quantity }}</td>
                 <td>
-                        {% if i.status == 'delivered' %}
-                        <span class="badge rounded-pill bg-success">Delivered</span>
-                        {% elif i.status == 'cancelled' %}
-                        <span class="badge rounded-pill bg-danger">Cancelled</span>
-                        {% elif i.status == 'pending' %}
-                        <span class="badge rounded-pill bg-warning">Pending</span>
-                        {% elif i.status == 'cancel requested' %}
-                        <span class="badge rounded-pill bg-secondary">Cancel Request</span>
-                        {% elif i.status == 'return requested' %}
-                        <span class="badge rounded-pill bg-info">Return Request</span>
-                        {% else %}
-                        {{ i.status }}
-                        {% endif %}
+                    {% if i.status == 'delivered' %}
+                    <span class="badge rounded-pill bg-success">Delivered</span>
+                    {% elif i.status == 'cancelled' %}
+                    <span class="badge rounded-pill bg-danger">Cancelled</span>
+                    {% elif i.status == 'pending' %}
+                    <span class="badge rounded-pill bg-warning">Pending</span>
+                    {% elif i.status == 'cancel requested' %}
+                    <span class="badge rounded-pill bg-secondary">Cancel Request</span>
+                    {% elif i.status == 'return requested' %}
+                    <span class="badge rounded-pill bg-info">Return Request</span>
+                    {% elif i.status == 'confirmed' %}
+                    <span class="badge rounded-pill bg-primary">Confirmed</span>
+                    {% elif i.status == 'returned' %}
+                    <span class="badge rounded-pill bg-info">Returned</span>
+                    {% else %}
+                    {{ i.status }}
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

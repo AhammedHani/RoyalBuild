@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'RoyalBricks.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'royalbricks',
+        'NAME': 'royalassociates',
         'USER': 'root',
         'PASSWD': '',
         'HOST': 'localhost',

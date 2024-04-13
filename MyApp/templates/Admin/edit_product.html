@@ -1,7 +1,46 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 
-<body>
+<script>
+  function valid()
+  {
+
+    var c=document.getElementById("category_type").value;
+
+    if(c==9)
+    {
+      document.getElementById("dim").style.display="block";
+      document.getElementById("dim1").style.display="block";
+      document.getElementById("shaps").style.display="block";
+    }
+    
+    else if(c==7)
+    {
+      document.getElementById("dim").style.display="block";
+      document.getElementById("dim1").style.display="block";
+      document.getElementById("shaps").style.display="none";
+      
+    }
+    else{
+      document.getElementById("dim").style.display="none";
+      document.getElementById("dim1").style.display="none";
+      document.getElementById("shaps").style.display="none";
+    }
+    
+    
+
+
+  }
+  function valid1()
+  {
+
+      document.getElementById("shaps").style.display="none";
+      document.getElementById("dim").style.display="none";
+      document.getElementById("dim1").style.display="none";
+    
+  }
+</script>
+<body onload="valid1()">
   <br><br>
   <form method="post" action="/edit_product_post/" enctype="multipart/form-data">
     {% csrf_token %}
@@ -18,11 +57,32 @@
         <th>Photo</th>
         <td><input type="file" class="form-control" name="photo"></td>
       </tr>
-      <!-- Add Detail 1 -->
       <tr>
+        <th>Description</th>
+        <td><textarea class="form-control" name="product_description" rows=7>{{ data.description }}</textarea></td>
+      </tr>
+      <tr>
+        <th>Price</th>
+        <td><input type="text" class="form-control" name="product_price" value="{{ data.price }}"></td>
+      </tr>
+      <tr>
+        <th>Quantity</th>
+        <td><input type="text" class="form-control" name="product_quantity" value="{{ data.quantity }}"></td>
+      </tr>
+      <tr>
+        <th>Category Type</th>
+        <td>
+          <select class="form-control" name="category_type" onChange="valid();">
+            {% for i in data2 %}
+              <option value="{{ i.category_id }}">{{ i.category_name }}</option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      <tr id= "dim1">
         <th>Color</th>
         <td>
-          <select name="detail_1" id="detail_1" value={{}}}class="form-control">
+          <select name="detail_1" id="detail_1" class="form-control">
             <option value="Red">Red</option>
             <option value="Blue">Blue</option>
             <option value="Grey">Grey</option>
@@ -32,7 +92,7 @@
         </td>
       </tr>
       <!-- Add Detail 2 -->
-      <tr>
+      <tr id= "dim">
         <th>Dimension</th>
         <td>
         <select name="detail_2" id="detail_2" class="form-control">
@@ -43,34 +103,7 @@
         </select>
       </td>
       </tr>
-      <!-- Add Detail 3 -->
-      <tr>
-        <th>Strength</th>
-        <td><input type="text" name="detail_4" id="detail_4" class="form-control"/></td>
-      </tr>
-      <tr>
-        <th>Description</th>
-        <td><textarea class="form-control" name="product_description" rows=7>{{ data.description }}</textarea></td>
-      </tr>
-      <tr>
-        <th>Quantity</th>
-        <td><input type="text" class="form-control" name="product_quantity" value="{{ data.quantity }}"></td>
-      </tr>
-      <tr>
-        <th>Price</th>
-        <td><input type="text" class="form-control" name="product_price" value="{{ data.price }}"></td>
-      </tr>
-      <tr>
-        <th>Category Type</th>
-        <td>
-          <select class="form-control" name="category_type">
-            {% for i in data2 %}
-              <option value="{{ i.category_id }}">{{ i.category_name }}</option>
-            {% endfor %}
-          </select>
-        </td>
-      </tr>
-      <tr style="display:none" id="shape">
+      <tr id="shaps">
         <th>Shape</th>
         <td>
           <select name="detail_3" id="detail_3" class="form-control">

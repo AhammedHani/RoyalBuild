@@ -8,7 +8,7 @@ import datetime
 from django.db.models import Sum,Max,Count
 # Create your views here.
 
-# Signu
+# Signup
 
 def signup(request):
     return render(request,'Public/signup.html')
@@ -62,6 +62,9 @@ def signin_post(request):
                 elif type=="staff":
                     request.session['staffs']=username
                     return redirect("/staff_home")
+                elif type=="accountant":
+                    request.session['accountant']=username
+                    return redirect("/accountant_home")
                 else:
                     return HttpResponse('''<Script>alert("Invalid type");window.location="/signin/";</Script>''')
         if flag==0:
@@ -69,252 +72,354 @@ def signin_post(request):
         
 # Admin
 
+def admin_logout(request):
+    del request.session['admins']
+    return redirect('/public_home/')
+
 def admin_home(request):
-    admin_id = request.session.get('admins')
-    data = login.objects.get(username=admin_id)
-    return render(request,'Admin/dashboard.html',{'data':data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        admin_id = request.session.get('admins')
+        data = login.objects.get(username=admin_id)
+        return render(request,'Admin/dashboard.html',{'data':data})
 
 # def admin_dashboard(request):
 #     return render(request,'Admin/dashboard.html')
 
 def add_category(request):
-    return render(request,'Admin/add_category.html')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        return render(request,'Admin/add_category.html')
 
 def add_category_post(request):
-    data=category()
-    data.category_name=request.POST.get('textfield')
-    data.description=request.POST.get('description')
-    Photo = request.FILES['photo']
-    fs = FileSystemStorage()
-    filename = fs.save(Photo.name, Photo) 
-    uploaded_file_url = fs.url(filename)
-    data.photo=uploaded_file_url
-    data.save()
-    return HttpResponse('''<Script>alert("ADDED");window.location="/add_category/";</Script>''')
-
-def view_category(request):
-    categories = category.objects.all()
-    return render(request, 'Admin/view_category.html', {'data': categories})
-
-def view_category_post(request):
-    search=request.POST['textfield']
-    var=category.objects.filter(category_name__icontains=search)
-    return render(request,"Admin/view_category.html",{'data':var})
-       
-
-def edit_category(request,id):
-    data=category.objects.get(category_id=id)
-    return render(request,'Admin/edit_category.html',{'data':data})
-
-def edit_category_post(request):
-    id=request.POST['id']
-    
-    if 'photo' in request.FILES:
-        
-        cat=category.objects.get(category_id=id)
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=category()
+        data.category_name=request.POST.get('textfield')
+        data.description=request.POST.get('description')
         Photo = request.FILES['photo']
         fs = FileSystemStorage()
         filename = fs.save(Photo.name, Photo) 
         uploaded_file_url = fs.url(filename)
-        cat.photo=uploaded_file_url
-        cat.category_name=request.POST.get('textfield')
-        cat.description=request.POST.get('description')
-        cat.save()
-        return HttpResponse('''<script>alert("EDITED");window.location="/view_category/"</script> ''')
+        data.photo=uploaded_file_url
+        data.save()
+        return HttpResponse('''<Script>alert("ADDED");window.location="/add_category/";</Script>''')
 
+def view_category(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
     else:
-        cat=category.objects.get(category_id=id)
-        cat.category_name=request.POST.get('textfield')
-        cat.description=request.POST.get('description')
-        cat.save()
+        categories = category.objects.all()
+        return render(request, 'Admin/view_category.html', {'data': categories})
+
+def view_category_post(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        search=request.POST['textfield']
+        var=category.objects.filter(category_name__icontains=search)
+        return render(request,"Admin/view_category.html",{'data':var})
         
-    return HttpResponse('''<Script>alert("EDITED");window.location="/view_category/";</Script>''')
+
+def edit_category(request,id):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=category.objects.get(category_id=id)
+        return render(request,'Admin/edit_category.html',{'data':data})
+
+def edit_category_post(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        id=request.POST['id']
+        
+        if 'photo' in request.FILES:
+            
+            cat=category.objects.get(category_id=id)
+            Photo = request.FILES['photo']
+            fs = FileSystemStorage()
+            filename = fs.save(Photo.name, Photo) 
+            uploaded_file_url = fs.url(filename)
+            cat.photo=uploaded_file_url
+            cat.category_name=request.POST.get('textfield')
+            cat.description=request.POST.get('description')
+            cat.save()
+            return HttpResponse('''<script>alert("EDITED");window.location="/view_category/"</script> ''')
+
+        else:
+            cat=category.objects.get(category_id=id)
+            cat.category_name=request.POST.get('textfield')
+            cat.description=request.POST.get('description')
+            cat.save()
+            
+        return HttpResponse('''<Script>alert("EDITED");window.location="/view_category/";</Script>''')
 
 def delete_category(request,id):
-    category.objects.filter(category_id=id).delete()
-    return HttpResponse('''<Script>alert("DELETED");window.location="/view_category/";</Script>''')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        category.objects.filter(category_id=id).delete()
+        return HttpResponse('''<Script>alert("DELETED");window.location="/view_category/";</Script>''')
 
 def add_product(request):
-    data = category.objects.all()
-    return render(request, 'Admin/add_product.html', {'data': data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data = category.objects.all()
+        return render(request, 'Admin/add_product.html', {'data': data})
 
 def add_product_post(request):
-    data=product()
-    category_name = request.POST.get('category_type')
-    if category_name=="7":
-        data.color=request.POST.get('detail_1')
-        data.size=request.POST.get('detail_2')
-    elif category_name=="9":  
-        data.color=request.POST.get('detail_1')
-        data.size=request.POST.get('detail_2')
-        data.shape=request.POST.get('detail_3') 
-    
-            
-    data.product_name=request.POST.get('product_name')
-    Photo = request.FILES['product_photo']
-    
-    data.strength=request.POST.get('detail_4')
-    data.description=request.POST.get('product_description')
-    data.price=request.POST.get('product_price')
-    data.quantity=request.POST.get('product_quantity')
-    
-    
-    data.CATEGORY_id = category_name
-    
-    fs = FileSystemStorage()
-    filename = fs.save(Photo.name, Photo) 
-    uploaded_file_url = fs.url(filename)
-    data.photo=uploaded_file_url
-    data.save()
-    return HttpResponse('''<Script>alert("ADDED");window.location="/add_product/";</Script>''')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=product()
+        category_name = request.POST.get('category_type')
+        if category_name=="7":
+            data.color=request.POST.get('detail_1')
+            data.size=request.POST.get('detail_2')
+        elif category_name=="9":  
+            data.color=request.POST.get('detail_1')
+            data.size=request.POST.get('detail_2')
+            data.shape=request.POST.get('detail_3') 
+        
+                
+        data.product_name=request.POST.get('product_name')
+        Photo = request.FILES['product_photo']
+        
+        data.strength=request.POST.get('detail_4')
+        data.description=request.POST.get('product_description')
+        data.price=request.POST.get('product_price')
+        data.quantity=request.POST.get('product_quantity')
+        
+        
+        data.CATEGORY_id = category_name
+        
+        fs = FileSystemStorage()
+        filename = fs.save(Photo.name, Photo) 
+        uploaded_file_url = fs.url(filename)
+        data.photo=uploaded_file_url
+        data.save()
+        return HttpResponse('''<Script>alert("ADDED");window.location="/add_product/";</Script>''')
 
 def view_product(request):
-    data = product.objects.all()
-    return render(request, 'Admin/view_product.html', {'data': data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data = product.objects.all()
+        return render(request, 'Admin/view_product.html', {'data': data})
 
 def view_product_post(request):
-    search=request.POST['textfield']
-    var=product.objects.filter(product_name__icontains=search)
-    return render(request,"Admin/view_product.html",{'data':var})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        search=request.POST['textfield']
+        var=product.objects.filter(product_name__icontains=search)
+        return render(request,"Admin/view_product.html",{'data':var})
         
 def edit_product(request, id):
-    data = product.objects.get(product_id=id)
-    data2 = category.objects.all()
-    return render(request, 'Admin/edit_product.html', {'data': data, 'data2': data2})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data = product.objects.get(product_id=id)
+        data2 = category.objects.all()
+        return render(request, 'Admin/edit_product.html', {'data': data, 'data2': data2})
 
 
 def edit_product_post(request):
-    id=request.POST['id']
-    
-    if 'photo' in request.FILES:
-        
-        var1=product.objects.get(product_id=id)
-        Photo = request.FILES['photo']
-        fs = FileSystemStorage()
-        filename = fs.save(Photo.name, Photo) 
-        uploaded_file_url = fs.url(filename)
-        var1.photo=uploaded_file_url
-        var1.product_name=request.POST.get('product_name')
-        var1.detail1=request.POST.get('detail_1')
-        var1.detail2=request.POST.get('detail_2')
-        var1.detail3=request.POST.get('detail_3')
-        var1.detail4=request.POST.get('detail_4')
-        var1.detail5=request.POST.get('detail_5')
-        var1.detail6=request.POST.get('detail_6')
-        var1.description=request.POST.get('product_description')
-        var1.price=request.POST.get('product_price')
-        var1.quantity=request.POST.get('product_quantity')
-        
-        category_name = request.POST.get('category_type')
-        var1.CATEGORY_id = category_name
-        
-        var1.save()
-        return HttpResponse('''<script>alert("EDITED");window.location="/view_product/"</script> ''')
-
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
     else:
-        var1=product.objects.get(product_id=id)
-        var1.product_name=request.POST.get('product_name')
-        var1.detail1=request.POST.get('detail_1')
-        var1.detail2=request.POST.get('detail_2')
-        var1.detail3=request.POST.get('detail_3')
-        var1.detail4=request.POST.get('detail_4')
-        var1.detail5=request.POST.get('detail_5')
-        var1.detail6=request.POST.get('detail_6')
-        var1.description=request.POST.get('product_description')
-        var1.price=request.POST.get('product_price')
-        var1.quantity=request.POST.get('product_quantity')
+        id=request.POST['id']
         
-        category_name = request.POST.get('category_type')
-        var1.CATEGORY_id = category_name
-        
-        var1.save()
-        
-    return HttpResponse('''<Script>alert("EDITED");window.location="/view_product/";</Script>''')
+        if 'photo' in request.FILES:
+            
+            var1=product.objects.get(product_id=id)
+            Photo = request.FILES['photo']
+            fs = FileSystemStorage()
+            filename = fs.save(Photo.name, Photo) 
+            uploaded_file_url = fs.url(filename)
+            var1.photo=uploaded_file_url
+            var1.product_name=request.POST.get('product_name')
+            var1.detail1=request.POST.get('detail_1')
+            var1.detail2=request.POST.get('detail_2')
+            var1.detail3=request.POST.get('detail_3')
+            var1.detail4=request.POST.get('detail_4')
+            var1.detail5=request.POST.get('detail_5')
+            var1.detail6=request.POST.get('detail_6')
+            var1.description=request.POST.get('product_description')
+            var1.price=request.POST.get('product_price')
+            var1.quantity=request.POST.get('product_quantity')
+            
+            category_name = request.POST.get('category_type')
+            var1.CATEGORY_id = category_name
+            
+            var1.save()
+            return HttpResponse('''<script>alert("EDITED");window.location="/view_product/"</script> ''')
+
+        else:
+            var1=product.objects.get(product_id=id)
+            var1.product_name=request.POST.get('product_name')
+            var1.detail1=request.POST.get('detail_1')
+            var1.detail2=request.POST.get('detail_2')
+            var1.detail3=request.POST.get('detail_3')
+            var1.detail4=request.POST.get('detail_4')
+            var1.detail5=request.POST.get('detail_5')
+            var1.detail6=request.POST.get('detail_6')
+            var1.description=request.POST.get('product_description')
+            var1.price=request.POST.get('product_price')
+            var1.quantity=request.POST.get('product_quantity')
+            
+            category_name = request.POST.get('category_type')
+            var1.CATEGORY_id = category_name
+            
+            var1.save()
+            
+        return HttpResponse('''<Script>alert("EDITED");window.location="/view_product/";</Script>''')
 
 def delete_product(request,id):
-    product.objects.filter(product_id=id).delete()
-    return HttpResponse('''<Script>alert("DELETED");window.location="/view_product/";</Script>''')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        product.objects.filter(product_id=id).delete()
+        return HttpResponse('''<Script>alert("DELETED");window.location="/view_product/";</Script>''')
 
 def add_staff(request):
-    return render(request,'Admin/add_staff.html')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        return render(request,'Admin/add_staff.html')
 
 def add_staff_post(request):
-    data=staff()
-    data.staff_name=request.POST.get('staff_name')
-    data.address=request.POST.get('address')
-    data.pin=request.POST.get('pin')
-    data.email=request.POST.get('email')
-    data.phone=request.POST.get('phone')
-    data.state=request.POST.get('state')
-    data.post=request.POST.get('post')
-    data.type=request.POST.get('staff_type')
-    Photo = request.FILES['staff_photo']
-    fs = FileSystemStorage()
-    filename = fs.save(Photo.name, Photo) 
-    uploaded_file_url = fs.url(filename)
-    data.photo=uploaded_file_url
-    data.status = "active"
-    data.save()
-    data1=login()
-    data1.username=request.POST.get('email')
-    data1.password=request.POST.get('phone')
-    data1.type="staff"
-    data1.save()
-    return HttpResponse('''<Script>alert("ADDED");window.location="/add_staff/";</Script>''')
-
-def view_staff(request):
-    data = staff.objects.exclude(status="scheduler")
-    return render(request, 'Admin/view_staff.html', {'data': data})
-
-def view_staff_post(request):
-    search=request.POST['textfield']
-    var=staff.objects.filter(staff_name__icontains=search)
-    return render(request,"Admin/view_staff.html",{'data':var})
-
-def edit_staff(request,id):
-    data=staff.objects.get(staff_id=id)
-    return render(request,'Admin/edit_staff.html',{'data':data})
-
-def edit_staff_post(request):
-    id=request.POST['id']
-    
-    if 'staff_photo' in request.FILES:
-        
-        var1=staff.objects.get(staff_id=id)
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=staff()
+        data.staff_name=request.POST.get('staff_name')
+        data.address=request.POST.get('address')
+        data.pin=request.POST.get('pin')
+        data.email=request.POST.get('email')
+        data.phone=request.POST.get('phone')
+        data.state=request.POST.get('state')
+        data.post=request.POST.get('post')
+        data.type=request.POST.get('staff_type')
+        data.dob=request.POST.get('dob')
+        data.aadhaar=request.POST.get('aadhaar')
+        data.nationality=request.POST.get('nationality')
+        data.qualification=request.POST.get('qualification')
+        data.remark=request.POST.get('remark')
+        data.salary=request.POST.get('salary')
         Photo = request.FILES['staff_photo']
         fs = FileSystemStorage()
         filename = fs.save(Photo.name, Photo) 
         uploaded_file_url = fs.url(filename)
-        var1.photo=uploaded_file_url
-        var1.staff_name=request.POST.get('staff_name')
-        var1.address=request.POST.get('address')
-        var1.pin=request.POST.get('pin')
-        var1.email=request.POST.get('email')
-        var1.phone=request.POST.get('phone')
-        var1.state=request.POST.get('state')
-        var1.post=request.POST.get('post')
-        var1.type=request.POST.get('staff_type')
-        
-        var1.save()
-        return HttpResponse('''<script>alert("EDITED");window.location="/view_staff/"</script> ''')
-    
+        data.photo=uploaded_file_url
+        data.status = "active"
+        data.save()
+        if request.POST.get('post')=="accountant":
+            data1=login()
+            data1.username=request.POST.get('email')
+            data1.password=request.POST.get('phone')
+            data1.type="accountant"
+            data1.save()
+        elif request.POST.get('post')=="scheduler":
+            data1=login()
+            data1.username=request.POST.get('email')
+            data1.password=request.POST.get('phone')
+            data1.type="scheduler"
+            data1.save()    
+        else:    
+            
+            data1=login()
+            data1.username=request.POST.get('email')
+            data1.password=request.POST.get('phone')
+            data1.type="staff"
+            data1.save()
+        return HttpResponse('''<Script>alert("ADDED");window.location="/add_staff/";</Script>''')
+
+def view_staff(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
     else:
-        var1=staff.objects.get(staff_id=id)
-        var1.staff_name=request.POST.get('staff_name')
-        var1.address=request.POST.get('address')
-        var1.pin=request.POST.get('pin')
-        var1.email=request.POST.get('email')
-        var1.phone=request.POST.get('phone')
-        var1.state=request.POST.get('state')
-        var1.post=request.POST.get('post')
-        var1.type=request.POST.get('staff_type')
-        var1.save()
+        data = staff.objects.exclude(status="scheduler")
+        return render(request, 'Admin/view_staff.html', {'data': data})
+
+def view_staff_post(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        search=request.POST['textfield']
+        var=staff.objects.filter(staff_name__icontains=search)
+        return render(request,"Admin/view_staff.html",{'data':var})
+
+def edit_staff(request,id):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=staff.objects.get(staff_id=id)
+        return render(request,'Admin/edit_staff.html',{'data':data})
+
+def edit_staff_post(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        id=request.POST['id']
         
-    return HttpResponse('''<Script>alert("EDITED");window.location="/view_staff/";</Script>''')
+        if 'staff_photo' in request.FILES:
+            
+            var1=staff.objects.get(staff_id=id)
+            Photo = request.FILES['staff_photo']
+            fs = FileSystemStorage()
+            filename = fs.save(Photo.name, Photo) 
+            uploaded_file_url = fs.url(filename)
+            var1.photo=uploaded_file_url
+            var1.staff_name=request.POST.get('staff_name')
+            var1.address=request.POST.get('address')
+            var1.pin=request.POST.get('pin')
+            var1.email=request.POST.get('email')
+            var1.phone=request.POST.get('phone')
+            var1.state=request.POST.get('state')
+            var1.post=request.POST.get('post')
+            var1.type=request.POST.get('staff_type')
+            var1.dob=request.POST.get('dob')
+            var1.aadhaar=request.POST.get('aadhaar')
+            var1.nationality=request.POST.get('nationality')
+            var1.qualification=request.POST.get('qualification')
+            var1.remark=request.POST.get('remark')
+            var1.salary=request.POST.get('salary')
+            
+            var1.save()
+            return HttpResponse('''<script>alert("EDITED");window.location="/view_staff/"</script> ''')
+        
+        else:
+            var1=staff.objects.get(staff_id=id)
+            var1.staff_name=request.POST.get('staff_name')
+            var1.address=request.POST.get('address')
+            var1.pin=request.POST.get('pin')
+            var1.email=request.POST.get('email')
+            var1.phone=request.POST.get('phone')
+            var1.state=request.POST.get('state')
+            var1.post=request.POST.get('post')
+            var1.type=request.POST.get('staff_type')
+            var1.dob=request.POST.get('dob')
+            var1.aadhaar=request.POST.get('aadhaar')
+            var1.nationality=request.POST.get('nationality')
+            var1.qualification=request.POST.get('qualification')
+            var1.remark=request.POST.get('remark')
+            var1.salary=request.POST.get('salary')
+            var1.save()
+            
+        return HttpResponse('''<Script>alert("EDITED");window.location="/view_staff/";</Script>''')
 
 def delete_staff(request,id):
-    staff.objects.filter(staff_id=id).delete()
-    return HttpResponse('''<Script>alert("DELETED");window.location="/view_staff/";</Script>''')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        staff.objects.filter(staff_id=id).delete()
+        return HttpResponse('''<Script>alert("DELETED");window.location="/view_staff/";</Script>''')
 
 # def add_scheduler(request,id):
 #     data=staff.objects.get(staff_id=id)
@@ -330,174 +435,220 @@ def delete_staff(request,id):
 # def view_scheduler(request):
 #     data=staff.objects.filter(status='scheduler')
 #     return render(request,"Admin/view_scheduler.html",{'data':data})
-def add_scheduler(request):
-    return render(request,'Admin/add_scheduler.html')
+# def add_scheduler(request):
+#     return render(request,'Admin/add_scheduler.html')
 
-def add_scheduler_post(request):
-    data=scheduler()
-    data.scheduler_name=request.POST.get('scheduler_name')
-    data.address=request.POST.get('address')
-    data.pin=request.POST.get('pin')
-    data.email=request.POST.get('email')
-    data.phone=request.POST.get('phone')
-    data.state=request.POST.get('state')
-    Photo = request.FILES['scheduler_photo']
-    fs = FileSystemStorage()
-    filename = fs.save(Photo.name, Photo) 
-    uploaded_file_url = fs.url(filename)
-    data.photo=uploaded_file_url
-    # data.status = "active"
-    data.save()
-    data1=login()
-    data1.username=request.POST.get('email')
-    data1.password=request.POST.get('phone')
-    data1.type="scheduler"
-    data1.save()
-    return HttpResponse('''<Script>alert("ADDED");window.location="/add_scheduler/";</Script>''')
+# def add_scheduler_post(request):
+#     data=scheduler()
+#     data.scheduler_name=request.POST.get('scheduler_name')
+#     data.address=request.POST.get('address')
+#     data.pin=request.POST.get('pin')
+#     data.email=request.POST.get('email')
+#     data.phone=request.POST.get('phone')
+#     data.state=request.POST.get('state')
+#     Photo = request.FILES['scheduler_photo']
+#     fs = FileSystemStorage()
+#     filename = fs.save(Photo.name, Photo) 
+#     uploaded_file_url = fs.url(filename)
+#     data.photo=uploaded_file_url
+#     # data.status = "active"
+#     data.save()
+#     data1=login()
+#     data1.username=request.POST.get('email')
+#     data1.password=request.POST.get('phone')
+#     data1.type="scheduler"
+#     data1.save()
+#     return HttpResponse('''<Script>alert("ADDED");window.location="/add_scheduler/";</Script>''')
 
-def view_scheduler(request):
-    data = scheduler.objects.all()
-    return render(request, 'Admin/view_scheduler.html', {'data': data})
 
-def view_scheduler_post(request):
-    search=request.POST['textfield']
-    var=scheduler.objects.filter(scheduler_name__icontains=search)
-    return render(request,"Admin/view_scheduler.html",{'data':var})
 
-def edit_scheduler(request,id):
-    data=scheduler.objects.get(scheduler_id=id)
-    return render(request,'Admin/edit_scheduler.html',{'data':data})
 
-def edit_scheduler_post(request):
-    id=request.POST['id']
+
+# def view_scheduler(request):
+#     data = scheduler.objects.all()
+#     return render(request, 'Admin/view_scheduler.html', {'data': data})
+
+# def view_scheduler_post(request):
+#     search=request.POST['textfield']
+#     var=scheduler.objects.filter(scheduler_name__icontains=search)
+#     return render(request,"Admin/view_scheduler.html",{'data':var})
+
+# def edit_scheduler(request,id):
+#     data=scheduler.objects.get(scheduler_id=id)
+#     return render(request,'Admin/edit_scheduler.html',{'data':data})
+
+# def edit_scheduler_post(request):
+#     id=request.POST['id']
     
-    if 'scheduler_photo' in request.FILES:
+#     if 'scheduler_photo' in request.FILES:
         
-        var1=scheduler.objects.get(scheduler_id=id)
-        Photo = request.FILES['scheduler_photo']
-        fs = FileSystemStorage()
-        filename = fs.save(Photo.name, Photo) 
-        uploaded_file_url = fs.url(filename)
-        var1.photo=uploaded_file_url
-        var1.scheduler_name=request.POST.get('scheduler_name')
-        var1.address=request.POST.get('address')
-        var1.pin=request.POST.get('pin')
-        var1.email=request.POST.get('email')
-        var1.phone=request.POST.get('phone')
-        var1.state=request.POST.get('state')
-        var1.save()
-        return HttpResponse('''<script>alert("EDITED");window.location="/view_scheduler/"</script> ''')
+#         var1=scheduler.objects.get(scheduler_id=id)
+#         Photo = request.FILES['scheduler_photo']
+#         fs = FileSystemStorage()
+#         filename = fs.save(Photo.name, Photo) 
+#         uploaded_file_url = fs.url(filename)
+#         var1.photo=uploaded_file_url
+#         var1.scheduler_name=request.POST.get('scheduler_name')
+#         var1.address=request.POST.get('address')
+#         var1.pin=request.POST.get('pin')
+#         var1.email=request.POST.get('email')
+#         var1.phone=request.POST.get('phone')
+#         var1.state=request.POST.get('state')
+#         var1.save()
+#         return HttpResponse('''<script>alert("EDITED");window.location="/view_scheduler/"</script> ''')
     
-    else:
-        var1=scheduler.objects.get(scheduler_id=id)
-        var1.scheduler_name=request.POST.get('scheduler_name')
-        var1.address=request.POST.get('address')
-        var1.pin=request.POST.get('pin')
-        var1.email=request.POST.get('email')
-        var1.phone=request.POST.get('phone')
-        var1.state=request.POST.get('state')
-        var1.save()
+#     else:
+#         var1=scheduler.objects.get(scheduler_id=id)
+#         var1.scheduler_name=request.POST.get('scheduler_name')
+#         var1.address=request.POST.get('address')
+#         var1.pin=request.POST.get('pin')
+#         var1.email=request.POST.get('email')
+#         var1.phone=request.POST.get('phone')
+#         var1.state=request.POST.get('state')
+#         var1.save()
         
-    return HttpResponse('''<Script>alert("EDITED");window.location="/view_scheduler/";</Script>''')
+#     return HttpResponse('''<Script>alert("EDITED");window.location="/view_scheduler/";</Script>''')
 
-def delete_scheduler(request,id):
-    data=scheduler.objects.get(scheduler_id=id)
-    data2=login.objects.get(username=data.email)
-    scheduler.objects.filter(scheduler_id=id).delete()
-    data2.delete()
-    return HttpResponse('''<Script>alert("DELETED");window.location="/view_scheduler/";</Script>''')
+# def delete_scheduler(request,id):
+#     data=scheduler.objects.get(scheduler_id=id)
+#     data2=login.objects.get(username=data.email)
+#     scheduler.objects.filter(scheduler_id=id).delete()
+#     data2.delete()
+#     return HttpResponse('''<Script>alert("DELETED");window.location="/view_scheduler/";</Script>''')
 
 
 def add_vehicle(request):
-    return render(request,'Admin/add_vehicle.html')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        return render(request,'Admin/add_vehicle.html')
 
 def add_vehicle_post(request):
-    data=vehicle()
-    data.vehicle_number=request.POST.get('vehicle_number')
-    data.vehicle_name=request.POST.get('vehicle_name')
-    data.type=request.POST.get('vehicle_type')
-    Photo = request.FILES['photo']
-    fs = FileSystemStorage()
-    filename = fs.save(Photo.name, Photo) 
-    uploaded_file_url = fs.url(filename)
-    data.photo=uploaded_file_url
-    data.status='available'
-    data.save()
-    return HttpResponse('''<Script>alert("ADDED");window.location="/add_vehicle/";</Script>''')
-
-def view_vehicle(request):
-    data = vehicle.objects.all()
-    return render(request, 'Admin/view_vehicle.html', {'data': data})
-
-def view_vehicle_post(request):
-    search=request.POST['textfield']
-    var=vehicle.objects.filter(vehicle_name__icontains=search)
-    return render(request,"Admin/view_vehicle.html",{'data':var})
-
-def edit_vehicle(request,id):
-    data=vehicle.objects.get(vehicle_id=id)
-    return render(request,'Admin/edit_vehicle.html',{'data':data})
-
-def edit_vehicle_post(request):
-    id = request.POST['id']
-    if 'photo' in request.FILES:
-        var1 = vehicle.objects.get(vehicle_id=id)
-        var1.vehicle_number = request.POST.get('vehicle_number')
-        var1.vehicle_name = request.POST.get('vehicle_name')
-        var1.type = request.POST.get('vehicle_type')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=vehicle()
+        data.vehicle_number=request.POST.get('vehicle_number')
+        data.vehicle_name=request.POST.get('vehicle_name')
+        data.type=request.POST.get('vehicle_type')
         Photo = request.FILES['photo']
         fs = FileSystemStorage()
         filename = fs.save(Photo.name, Photo) 
         uploaded_file_url = fs.url(filename)
-        var1.photo = uploaded_file_url
-        var1.save()
-        return HttpResponse('''<script>alert("EDITED");window.location="/view_vehicle/"</script>''')
+        data.photo=uploaded_file_url
+        data.status='available'
+        data.save()
+        return HttpResponse('''<Script>alert("ADDED");window.location="/add_vehicle/";</Script>''')
+
+def view_vehicle(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
     else:
-        var1 = vehicle.objects.get(vehicle_id=id)
-        var1.vehicle_number = request.POST.get('vehicle_number')
-        var1.vehicle_name = request.POST.get('vehicle_name')
-        var1.type = request.POST.get('vehicle_type')
-        var1.save()
-    return HttpResponse('''<script>alert("EDITED");window.location="/view_vehicle/"</script>''')
+        data = vehicle.objects.all()
+        return render(request, 'Admin/view_vehicle.html', {'data': data})
+
+def view_vehicle_post(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        search=request.POST['textfield']
+        var=vehicle.objects.filter(vehicle_name__icontains=search)
+        return render(request,"Admin/view_vehicle.html",{'data':var})
+
+def edit_vehicle(request,id):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=vehicle.objects.get(vehicle_id=id)
+        return render(request,'Admin/edit_vehicle.html',{'data':data})
+
+def edit_vehicle_post(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        id = request.POST['id']
+        if 'photo' in request.FILES:
+            var1 = vehicle.objects.get(vehicle_id=id)
+            var1.vehicle_number = request.POST.get('vehicle_number')
+            var1.vehicle_name = request.POST.get('vehicle_name')
+            var1.type = request.POST.get('vehicle_type')
+            Photo = request.FILES['photo']
+            fs = FileSystemStorage()
+            filename = fs.save(Photo.name, Photo) 
+            uploaded_file_url = fs.url(filename)
+            var1.photo = uploaded_file_url
+            var1.save()
+            return HttpResponse('''<script>alert("EDITED");window.location="/view_vehicle/"</script>''')
+        else:
+            var1 = vehicle.objects.get(vehicle_id=id)
+            var1.vehicle_number = request.POST.get('vehicle_number')
+            var1.vehicle_name = request.POST.get('vehicle_name')
+            var1.type = request.POST.get('vehicle_type')
+            var1.save()
+        return HttpResponse('''<script>alert("EDITED");window.location="/view_vehicle/"</script>''')
     
 def delete_vehicle(request,id):
-    vehicle.objects.filter(vehicle_id=id).delete()
-    return HttpResponse('''<Script>alert("DELETED");window.location="/view_vehicle/";</Script>''')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        vehicle.objects.filter(vehicle_id=id).delete()
+        return HttpResponse('''<Script>alert("DELETED");window.location="/view_vehicle/";</Script>''')
     
 def view_complaint(request):
-    data=complaint.objects.filter(status='pending')
-    return render(request,'Admin/view_complaint.html', {'data': data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=complaint.objects.filter(status='pending')
+        return render(request,'Admin/view_complaint.html', {'data': data})
 
 def view_complaint_post(request):
-    fromdate=request.POST['textfield1']
-    todate=request.POST['textfield2']
-    var = complaint.objects.filter(date__range=[fromdate, todate])
-    return render(request, 'Admin/view_complaint.html', {'data': var})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        fromdate=request.POST['textfield1']
+        todate=request.POST['textfield2']
+        var = complaint.objects.filter(date__range=[fromdate, todate])
+        return render(request, 'Admin/view_complaint.html', {'data': var})
 
 def complaint_reply(request,id):
-    data=complaint.objects.get(complaint_id=id)
-    return render(request,'Admin/complaint_reply.html',{'data':data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=complaint.objects.get(complaint_id=id)
+        return render(request,'Admin/complaint_reply.html',{'data':data})
 
 def complaint_reply_post(request,id):
-    var1=complaint.objects.get(complaint_id=id)
-    var1.reply=request.POST.get('message')
-    var1.status='replied'
-    var1.save()
-    return HttpResponse('''<script>alert("REPLIED");window.location="/view_complaint/";</script>''')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        var1=complaint.objects.get(complaint_id=id)
+        var1.reply=request.POST.get('message')
+        var1.status='replied'
+        var1.save()
+        return HttpResponse('''<script>alert("REPLIED");window.location="/view_complaint/";</script>''')
 
 def admin_view_review(request):
-    data = review.objects.all()
-    return render(request,'Admin/view_review.html', {'data': data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data = review.objects.all()
+        return render(request,'Admin/view_review.html', {'data': data})
 
 def admin_view_review_post(request):
-    search=request.POST['textfield']
-    var=review.objects.filter(PRODUCT_id__CATEGORY_id__category_name__icontains=search)
-    return render(request,"Admin/view_review.html",{'data':var})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        search=request.POST['textfield']
+        var=review.objects.filter(PRODUCT_id__CATEGORY_id__category_name__icontains=search)
+        return render(request,"Admin/view_review.html",{'data':var})
 
 def admin_view_profile(request):
-    admin_id = request.session.get('admins')
-    data = login.objects.get(username=admin_id)
-    return render(request, 'Admin/view_profile.html', {'data': data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        admin_id = request.session.get('admins')
+        data = login.objects.get(username=admin_id)
+        return render(request, 'Admin/view_profile.html', {'data': data})
 
 # def admin_change_password(request):
 #     val=request.session.get('admins')
@@ -505,111 +656,182 @@ def admin_view_profile(request):
 #     return render(request,"Admin/admin_change_password.html",{'data':var})
 
 def admin_change_password_post(request):
-    oldpass=request.POST['textfield']
-    newpass=request.POST['textfield2']
-    confirmpass=request.POST['textfield3']
-    res=login.objects.filter(username=request.session['admins'],password=oldpass)
-    if res.exists():
-        if newpass == confirmpass:
-            ress = res.update(password=newpass)
-            return HttpResponse('''<script>alert('PASSWORD CHANGED SUCCESSFULLY');window.location="/admin_home/"</script>''')
-        else:
-            return HttpResponse('''<Script>alert("PASSWORD DOES NOT MATCH");window.location="/admin_view_profile/";</Script>''')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
     else:
-        return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/admin_view_profile/";</Script>''')
+        oldpass=request.POST['textfield']
+        newpass=request.POST['textfield2']
+        confirmpass=request.POST['textfield3']
+        res=login.objects.filter(username=request.session['admins'],password=oldpass)
+        if res.exists():
+            if newpass == confirmpass:
+                ress = res.update(password=newpass)
+                return HttpResponse('''<script>alert('PASSWORD CHANGED SUCCESSFULLY');window.location="/admin_home/"</script>''')
+            else:
+                return HttpResponse('''<Script>alert("PASSWORD DOES NOT MATCH");window.location="/admin_view_profile/";</Script>''')
+        else:
+            return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/admin_view_profile/";</Script>''')
 
 def staff_report1(request):
-    return render(request, 'Admin/staff_report1.html')
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        return render(request, 'Admin/staff_report1.html')
 
 def view_permanent_staff(request):
-    data = staff.objects.filter(type="Permanent")
-    return render(request, 'Admin/view_permanent_staff.html', {'data': data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data = staff.objects.filter(type="Permanent")
+        return render(request, 'Admin/view_permanent_staff.html', {'data': data})
 
 def view_permanent_staff_post(request):
-    search=request.POST['textfield']
-    var=staff.objects.filter(post__icontains=search,type="Permanent")
-    return render(request,"Admin/view_permanent_staff.html",{'data':var})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        search=request.POST['textfield']
+        var=staff.objects.filter(post__icontains=search,type="Permanent")
+        return render(request,"Admin/view_permanent_staff.html",{'data':var})
 
 def view_temporary_staff(request):
-    data = staff.objects.filter(type="Temporary")
-    return render(request, 'Admin/view_temporary_staff.html', {'data': data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data = staff.objects.filter(type="Temporary")
+        return render(request, 'Admin/view_temporary_staff.html', {'data': data})
 
 def view_temporary_staff_post(request):
-    search=request.POST['textfield']
-    var=staff.objects.filter(post__icontains=search,type="Temporary")
-    return render(request,"Admin/view_temporary_staff.html",{'data':var})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        search=request.POST['textfield']
+        var=staff.objects.filter(post__icontains=search,type="Temporary")
+        return render(request,"Admin/view_temporary_staff.html",{'data':var})
 
-def product_report1(request):
-    data = category.objects.all()
-    return render(request, 'Admin/product_report1.html',{'data':data})
+# def product_report1(request):
+#     data = category.objects.all()
+#     return render(request, 'Admin/product_report1.html',{'data':data})
 
-def product_report1_post(request):
-    search=request.POST['textfield']
-    var=category.objects.filter(category_name__icontains=search)
-    return render(request,"Admin/product_report1.html",{'data':var})
+# def product_report1_post(request):
+#     search=request.POST['textfield']
+#     var=category.objects.filter(category_name__icontains=search)
+#     return render(request,"Admin/product_report1.html",{'data':var})
 
-def product_report2(request,id):
-    data = product.objects.all()
-    return render(request, 'Admin/product_report2.html', {'data': data})
+# def product_report2(request,id):
+#     data = product.objects.all()
+#     return render(request, 'Admin/product_report2.html', {'data': data})
 
-def product_report2_post(request):
-    search=request.POST['textfield']
-    var=product.objects.filter(CATEGORY_id__category_name__icontains=search)
-    return render(request,"Admin/product_report2.html",{'data':var})
+# def product_report2_post(request):
+#     search=request.POST['textfield']
+#     var=product.objects.filter(CATEGORY_id__category_name__icontains=search)
+#     return render(request,"Admin/product_report2.html",{'data':var})
 
 def admin_view_duty1(request,id):
-    data = duty.objects.filter(STAFF_id=id)
-    return render(request,"Admin/admin_view_duty.html",{'data':data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data = duty.objects.filter(STAFF_id=id)
+        return render(request,"Admin/admin_view_duty.html",{'data':data})
 
 def admin_view_duty2(request,id):
-    data = duty.objects.filter(STAFF_id=id)
-    return render(request,"Admin/admin_view_duty.html",{'data':data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data = duty.objects.filter(STAFF_id=id)
+        return render(request,"Admin/admin_view_duty.html",{'data':data})
 
 from django.shortcuts import render
 from datetime import datetime
 
 def sales_report1(request):
-    current_year = datetime.now().year
-    years = list(range(current_year, current_year - 5, -1))
-    return render(request, 'Admin/sales_report1.html', {'years': years})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        current_year = datetime.now().year
+        years = list(range(current_year, current_year - 5, -1))
+        return render(request, 'Admin/sales_report1.html', {'years': years})
 
 def view_sales_report1(request):
-    a1=request.POST.get('month')
-    a2=request.POST.get('year')
-    
-    data = make_order.objects.filter(month=a1).filter(year=a2)
-
-    return render(request, 'Admin/view_sales_report1.html', {'data': data})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        a1=request.POST.get('month')
+        a2=request.POST.get('year')
+        data = make_order.objects.filter(month=a1).filter(year=a2)
+        return render(request, 'Admin/view_sales_report1.html', {'data': data})
 
 def view_sales_report1_post(request):
-    search=request.POST['textfield']
-    var=make_order.objects.filter(status__icontains=search)
-    return render(request,"Admin/view_sales_report1.html",{'data':var})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        search=request.POST['textfield']
+        var=make_order.objects.filter(status__icontains=search)
+        return render(request,"Admin/view_sales_report1.html",{'data':var})
 
 def sales_report2(request):
-    current_year = datetime.now().year
-    years = list(range(current_year, current_year - 5, -1))
-   
-#   
-    
-    return render(request, 'Admin/sales_report2.html', {'years': years})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        current_year = datetime.now().year
+        years = list(range(current_year, current_year - 5, -1))  
+        return render(request, 'Admin/sales_report2.html', {'years': years})
 
 def view_sales_report2(request):
-    a1=request.POST.get('month')
-    a2=request.POST.get('year')
-   
-    ss1=make_order.objects.order_by('PRODUCT_id').values('PRODUCT_id').filter(month=a1).filter(year=a2).annotate(sum=Count('amount')).aggregate(Max('sum'))
-   
-    # print(ss1)
-    q=make_order.objects.filter(month=a1).filter(year=a2).values_list('PRODUCT_id', flat=True).annotate(sum=Count('amount')).order_by('-sum').first()
-    # print(q)
-    data = product.objects.filter(product_id=q)
-    return render(request, 'Admin/view_sales_report2.html', {'data': data,'data2':ss1})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        a1=request.POST.get('month')
+        a2=request.POST.get('year')
+    
+        ss1=make_order.objects.order_by('PRODUCT_id').values('PRODUCT_id').filter(month=a1).filter(year=a2).annotate(sum=Count('amount')).aggregate(Max('sum'))
+        # print(ss1)
+        q=make_order.objects.filter(month=a1).filter(year=a2).values_list('PRODUCT_id', flat=True).annotate(sum=Count('amount')).order_by('-sum').first()
+        # print(q)
+        data = product.objects.filter(product_id=q)
+        return render(request, 'Admin/view_sales_report2.html', {'data': data,'data2':ss1})
 
 def view_sales_report2_post(request):
-    search=request.POST['textfield']
-    var=make_order.objects.filter(status__icontains=search)
-    return render(request,"Admin/view_sales_report2.html",{'data':var})
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        search=request.POST['textfield']
+        var=make_order.objects.filter(status__icontains=search)
+        return render(request,"Admin/view_sales_report2.html",{'data':var})
+
+def staff_wages1(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        return render(request, 'Admin/staff_wages1.html')
+
+def staff_wages1_post(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=request.POST.get('date')
+        data1=wage.objects.filter(date=data)
+        return render(request,"Admin/view_staff_wages.html",{'data1':data1})
+        
+def staff_salary1(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        current_year = datetime.now().year
+        years = list(range(current_year, current_year - 5, -1))  
+        return render(request, 'Admin/staff_salary1.html',{'years': years})
+
+def staff_salary1_post(request):
+    if 'admins' not in request.session:
+        return redirect('/public_home/')
+    else:
+        a1=request.POST.get('month')
+        a2=request.POST.get('year')
+        data = salary_slip.objects.filter(month=a1).filter(year=a2)
+        return render(request, 'Admin/view_staff_salary.html' ,{'data': data})
+
+
+
+
 
 
 
@@ -617,7 +839,7 @@ def view_sales_report2_post(request):
 
 def scheduler_home(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     return render(request,'Scheduler/dashboard.html',{'lg':lg})
 
 # def scheduler_dashboard(request):
@@ -625,14 +847,14 @@ def scheduler_home(request):
 
 def view_category2(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data = category.objects.all()
     return render(request,'Scheduler/view_category2.html', {'lg': lg, 'data': data})
 
 def view_category2_post(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     search=request.POST['textfield']
     var=category.objects.filter(category_name__icontains=search)
@@ -640,7 +862,7 @@ def view_category2_post(request):
 
 def view_product2(request,id):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     request.session['cc']=id
     data = product.objects.filter(CATEGORY_id=id)
@@ -648,7 +870,7 @@ def view_product2(request,id):
 
 def view_product2_post(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     search=request.POST['textfield']
     category_id=request.session.get('cc')
@@ -657,7 +879,7 @@ def view_product2_post(request):
 
 def edit_quantity(request,id):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data = product.objects.get(product_id=id)
     return render(request,'Scheduler/edit_quantity.html', {'lg': lg, 'data': data})
@@ -671,21 +893,21 @@ def edit_quantity_post(request,id):
 
 def view_orders(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data=make_order.objects.filter(status="pending")
     return render(request,'Scheduler/view_orders.html',{'lg': lg, 'data':data})
 
 def check_payment(request,id):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data=payment.objects.get(ORDER_id=id)
     return render(request,'Scheduler/check_payment.html',{'lg':lg, 'data':data})
 
 def schedule_order(request,id):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data1 = make_order.objects.get(order_id=id)
     data2=vehicle.objects.filter(status="available")
@@ -753,7 +975,7 @@ def reject_order(request, id):
 
 def orders_history(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data=make_order.objects.all()
     return render(request,'Scheduler/view_orders_history.html',{'lg': lg, 'data':data})
@@ -765,7 +987,7 @@ def orders_history_post(request):
 
 def scheduler_view_profile(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     return render(request, 'Scheduler/view_profile.html', {'lg': lg})
 
 # def scheduler_edit_profile(request):
@@ -823,7 +1045,7 @@ def scheduler_change_password_post(request):
 
 def add_worksite(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     data=product.objects.all()
     return render(request,'Scheduler/add_worksite.html',{'lg':lg,'data':data})
 
@@ -855,14 +1077,14 @@ def add_worksite_post(request):
 
 def view_worksite(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data = worksite.objects.all()
     return render(request, 'Scheduler/view_worksite.html', {'lg' : lg , 'data' : data })
 
 def edit_worksite(request,id):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data=worksite.objects.get(worksite_id=id)
     data2 = product.objects.all()
@@ -908,7 +1130,7 @@ def delete_worksite(request,id):
 
 def view_staffs(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data = staff.objects.filter(status="active")
     return render(request,'Scheduler/view_staffs.html',{'lg':lg,'data':data})
@@ -920,7 +1142,7 @@ def view_staffs_post(request):
 
 def add_duty(request, id):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data = staff.objects.get(staff_id=id)
     return render(request, 'Scheduler/add_duty.html', {'lg': lg, 'data': data})
@@ -943,14 +1165,14 @@ def add_duty_post(request):
     
 def view_duty(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data = duty.objects.all()
     return render(request, 'Scheduler/view_duty.html', {'lg': lg, 'data': data})
 
 def view_delivery_staff(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data=staff.objects.filter(status="inactive")
     data1=vehicle_allot.objects.filter(STAFF_id__in=[ct.staff_id for ct in data])
@@ -958,7 +1180,7 @@ def view_delivery_staff(request):
     
 def view_cancel_request(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data = make_order.objects.filter(status="cancel requested")
     return render(request, 'Scheduler/view_cancel_request.html', {'lg': lg, 'data': data})
@@ -992,7 +1214,7 @@ def cancel_confirm(request,id):
     
 def view_return(request):
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data = returns.objects.filter(status="pending")
     return render(request, 'Scheduler/view_return.html', {'lg': lg, 'data': data})
@@ -1005,7 +1227,7 @@ def view_return_post(request):
 
 def schedule_return(request,id):    
     scheduler_id = request.session.get('schedulers')
-    lg = scheduler.objects.get(email=scheduler_id)
+    lg = staff.objects.get(email=scheduler_id)
     
     data1 = returns.objects.get(returns_id=id)
     data5=make_order.objects.get(order_id=data1.ORDER_id)
@@ -1036,6 +1258,9 @@ def schedule_return_post(request,id):
     data4.ORDER_id = data2.order_id
     data4.STAFF_id= request.POST.get('staff')
     data4.VEHICLE_id = request.POST.get('vehicle')
+    
+    data4.status="return requested"
+    
     data4.save()
     data5=staff.objects.get(staff_id=staff_id)
     data5.status="inactive"
@@ -1167,6 +1392,11 @@ def view_order(request):
     data = make_order.objects.filter(CUSTOMER_id=data2.customer_id).order_by('-order_id')
     return render(request, 'Customer/view_order.html', {'data': data})
 
+def view_order_post(request):
+    search=request.POST['textfield']
+    var=make_order.objects.filter(PRODUCT_id__product_name__icontains=search)
+    return render(request,"Customer/view_order.html",{'data':var})
+
 def cancel_order(request,id):
      data2 = make_order.objects.get(order_id=id)
      data2.status="cancel requested"
@@ -1186,13 +1416,19 @@ def send_complaint_post(request):
     data = customer.objects.get(email=customer_id)
     var.CUSTOMER_id=data.customer_id
     var.save()
-    return HttpResponse('''<script>alert('SUCCESSFULLY SENT');window.location="/send_complaint/"</script>''')
+    return HttpResponse('''<script>alert('SUCCESSFULLY SENT');window.location="/view_customer_complaint/"</script>''')
 
 def view_customer_complaint(request):
     customer_id = request.session['customers']
     customer_obj = customer.objects.get(email=customer_id)
     data = complaint.objects.filter(CUSTOMER_id=customer_obj.customer_id)
     return render(request, 'Customer/view_complaint.html', {'data': data})
+
+def view_customer_complaint_post(request):
+    fromdate=request.POST['textfield1']
+    todate=request.POST['textfield2']
+    var = complaint.objects.filter(date__range=[fromdate, todate])
+    return render(request, 'Customer/view_complaint.html', {'data': var})
 
 def view_replied_complaint(request,id):
     data = complaint.objects.get(complaint_id=id)
@@ -1289,6 +1525,10 @@ def add_return_post(request,id):
     data.ORDER_id=id
     data.status = "pending"
     data.save()
+    #new
+    # data3 = vehicle_allot.objects.get(ORDER_id=id)
+    # data3.status="return requested"
+    # data3.save()
     
     return HttpResponse('''<script>alert("RETURN REQUEST SENT");window.location="/view_order/";</script>''')
 
@@ -1319,6 +1559,11 @@ def view_cart(request):
     data = customer.objects.get(email=request.session['customers'])
     data1 = cart.objects.filter(CUSTOMER_id=data.customer_id)
     return render(request, 'Customer/view_cart.html', {'data': data1})
+
+def view_cart_post(request):
+    search=request.POST['textfield']
+    var=cart.objects.filter(PRODUCT_id__product_name__icontains=search)
+    return render(request,"Customer/view_cart.html",{'data':var})
 
 def edit_cart(request,id):
     data = cart.objects.get(cart_id=id)
@@ -1538,7 +1783,7 @@ def view_returns(request):
     
     data=request.session.get('staffs')
     data2=staff.objects.get(email=data)
-    data3=vehicle_allot.objects.filter(STAFF_id=data2)
+    data3=vehicle_allot.objects.filter(STAFF_id=data2, status="return requested")
     for i in data3:
         print(i.ORDER)
     data3=data3.filter(ORDER_id__status="return confirmed")
@@ -1570,7 +1815,7 @@ def view_returns_post(request,id):
     data13.save()
     
     data=vehicle_allot.objects.get(vehicle_allot_id=id)
-    data.status="completed"
+    data.status="return completed"
     data.save()
     data5=make_order.objects.get(order_id=data.ORDER_id)
     data5.status="returned"
@@ -1630,6 +1875,75 @@ def staff_change_password_post(request):
     else:
         return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/staff_view_profile/";</Script>''')
 
+
+
+#accountant
+def accountant_home(request):
+    return render(request,'Accountant/accountant_home.html')
+
+def view_wages(request):
+    data = staff.objects.filter(type="temporary").exclude(post="accountant").exclude(post="scheduler")
+    return render(request, 'Accountant/view_wages.html', {'data': data})
+
+def view_salary(request):
+    data = staff.objects.filter(type="permanent").exclude(post="accountant").exclude(post="scheduler")
+    return render(request, 'Accountant/view_salary.html', {'data': data})
+
+def add_wage(request,id):
+    return render(request, 'Accountant/add_wage.html',{'id':id})
+
+def add_wage_post(request,id):
+    data = wage()
+    data.STAFF_id = id
+    data.date=datetime.now().strftime('%Y-%m-%d')
+    data.wage=request.POST.get('wage')
+    data.remark = request.POST.get('remark')
+    data.save()
+    return HttpResponse('''<script>alert("WAGE ADDED");window.location="/view_wages/";</script>''')
+
+def add_leave(request,id):
+    return render(request, 'Accountant/add_leave.html',{'id':id})
+
+def add_leave_post(request,id):
+    data=staff.objects.get(staff_id=id)
+    salary=data.salary
+    
+    wage=float(salary)/30
+    total=float(wage)*float(request.POST.get('leave'))
+    nettotal=int(salary)-total
+    
+    l=int(request.POST.get('leave'))
+    if l!=1:
+        data5=salary_slip()
+        data5.STAFF_id=id
+        from datetime import datetime
+        from django.utils import timezone
+        data5.date=datetime.now().strftime('%Y-%m-%d')
+        data5.month=timezone.now().month
+        data5.year=timezone.now().year
+        data5.leave=request.POST.get('leave')
+        data5.basic_salary=data.salary
+        data5.salary=nettotal
+        data5.save()
+        return render(request,"Accountant/view_staff_salary.html",{'netsalary':nettotal})
+
+        
+    else:
+            
+        
+        data5=salary_slip()
+        data5.STAFF_id=id
+        from datetime import datetime
+        from django.utils import timezone
+        data5.date=datetime.now().strftime('%Y-%m-%d')
+        data5.month=timezone.now().month
+        data5.year=timezone.now().year
+        data5.leave=request.POST.get('leave')
+        data5.basic_salary=data.salary
+        data5.salary=data.salary
+        data5.save()
+        
+        return render(request,"Accountant/view_staff_salary.html",{'netsalary':data.salary})
 
 
 

@@ -1,4 +1,39 @@
 {% extends 'Customer/home.html' %}
+{% block x %}
+
+<style>
+    .reply-box {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin: 10px auto;  /* add auto right and left margins */
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9;
+        width: 50%;  /* decrease the width of the div */
+    }
+    
+    .reply-box h4 {
+        margin-top: 0;
+        color: #333;
+        font-size: 2rem;
+    }
+    
+    .reply-box p {
+        margin-top: 20px;  /* add some top margin to the message */
+        color: #333;
+        font-size: 1rem;  /* decrease the font size of the message */
+    }
+</style>
+
+<body>
+    <div class="reply-box">
+        <h4>Replied Message</h4>
+        <p>{{ data.reply }}</p>
+    </div>
+</body>
+{% endblock %}
+
+{% comment %} {% extends 'Customer/home.html' %}
 
 {% block x %}
 <body>
@@ -15,4 +50,4 @@
     </tbody>
 </table>
 </body>
-{% endblock %}
+{% endblock %} {% endcomment %}

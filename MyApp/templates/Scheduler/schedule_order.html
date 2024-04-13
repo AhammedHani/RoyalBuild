@@ -38,7 +38,7 @@
                 <th>Staff</th>
                 <td>
                     <select id="staff" name="staff" class="form-control" required>
-                        <option value="">Select staff</option>
+                        <option value="" disabled selected>Select staff</option>
                         {% for i in data3 %}
                         {% if i.status != 'scheduler' %}
                         <option value="{{ i.staff_id }}">{{ i.staff_name }}</option>
@@ -51,7 +51,7 @@
                 <th>Vehicle</th>
                 <td>
                     <select id="vehicle" name="vehicle" class="form-control" required>
-                        <option value="">Select Vehicle</option>
+                        <option value="" disabled selected>Select Vehicle</option>
                         {% for i in data2 %}
                             {% if i.status == 'available' %}
                                 <option value="{{ i.vehicle_id }}">{{ i.type }}</option>

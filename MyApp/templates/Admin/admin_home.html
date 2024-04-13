@@ -11,7 +11,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{% static 'Admin/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'Admin/assets/img/1.png' %}" rel="icon">
   <link href="{% static 'Admin/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -46,7 +46,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="#" class="logo d-flex align-items-center">&nbsp;&nbsp;
-        <img src="{% static 'Admin/assets/img/logo.png' %}" alt="">&nbsp;
+        <img src="{% static 'Admin/assets/img/1.png' %}" alt="">&nbsp;
         <span class="d-none d-lg-block">Royal Associates</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -198,7 +198,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{% static 'Admin/assets/img/RoyalBricks.jpeg' %}" alt="Profile" class="rounded-circle">
+            <img src="{% static 'Admin/assets/img/1.png' %}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2"></span>
           </a><!-- End Profile Image Icon -->
 
@@ -234,7 +234,7 @@
             </li> {% endcomment %}
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/public_home">
+              <a class="dropdown-item d-flex align-items-center" href="/admin_logout/">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -331,8 +331,8 @@
         </ul>
       </li><!-- End Staff Nav -->
 
-
-      <li class="nav-item">
+      
+      {% comment %} <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#scheduler-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-person-check"></i><span>Scheduler</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -348,7 +348,7 @@
             </a>
           </li>
         </ul>
-      </li><!-- End Scheduler Nav -->
+      </li><!-- End Scheduler Nav --> {% endcomment %}
 
 
       <li class="nav-item">
@@ -393,24 +393,38 @@
             
           </li>
         </ul>
-        <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        {% comment %} <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="/product_report1">
               <i class="bi bi-circle"></i><span>Product Report</span>
             </a>
           </li>
-        </ul>
+        </ul> {% endcomment %}
         <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="/sales_report1">
-              <i class="bi bi-circle"></i><span>Sales Report 1</span>
+              <i class="bi bi-circle"></i><span>Sales History</span>
             </a>
           </li>
         </ul>
         <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="/sales_report2">
-              <i class="bi bi-circle"></i><span>Sales Report 2</span>
+              <i class="bi bi-circle"></i><span>Best Sales</span>
+            </a>
+          </li>
+        </ul>
+        <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/staff_wages1">
+              <i class="bi bi-circle"></i><span>Staff wages</span>
+            </a>
+          </li>
+        </ul>
+        <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/staff_salary1">
+              <i class="bi bi-circle"></i><span>Staff Salary</span>
             </a>
           </li>
         </ul>

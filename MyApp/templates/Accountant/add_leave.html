@@ -1,0 +1,27 @@
+{% extends 'Accountant/accountant_home.html' %}
+{% block x %}
+  
+<body>
+  <br><br>
+  <form id="form1" name="form1" method="post" action="/add_leave_post/{{id}}">
+    {% csrf_token %}
+    <table class="table table-bordered table-hover" id="scroll">
+    {% comment %} <tr>
+        <th>Date</th>
+        <td><input type="text" name="date" id="date" class="form-control"/></td>
+        </tr> {% endcomment %}
+      <tr>
+        <th>Number of leave</th>
+        <td><input type="text" name="leave" id="wage" class="form-control"/></td>
+      </tr>
+      {% comment %} <tr>
+        <th>Remark</th>
+        <td><textarea name="remark" id="remark" class="form-control"></textarea></td>
+      </tr> {% endcomment %}
+      <tr>
+        <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Submit" class="btn btn-success"/></td>
+      </tr>
+    </table>
+  </form>
+</body>
+{% endblock x %}

@@ -1,40 +1,69 @@
 {% extends 'Customer/home.html' %}
 {% block x %}
 
+<style>
+  .table td img {
+    width: 36px;
+    height: 36px;
+    border-radius: 100%; 
+}
+</style>
 <body>
+  <form id="form1" name="form1" method="post" action="/view_customer_complaint_post/">
+    {% csrf_token %}
+      <table class="pull-left">
+        <tr>
+          <th>From</th>
+          <td>
+          <input type="date" name="textfield1" id="textfield1" class="form-control" required/></td>
+          <th>To</th>
+          <td>
+          <input type="date" name="textfield2" id="textfield2" class="form-control" required/></td>
+          <td><input type="submit" name="button" id="button" value="Search" class="btn btn-info" /></td>
+        </tr>
+      </table>
+  <br>
   {% if data %}
+  <div style="text-align: center;">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
           <th>S. No</th>
-          <th>Complaint Message</th>
-          <th>Customer</th>
           <th>Date</th>
-
+          {% comment %} <th>Customer</th> {% endcomment %}
+          <th>Complaint Message</th>
         </tr>
       </thead>
       <tbody>
         {% for i in data %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ i.complaint_message }}</td>
-            <td>{{ i.CUSTOMER.customer_name }}</td>
             <td>{{ i.date }}</td>
+            {% comment %} <td><img src="{{ i.CUSTOMER.photo }}" alt="" class="img-thumbnail" /> {{ i.CUSTOMER.customer_name }}</td> {% endcomment %}
+            <td>{{ i.complaint_message }}</td>
+
             <td>
               {% if i.status == 'replied' %}
-                <a href="/view_replied_complaint/{{i.complaint_id}}" class="btn btn-primary btn-sm" title="Replied">
-                  <i class="fas fa-reply"></i> <!-- Use the "reply" icon -->
+             
+                <a href="/view_replied_complaint/{{i.complaint_id}}" class="btn btn-info btn" title="Replied">
+                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span> Replied
                 </a>
               {% else %}
+              <button class="btn btn-warning" type="button" disabled="">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 {{ i.status }}
+              </button>
+                
               {% endif %}
             </td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
+  </div>
   {% else %}
     <p>No complaints available.</p>
   {% endif %}
+  </form>
 </body>
 {% endblock x %}

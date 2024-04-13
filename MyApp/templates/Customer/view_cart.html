@@ -1,8 +1,29 @@
 {% extends 'Customer/home.html' %}
 {% block x %}
 
+<style>
+  .table td img {
+    width: 36px;
+    height: 36px;
+    border-radius: 100%; 
+}
+</style>
+<form id="form1" name="form1" method="post" action="/view_cart_post/">
+  {% csrf_token %}
+  <table class="pull-left">
+    <tr>
+      <td>
+        <input type="text" name="textfield" id="textfield" placeholder="Enter Product Name" class="form-control" />
+      </td>
+      <td>
+        <input type="submit" name="button" id="button" value="Search" class="btn btn-info" />
+      </td>
+    </tr>
+  </table>
+  <br>
 <body>
   {% if data %}
+  <div style="text-align: center;">
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -16,7 +37,7 @@
         {% for i in data %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ i.PRODUCT.product_name }}</td>
+            <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.product_name }}</td>
             <td>{{ i.quantity }}</td>
             {% comment %} <td>{{ i.date }}</td> {% endcomment %}
             <td><a href="/edit_cart/{{i.cart_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
@@ -25,10 +46,11 @@
           
         {% endfor %}
         <td colspan="6" class="text-center">
-          <a href="/cart_orders" class="btn btn-primary" title="Proceed">Proceed</a>
+          <a href="/cart_orders" class="btn btn-success" title="Proceed">Proceed</a>
         </td>
       </tbody>
     </table>
+  </div>
   {% else %}
     <p>No products available.</p>
   {% endif %}

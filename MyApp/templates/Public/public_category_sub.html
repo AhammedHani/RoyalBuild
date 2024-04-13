@@ -8,7 +8,7 @@ if(category=="Paving")
 {
   
   
-        document.getElementById("shape").style.display="block";
+        document.getElementById("shape").style.display="table-row";
         
       }
       else{
@@ -19,8 +19,7 @@ if(category=="Paving")
   
 </script>
 <body onload="valid()">
-  
-  <br><br>
+  <br>
   <form id="form1" name="form1" method="post" action="/public_view_categories1/" enctype="multipart/form-data">
     <input type="hidden" name="c1" value={{data.category_name}}>
     {% csrf_token %}
@@ -49,15 +48,6 @@ if(category=="Paving")
             </select>
           </td>
           </tr>
-          {% comment %} </table> {% endcomment %}
-          <!-- Add Detail 3 -->
-          {% comment %} <div style="display:none" id="shape">
-            <table width="1300px" border="1px" height="50px">
-              <tr>
-                <td style="width:470px;padding:4px">
-                <b>shape</b>
-          
-                </td> {% endcomment %}
                 <tr id="shape">
                   <th>Shape</th>
                 <td>
@@ -69,16 +59,12 @@ if(category=="Paving")
                     <option value="Triangle">Triangle</option>
                     <option value="Hexagon">Hexagon</option>
                   </select>
-          
                 </td>
               </tr>
+              <tr>
+                <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Submit" class="btn btn-success"/></td>
+              </tr>
             </table>
-              
-                     
-          <br><br>
-        <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Submit" class="btn btn-success"/></td>
-      </tr></div>
-    
   </form>
 </body>
 {% endblock x %}

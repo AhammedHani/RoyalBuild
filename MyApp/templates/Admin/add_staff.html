@@ -15,16 +15,24 @@
         <td><input type="file" class="form-control" id="staff_photo" name="staff_photo" required></td>
       </tr>
       <tr>
+        <th>Date of Birth</th>
+        <td><input type="date" class="form-control" id="dob" name="dob" required></td>
+      </tr>
+      <tr>
+        <th>Nationality</th>
+        <td><input type="text" class="form-control" id="nationality" name="nationality" required></td>
+      </tr>
+      <tr>
+        <th>State</th>
+        <td><input type="text" class="form-control" id="state" name="state" required></td>
+      </tr>
+      <tr>
         <th>Address</th>
         <td><input type="text" class="form-control" id="address" name="address" required></td>
       </tr>
       <tr>
         <th>Pin</th>
         <td><input type="text" class="form-control" id="pin" name="pin" required></td>
-      </tr>
-      <tr>
-        <th>State</th>
-        <td><input type="text" class="form-control" id="state" name="state" required></td>
       </tr>
       <tr>
         <th>Email</th>
@@ -35,12 +43,30 @@
         <td><input type="text" class="form-control" id="phone" name="phone" required></td>
       </tr>
       <tr>
+        <tr>
+          <th>Aadhaar</th>
+          <td><input type="text" class="form-control" id="aadhaar" name="aadhaar" required></td>
+        </tr>
+        <tr>
+          <tr>
+          <tr>
+            <th>Qualification</th>
+            <td><input type="text" class="form-control" id="qualification" name="qualification" required></td>
+          </tr>
+          <tr>
+            <tr>
+              <th>Remark</th>
+              <td><input type="text" class="form-control" id="remark" name="remark" required></td>
+            </tr>
+        <tr>
         <th>Post</th>
         <td>
-          <select class="form-control" id="post" name="post" required>
+          <select class="form-select" id="post" name="post" required>
             <option value="" disabled selected>Select a post</option>
-            <option value="Driver">Driver</option>
-            <option value="Labour">Labour</option>
+            <option value="driver">Driver</option>
+            <option value="labour">Labour</option>
+            <option value="accountant">Accountant</option>
+            <option value="scheduler">Scheduler</option>
           </select>
         </td>
       </tr>
@@ -60,6 +86,12 @@
             </label>
           </div>
         </td>
+      <tr>
+        <tr>
+          <tr>
+            <th>Salary</th>
+            <td><input type="text" class="form-control" id="salary" name="salary" required></td>
+          </tr>
       <tr>
         <td colspan="2" class="text-center">
           <button type="submit" class="btn btn-primary">Add</button>

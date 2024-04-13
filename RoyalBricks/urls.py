@@ -30,14 +30,14 @@ urlpatterns = [
     path('edit_staff_post/',views.edit_staff_post),
     path('delete_staff/<id>',views.delete_staff),
     # path('add_scheduler/<id>',views.add_scheduler),
-    path('add_scheduler/',views.add_scheduler),
-    path('add_scheduler_post/',views.add_scheduler_post),
+    # path('add_scheduler/',views.add_scheduler),
+    # path('add_scheduler_post/',views.add_scheduler_post),
     
-    path('view_scheduler/',views.view_scheduler),
-    path('view_scheduler_post/',views.view_scheduler_post),
-    path('edit_scheduler/<id>',views.edit_scheduler),
-    path('edit_scheduler_post/',views.edit_scheduler_post),
-    path('delete_scheduler/<id>',views.delete_scheduler),
+    # path('view_scheduler/',views.view_scheduler),
+    # path('view_scheduler_post/',views.view_scheduler_post),
+    # path('edit_scheduler/<id>',views.edit_scheduler),
+    # path('edit_scheduler_post/',views.edit_scheduler_post),
+    # path('delete_scheduler/<id>',views.delete_scheduler),
     path('add_vehicle/',views.add_vehicle),
     path('add_vehicle_post/',views.add_vehicle_post),
     path('view_vehicle/',views.view_vehicle),
@@ -58,10 +58,10 @@ urlpatterns = [
     path('view_permanent_staff_post/',views.view_permanent_staff_post),      
     path('view_temporary_staff/',views.view_temporary_staff),    
     path('view_temporary_staff_post/',views.view_temporary_staff_post),   
-    path('product_report1/',views.product_report1), 
-    path('product_report1_post/',views.product_report1_post), 
-    path('product_report2/<id>',views.product_report2), 
-    path('product_report2_post/',views.product_report2_post), 
+    # path('product_report1/',views.product_report1), 
+    # path('product_report1_post/',views.product_report1_post), 
+    # path('product_report2/<id>',views.product_report2), 
+    # path('product_report2_post/',views.product_report2_post), 
     path('admin_view_duty1/<id>',views.admin_view_duty1), 
     path('admin_view_duty2/<id>',views.admin_view_duty2), 
     path('sales_report1/',views.sales_report1), 
@@ -124,10 +124,12 @@ urlpatterns = [
     path('view_products2/<id>',views.view_products2), 
     path('add_order/<id>',views.add_order), 
     path('add_order_post/<id>',views.add_order_post), 
-    path('view_order/',views.view_order),  
+    path('view_order/',views.view_order),
+    path('view_order_post/',views.view_order_post),  
     path('send_complaint/',views.send_complaint),  
     path('send_complaint_post/',views.send_complaint_post),  
     path('view_customer_complaint/',views.view_customer_complaint),
+    path('view_customer_complaint_post/',views.view_customer_complaint_post),
     path('view_replied_complaint/<id>',views.view_replied_complaint),
     path('customer_change_password/',views.customer_change_password),
     path('customer_change_password_post/',views.customer_change_password_post),
@@ -142,6 +144,7 @@ urlpatterns = [
     path('add_return_post/<id>',views.add_return_post),
     path('add_to_cart_post/<int:id>',views.add_to_cart_post),
     path('view_cart/',views.view_cart),
+    path('view_cart_post/',views.view_cart_post),
     path('edit_cart/<id>',views.edit_cart),
     path('edit_cart_post/<id>',views.edit_cart_post),
     path('delete_cart/<id>',views.delete_cart),
@@ -175,12 +178,30 @@ urlpatterns = [
     path('public_view_worksites/',views.public_view_worksites),
     
     
+    #accountant
+    path('accountant_home/',views.accountant_home),
+    path('view_wages/',views.view_wages),
+    path('view_salary/',views.view_salary),
+    path('add_wage/<id>',views.add_wage),
+    path('add_wage_post/<id>',views.add_wage_post),
+    path('add_leave/<id>',views.add_leave),
+    path('add_leave_post/<id>',views.add_leave_post),
+    
+    
+    
+    
+    #admin
+    path('staff_wages1/',views.staff_wages1),
+    path('staff_wages1_post/',views.staff_wages1_post),
+    path('staff_salary1/',views.staff_salary1),
+    path('staff_salary1_post/',views.staff_salary1_post),
     
     
     
     
     #logout
     path('logout/',views.logout),
+    path('admin_logout/',views.admin_logout),
         
         
         

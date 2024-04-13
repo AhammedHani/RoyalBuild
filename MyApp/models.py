@@ -53,20 +53,14 @@ class staff(models.Model):
     post = models.CharField(max_length=100)
     type = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
+    aadhaar = models.CharField(max_length=100)
+    nationality = models.CharField(max_length=100)
+    qualification = models.CharField(max_length=100)
+    remark = models.CharField(max_length=100)
+    dob = models.CharField(max_length=100)
+    salary = models.CharField(max_length=100)
     class Meta:
         db_table = "staff"
-        
-class scheduler(models.Model):
-    scheduler_id = models.IntegerField(primary_key=True)
-    scheduler_name = models.CharField(max_length=100)
-    photo = models.FileField()
-    address = models.CharField(max_length=100)
-    pin = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
-    phone = models.CharField(max_length=100)
-    class Meta:
-        db_table = "scheduler"
 
 class vehicle(models.Model):
     vehicle_id = models.IntegerField(primary_key=True)
@@ -178,3 +172,23 @@ class cart(models.Model):
     CUSTOMER = models.ForeignKey(customer, on_delete=models.CASCADE,default=1)
     class Meta:
         db_table = "cart"        
+        
+class wage(models.Model):
+    wage_id = models.IntegerField(primary_key=True)
+    date = models.CharField(max_length=100)
+    wage = models.CharField(max_length=100)
+    remark = models.CharField(max_length=100)
+    STAFF = models.ForeignKey(staff, on_delete=models.CASCADE,default=1)
+    class Meta:
+        db_table = "wage"  
+        
+class salary_slip(models.Model):
+    salary_slip_id = models.IntegerField(primary_key=True)
+    month = models.CharField(max_length=100)
+    year = models.CharField(max_length=100)
+    leave = models.CharField(max_length=100)
+    salary = models.CharField(max_length=100)
+    basic_salary = models.CharField(max_length=100)
+    STAFF = models.ForeignKey(staff, on_delete=models.CASCADE,default=1)
+    class Meta:
+        db_table = "salary_slip"  

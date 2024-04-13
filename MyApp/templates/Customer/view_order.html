@@ -1,25 +1,67 @@
 {% extends 'Customer/home.html' %}
 {% block x %}
+
+<style>
+    .table td img {
+      width: 36px;
+      height: 36px;
+      border-radius: 100%; 
+  }
+  </style>
+  <form id="form1" name="form1" method="post" action="/view_order_post/">
+    {% csrf_token %}
+    <table class="pull-left">
+      <tr>
+        <td>
+          <input type="text" name="textfield" id="textfield" placeholder="Enter Product Name" class="form-control" />
+        </td>
+        <td>
+          <input type="submit" name="button" id="button" value="Search" class="btn btn-info" />
+        </td>
+      </tr>
+    </table>
+    <br>
     {% if data %}
+    <div style="text-align: center;">
     <table class="table table-bordered table-hover">
             <tr>
-                <th>SI.No</th>
+                <th>S. No</th>
                 {% comment %} <th>Order ID</th> {% endcomment %}
                 <th>Date</th>
                 <th>Product</th>
                 <th>Quantity</th>
                 <th>Amount</th>
-                <th>Order Status</th>   
+                <th>Status</th>   
             </tr>
             {% for i in data %}
             <tr>
                 <td>{{ forloop.counter }}</td>
                 {% comment %} <td>{{ i.order_id }}</td> {% endcomment %}
                 <td>{{ i.date }}</td>
-                <td>{{ i.PRODUCT.product_name }}</td>
+                <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.product_name }}</td>
                 <td>{{ i.quantity }}</td>
                 <td>{{ i.amount }}</td>
-                <td>{{ i.status }}</td>
+                <td>
+                    {% if i.status == 'delivered' %}
+                    <span class="badge rounded-pill bg-success">Delivered</span>
+                    {% elif i.status == 'cancelled' %}
+                    <span class="badge rounded-pill bg-danger">Cancelled</span>
+                    {% elif i.status == 'pending' %}
+                    <span class="badge rounded-pill bg-warning">Pending</span>
+                    {% elif i.status == 'cancel requested' %}
+                    <span class="badge rounded-pill bg-secondary">Cancel Request</span>
+                    {% elif i.status == 'return requested' %}
+                    <span class="badge rounded-pill bg-dark">Return Request</span>
+                    {% elif i.status == 'confirmed' %}
+                    <span class="badge rounded-pill bg-primary">Confirmed</span>
+                    {% elif i.status == 'returned' %}
+                    <span class="badge rounded-pill bg-info">Returned</span>
+                    {% else %}
+                    {{ i.status }}
+                    {% endif %}
+                </td>
+            
+
                 <td>
                 {% if i.status == 'delivered' %}
                 
@@ -42,7 +84,9 @@
                     <td></td>
                 {% endif %}
             {% endfor %}
+        </tr>
         </table>
+    </div>
     {% else %}
         <p>No orders available.</p>
     {% endif %}
