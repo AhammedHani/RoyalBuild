@@ -61,7 +61,7 @@
               {% endif %}
             </td>
             <td><a href="/schedule_return/{{i.returns_id}}" class="btn btn-success btn-sm" title="return confirm">Confirm</a></td>
-            <td><a href="" class="btn btn-danger btn-sm" title="return cancel">Cancel</a></td>
+            <td><a href="/schedule_return_cancel/{{i.returns_id}}" class="btn btn-danger btn-sm" title="return cancel">Cancel</a></td>
           </tr>
         {% endfor %}
     </table>

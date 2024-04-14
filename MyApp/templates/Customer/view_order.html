@@ -38,7 +38,7 @@
                 <td>{{ forloop.counter }}</td>
                 {% comment %} <td>{{ i.order_id }}</td> {% endcomment %}
                 <td>{{ i.date }}</td>
-                <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.product_name }}</td>
+                <td>{{ i.PRODUCT.product_name }}</td>
                 <td>{{ i.quantity }}</td>
                 <td>{{ i.amount }}</td>
                 <td>
@@ -52,6 +52,8 @@
                     <span class="badge rounded-pill bg-secondary">Cancel Request</span>
                     {% elif i.status == 'return requested' %}
                     <span class="badge rounded-pill bg-dark">Return Request</span>
+                    {% elif i.status == 'return rejected' %}
+                    <span class="badge rounded-pill bg-light" style="color: black;">Return rejected</span>
                     {% elif i.status == 'confirmed' %}
                     <span class="badge rounded-pill bg-primary">Confirmed</span>
                     {% elif i.status == 'returned' %}

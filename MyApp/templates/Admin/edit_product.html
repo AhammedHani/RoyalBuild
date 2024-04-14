@@ -1,45 +1,53 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 
-<script>
-  function valid()
-  {
-
-    var c=document.getElementById("category_type").value;
-
-    if(c==9)
+<head>
+  <style>
+      .form-table {
+        border: 1px solid #000; /* Change the color as needed */
+        width: 100%; /* Adjust as needed */
+      }
+    </style>
+  <script>
+    function valid()
     {
-      document.getElementById("dim").style.display="block";
-      document.getElementById("dim1").style.display="block";
-      document.getElementById("shaps").style.display="block";
+      var c=document.getElementById("category_type").value;
+
+      if(c==9)
+      {
+        document.getElementById("dim").style.display="block";
+        document.getElementById("dim1").style.display="block";
+        document.getElementById("shaps").style.display="block";
+      }
+      
+      else if(c==7)
+      {
+        document.getElementById("dim").style.display="block";
+        document.getElementById("dim1").style.display="block";
+        document.getElementById("shaps").style.display="none";
+        
+      }
+      else{
+        document.getElementById("dim").style.display="none";
+        document.getElementById("dim1").style.display="none";
+        document.getElementById("shaps").style.display="none";
+      }
+      
+      
+
+
     }
-    
-    else if(c==7)
+    function valid1()
     {
-      document.getElementById("dim").style.display="block";
-      document.getElementById("dim1").style.display="block";
-      document.getElementById("shaps").style.display="none";
+
+        document.getElementById("shaps").style.display="none";
+        document.getElementById("dim").style.display="none";
+        document.getElementById("dim1").style.display="none";
       
     }
-    else{
-      document.getElementById("dim").style.display="none";
-      document.getElementById("dim1").style.display="none";
-      document.getElementById("shaps").style.display="none";
-    }
-    
-    
-
-
-  }
-  function valid1()
-  {
-
-      document.getElementById("shaps").style.display="none";
-      document.getElementById("dim").style.display="none";
-      document.getElementById("dim1").style.display="none";
-    
-  }
-</script>
+  </script>
+  
+</head>
 <body onload="valid1()">
   <br><br>
   <form method="post" action="/edit_product_post/" enctype="multipart/form-data">
@@ -72,7 +80,8 @@
       <tr>
         <th>Category Type</th>
         <td>
-          <select class="form-control" name="category_type" onChange="valid();">
+          <select class="form-control" name="category_type" id="category_type" onChange="valid();">
+            <option value="" disabled selected>Select a category</option>
             {% for i in data2 %}
               <option value="{{ i.category_id }}">{{ i.category_name }}</option>
             {% endfor %}

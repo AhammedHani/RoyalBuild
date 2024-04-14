@@ -12,14 +12,14 @@
       <tr>
         <th>Vehicle Name</th>
         <td>
-          <input type="text" class="form-control" name="vehicle_name" value="{{ data.vehicle_name }}">
+          <input type="text" class="form-control" name="vehicle_name" value="{{ data.vehicle_name }}" required>
           <input type="hidden" name="id" value="{{ data.vehicle_id }}">
         </td>
       </tr>
       <tr>
         <th>Vehicle Number</th>
         <td>
-          <input type="text" class="form-control" name="vehicle_number" value="{{ data.vehicle_number }}">
+          <input type="text" class="form-control" name="vehicle_number" value="{{ data.vehicle_number }}" maxlength="10" required>
         </td>
       </tr>
       <tr>
@@ -29,7 +29,7 @@
       <tr>
       <th>Type</th>
       <td>
-        <input type="text" class="form-control" name="vehicle_type" value="{{ data.type }}">
+        <input type="text" class="form-control" name="vehicle_type" value="{{ data.type }}" required>
       </td>
       </tr>
       <tr>

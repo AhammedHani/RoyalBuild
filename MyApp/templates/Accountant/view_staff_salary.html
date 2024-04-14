@@ -1,1 +1,22 @@
-{{netsalary}}
+{% extends 'Accountant/accountant_home.html' %}
+{% block x %}
+
+<br><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card text-center">
+                <div class="card-header">
+                    Salary
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ netsalary }}</h5>
+                </div>
+                <div class="card-footer text-muted">
+                    This is {{data.staff_name}}'s net salary.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock x %}

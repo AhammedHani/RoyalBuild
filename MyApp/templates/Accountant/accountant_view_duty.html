@@ -1,0 +1,44 @@
+{% extends 'Accountant/accountant_home.html' %}
+{% block x %}
+
+<body>
+<br><br>
+<form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
+{% csrf_token %}
+    {% if data %}
+    <div style="text-align: center;">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>S. No</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Job</th>
+                <th>Workstation</th>
+                <th>Status</th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.time }}</td>
+                <td>{{ i.job }}</td>
+                <td>{{ i.workstation }}</td>
+                <td>
+                    {% if i.status == 'pending' %}
+                    <span class="badge rounded-pill bg-warning">Pending</span>
+                    {% elif i.status == 'completed' %}
+                    <span class="badge rounded-pill bg-success">Completed</span>
+                    {% else %}
+                    {{ i.status }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+        <p>Duties not available</p>
+    {% endif %}
+</form>
+</body>
+{% endblock x %}

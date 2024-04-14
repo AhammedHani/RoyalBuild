@@ -205,7 +205,7 @@
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{lg.scheduler_name}}</h6>
+              <h6>{{lg.staff_name}}</h6>
               <span>{{lg.email}}</span>
             </li>
             <li>
@@ -243,7 +243,7 @@
             </li> {% endcomment %}
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="/logout">
+              <a class="dropdown-item d-flex align-items-center" href="/scheduler_logout/">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -355,7 +355,7 @@
               <i class="bi bi-people"></i><span>Staffs</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="staff-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
+              {% comment %} <li>
                   <a href="/view_duty">
                       <i class="bi bi-circle"></i><span>View Staff Duties</span>
                   </a>
@@ -364,10 +364,10 @@
                 <a href="/view_delivery_staff">
                     <i class="bi bi-circle"></i><span>View Delivery Duties</span>
                 </a>
-            </li>
+            </li> {% endcomment %}
               <li>
                   <a href="/view_staffs">
-                      <i class="bi bi-circle"></i><span>Avaliable Staffs</span>
+                      <i class="bi bi-circle"></i><span>Allot Duties</span>
                   </a>
               </li>
           </ul> 
@@ -399,16 +399,30 @@
       </li><!-- End Reviews Nav --> {% endcomment %}
       
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-file-text"></i><span>Reports</span></i>
+        <a class="nav-link collapsed" data-bs-target="#reports-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-file-text"></i><span>Reports</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        {% comment %} <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="icons-bootstrap.html">
-              <i class="bi bi-circle"></i><span>View</span>
+            <a href="/scheduler_staff_report1">
+              <i class="bi bi-circle"></i><span>Staff Duties</span>
             </a>
           </li>
-        </ul> {% endcomment %}
+        </ul>
+        <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/scheduler_sales_report1">
+              <i class="bi bi-circle"></i><span>Sales History</span>
+            </a>
+          </li>
+        </ul>
+        <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/scheduler_sales_report2">
+              <i class="bi bi-circle"></i><span>Best Sales</span>
+            </a>
+          </li>
+        </ul>
       </li><!-- End Reports Nav -->
       
 

@@ -65,8 +65,13 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Place</div>
-                  <div class="col-lg-9 col-md-8">{{ lg.place }}</div>
+                  <div class="col-lg-3 col-md-4 label ">Date of birth</div>
+                  <div class="col-lg-9 col-md-8">{{ lg.dob }}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Address</div>
+                  <div class="col-lg-9 col-md-8">{{ lg.address }}<br>{{ lg.pin }}</div>                  
                 </div>
 
                 <div class="row">
@@ -75,8 +80,13 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Email</div>
-                  <div class="col-lg-9 col-md-8">{{ lg.email }}</div>
+                  <div class="col-lg-3 col-md-4 label">Nationality</div>
+                  <div class="col-lg-9 col-md-8">{{ lg.nationality }}</div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Qualification</div>
+                  <div class="col-lg-9 col-md-8">{{ lg.qualification }}</div>
                 </div>
 
                 <div class="row">
@@ -113,9 +123,23 @@
                   </div>
 
                   <div class="row mb-3">
-                    <label for="Place" class="col-md-4 col-lg-3 col-form-label">Place</label>
+                    <label for="Place" class="col-md-4 col-lg-3 col-form-label">Date of Birth</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="place" type="text" class="form-control" id="place" value="{{ lg.place }}">
+                      <input name="dob" type="date" class="form-control" id="dob" value="{{ lg.dob }}">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="Place" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="address" type="text" class="form-control" id="address" value="{{ lg.address }}">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="Place" class="col-md-4 col-lg-3 col-form-label">Pin</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="pin" type="text" class="form-control" id="pin" value="{{ lg.pin }}">
                     </div>
                   </div>
 
@@ -123,6 +147,20 @@
                     <label for="State" class="col-md-4 col-lg-3 col-form-label">State</label>
                     <div class="col-md-8 col-lg-9">
                       <input name="state" type="text" class="form-control" id="state" value="{{ lg.state }}">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="Place" class="col-md-4 col-lg-3 col-form-label">Nationality</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="nationality" type="text" class="form-control" id="nationality" value="{{ lg.nationality }}">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="Place" class="col-md-4 col-lg-3 col-form-label">Qualification</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name="qualification" type="text" class="form-control" id="qualification" value="{{ lg.qualification }}">
                     </div>
                   </div>
 

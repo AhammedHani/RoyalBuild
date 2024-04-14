@@ -12,7 +12,7 @@
             </tr>
             <tr>
                 <th>Date</th>
-                <td><input type="date" name="date" class="form-control"></td>
+                <td><input type="date" name="date" id="date"class="form-control"></td>
             </tr>
             <tr>
                 <th>Time</th>
@@ -29,5 +29,9 @@
             </tr>
         </table>
     </form>
+    <script>
+        // Set the min attribute of the duty date input field to today's date
+        document.getElementById('date').setAttribute('min', new Date().toISOString().split('T')[0]);
+    </script>
 </body>
 {% endblock x %}

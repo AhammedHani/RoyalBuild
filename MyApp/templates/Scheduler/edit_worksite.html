@@ -6,7 +6,15 @@
     <form id="form1" name="form1" method="post" action="/edit_worksite_post/" enctype="multipart/form-data">
         {% csrf_token %}
         <table class="table table-bordered table-hover">
-            <br><br>
+            <tr align="center">
+                <td colspan="2"><img src="{{data.photo1}}" alt="" width="100px" height="100px"></td>
+              </tr>
+              <tr align="center">
+                <td colspan="2"><img src="{{data.photo2}}" alt="" width="100px" height="100px"></td>
+              </tr>
+              <tr align="center">
+                <td colspan="2"><img src="{{data.photo3}}" alt="" width="100px" height="100px"></td>
+              </tr>
             <tr>
                 <th>Product</th>
                 <td>
@@ -20,23 +28,23 @@
             </tr>
             <tr>
                 <th>Location</th>
-                <td><input type="text" name="location" id="location" class="form-control" value="{{ data.worksite_location }}"/></td>
+                <td><input type="text" name="location" id="location" class="form-control" value="{{ data.worksite_location }}" required/></td>
             </tr>
             <tr>
                 <th>Photo1</th>
-                <td><input type="file" name="photo1" id="photo1" class="form-control" value="{{ data.photo1 }}"/></td>
+                <td><input type="file" name="photo1" id="photo1" class="form-control" required/></td>
             </tr>
             <tr>
                 <th>Photo2</th>
-                <td><input type="file" name="photo2" id="photo2" class="form-control" value="{{ data.photo2 }}"/></td>
+                <td><input type="file" name="photo2" id="photo2" class="form-control" required/></td>
             </tr>
             <tr>
                 <th>Photo3</th>
-                <td><input type="file" name="photo3" id="photo3" class="form-control" value="{{ data.photo3 }}"/></td>
+                <td><input type="file" name="photo3" id="photo3" class="form-control" required/></td>
             </tr>
             <tr>
                 <th>Remark</th>
-                <td><input type="text" name="remark" id="remark" class="form-control" value="{{ data.remark }}"/></td>
+                <td><input type="text" name="remark" id="remark" class="form-control" value="{{ data.remark }}"required/></td>
             </tr>
             <tr>
                 <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Update" class="btn btn-primary"/></td>

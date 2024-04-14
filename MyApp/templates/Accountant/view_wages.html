@@ -10,7 +10,21 @@
 </style>
 <body>
   <br><br>
-  <form id="form1" name="form1" method="post" action="/view_staff_post/">
+  <form id="form1" name="form1" method="post" action="/view_wages_post/">
+    {% csrf_token %}
+  <div style="float: left;">
+    <select name="textfield" id="textfield" class="form-select">
+      <option value="" disabled selected>Select Staff Category</option>
+      <option value="driver">Driver</option>
+      <option value="labour">Labour</option>
+    </select>
+  </div>
+  <div style="float: left;">&nbsp;
+    <input type="submit" name="button" id="button" value="Search" class="btn btn-info"/>
+  </div>
+  <br><br><br>
+  {% comment %} <br><br>
+  <form id="form1" name="form1" method="post" action="/view_wages_post/">
     {% csrf_token %}
   <table class="pull-left">
     <tr>
@@ -19,41 +33,27 @@
       <td><input type="submit" name="button" id="button" value="Search" class="btn btn-info"/></td>
     </tr>
   </table>
-  <br>
+  <br> {% endcomment %}
   {% if data %}
   <div style="text-align: center;">
     <table class="table table-bordered table-hover">
         <tr>
           <th>S. No</th>
           <th>Staff</th>
-          {% comment %} <th>Date of Birth</th> {% endcomment %}
-          {% comment %} <th>Nationality</th> {% endcomment %}
-          {% comment %} <th>Address</th> {% endcomment %}
+          <th>Address</th>         
           <th>Email</th>
           <th>Phone</th>
-          {% comment %} <th>Aadhaar</th> {% endcomment %}
-          {% comment %} <th>Qualification</th> {% endcomment %}
-          {% comment %} <th>Remark</th> {% endcomment %}
           {% comment %} <th>Post</th> {% endcomment %}
         </tr>
         {% for i in data %}
           <tr>
             <td>{{ forloop.counter }}</td>
             <td><img src="{{ i.photo }}" alt="{{ i.staff_name }}" class="img-thumbnail"><br>{{ i.staff_name }}</td>
-            {% comment %} <td>{{ i.dob }}</td> {% endcomment %}
-            {% comment %} <td>{{ i.nationality }}</td> {% endcomment %}
-            {% comment %} <td>{{ i.address }}<br> {% endcomment %}
-            {% comment %} {{ i.pin }}<br>
-            {{ i.state }}</td> {% endcomment %}
+            <td>{{ i.address }}<br>{{ i.pin }}<br>{{ i.state }}</td>
             <td>{{ i.email }}</td>
             <td>{{ i.phone }}</td>
-            {% comment %} <td>{{ i.aadhaar }}</td>
-            <td>{{ i.qualification }}</td>
-            <td>{{ i.remark }}</td>
-            <td>{{ i.post }}</td> {% endcomment %}
-            {% comment %} <td><a href="/edit_staff/{{i.staff_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
-            <td><a href="/delete_staff/{{i.staff_id}}" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td> {% endcomment %}
-            <td><a href="/add_wage/{{i.staff_id}}" class="btn btn-primary btn-sm" title="Allot Wage">Add Wage</a></td>
+            {% comment %} <td>{{ i.post }}</td> {% endcomment %}
+            <td><a href="/add_wage/{{i.staff_id}}" class="btn btn-primary btn-sm" title="Allot Wage">Wage</a></td>
           </tr>
         {% endfor %}
     </table>

@@ -1,0 +1,28 @@
+{% extends 'Scheduler/scheduler_home.html' %}
+{% block x %}
+<head>
+    {% comment %} <style>
+       
+        .button {
+            margin: 10px;
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style> {% endcomment %}
+</head>
+<body>
+    <br><br>
+    <div class="container">
+        <div class="container" style="text-align: center;">
+            <a href="/scheduler_view_permanent_staff/" class="btn btn-primary">Permanent</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/scheduler_view_temporary_staff/" class="btn btn-primary">Temporary</a>
+        </div>
+        <br>
+    </div>
+</body>
+{% endblock x %}

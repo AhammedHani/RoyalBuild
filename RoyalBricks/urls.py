@@ -32,7 +32,6 @@ urlpatterns = [
     # path('add_scheduler/<id>',views.add_scheduler),
     # path('add_scheduler/',views.add_scheduler),
     # path('add_scheduler_post/',views.add_scheduler_post),
-    
     # path('view_scheduler/',views.view_scheduler),
     # path('view_scheduler_post/',views.view_scheduler_post),
     # path('edit_scheduler/<id>',views.edit_scheduler),
@@ -70,6 +69,12 @@ urlpatterns = [
     path('sales_report2/',views.sales_report2), 
     path('view_sales_report2/',views.view_sales_report2), 
     path('view_sales_report2_post/',views.view_sales_report2_post), 
+    path('staff_wages1/',views.staff_wages1),
+    path('staff_wages1_post/',views.staff_wages1_post),
+    path('staff_wages1_post2/',views.staff_wages1_post2),
+    path('staff_salary1/',views.staff_salary1),
+    path('staff_salary1_post/',views.staff_salary1_post),
+    path('staff_salary1_post2/',views.staff_salary1_post2),
     
     
     # Scheduler
@@ -101,8 +106,8 @@ urlpatterns = [
     path('view_staffs_post/',views.view_staffs_post),
     path('add_duty/<id>',views.add_duty),
     path('add_duty_post/',views.add_duty_post),
-    path('view_duty/',views.view_duty),
-    path('view_delivery_staff/',views.view_delivery_staff),
+    # path('view_duty/',views.view_duty),
+    # path('view_delivery_staff/',views.view_delivery_staff),
     path('view_cancel_request/',views.view_cancel_request),
     path('view_cancel_request_post/',views.view_cancel_request_post), 
     path('cancel_confirm/<id>',views.cancel_confirm),
@@ -110,9 +115,19 @@ urlpatterns = [
     path('view_return_post/',views.view_return_post),
     path('schedule_return/<id>',views.schedule_return),
     path('schedule_return_post/<id>',views.schedule_return_post),
-    
-    
-    
+    path('schedule_return_cancel/<id>',views.schedule_return_cancel),
+    path('scheduler_sales_report1/',views.scheduler_sales_report1),
+    path('scheduler_view_sales_report1/',views.scheduler_view_sales_report1),
+    path('scheduler_view_sales_report1_post/',views.scheduler_view_sales_report1_post),
+    path('scheduler_staff_report1/',views.scheduler_staff_report1),
+    path('scheduler_view_permanent_staff/',views.scheduler_view_permanent_staff),
+    path('scheduler_view_permanent_staff_post/',views.scheduler_view_permanent_staff_post),
+    path('scheduler_view_temporary_staff/',views.scheduler_view_temporary_staff),
+    path('scheduler_view_temporary_staff_post/',views.scheduler_view_temporary_staff_post),
+    path('scheduler_view_duty1/<id>',views.scheduler_view_duty1),
+    path('scheduler_sales_report2/',views.scheduler_sales_report2),
+    path('scheduler_view_sales_report2/',views.scheduler_view_sales_report2),
+    path('scheduler_view_sales_report2_post/',views.scheduler_view_sales_report2_post),
     
     #customer
     path('customer_home/',views.customer_home),
@@ -181,29 +196,40 @@ urlpatterns = [
     #accountant
     path('accountant_home/',views.accountant_home),
     path('view_wages/',views.view_wages),
+    path('view_wages_post/',views.view_wages_post),
     path('view_salary/',views.view_salary),
+    path('view_salary_post/',views.view_salary_post),
     path('add_wage/<id>',views.add_wage),
     path('add_wage_post/<id>',views.add_wage_post),
     path('add_leave/<id>',views.add_leave),
     path('add_leave_post/<id>',views.add_leave_post),
+    path('accountant_view_profile/',views.accountant_view_profile),
+    path('accountant_edit_profile_post/',views.accountant_edit_profile_post),
+    path('accountant_change_password_post/',views.accountant_change_password_post),
     
+    path('accountant_staff_report1/',views.accountant_staff_report1),
+    path('accountant_view_permanent_staff/',views.accountant_view_permanent_staff),
+    path('accountant_view_permanent_staff_post/',views.accountant_view_permanent_staff_post),
+    path('accountant_view_temporary_staff/',views.accountant_view_temporary_staff),
+    path('accountant_view_temporary_staff_post/',views.accountant_view_temporary_staff_post),
+    path('accountant_view_duty1/<id>',views.accountant_view_duty1),
     
+    path('accountant_staff_wages1/',views.accountant_staff_wages1),
+    path('accountant_staff_wages1_post/',views.accountant_staff_wages1_post),
+    path('accountant_staff_wages1_post2/',views.accountant_staff_wages1_post2),
     
-    
-    #admin
-    path('staff_wages1/',views.staff_wages1),
-    path('staff_wages1_post/',views.staff_wages1_post),
-    path('staff_salary1/',views.staff_salary1),
-    path('staff_salary1_post/',views.staff_salary1_post),
-    
-    
+    path('accountant_staff_salary1/',views.accountant_staff_salary1),
+    path('accountant_staff_salary1_post/',views.accountant_staff_salary1_post),
+    path('accountant_staff_salary1_post2/',views.accountant_staff_salary1_post2),
     
     
     #logout
-    path('logout/',views.logout),
+    # path('logout/',views.logout),
     path('admin_logout/',views.admin_logout),
-        
-        
+    path('scheduler_logout/',views.scheduler_logout),   
+    path('customer_logout/',views.customer_logout),  
+    path('staff_logout/',views.staff_logout),  
+    path('accountant_logout/',views.accountant_logout),  
         
         
 ]

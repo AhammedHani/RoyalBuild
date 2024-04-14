@@ -10,7 +10,7 @@
 </style>
 <body>
   <br><br>
-  <form id="form1" name="form1" method="post" action="">
+  <form id="form1" name="form1" method="post" action="/staff_salary1_post2/">
     {% csrf_token %}
   <table class="pull-left">
     <tr>
@@ -26,6 +26,7 @@
         <tr>
           <th>S. No</th>
           <th>Staff</th>
+          <th>Address</th>
           <th>Email</th>
           <th>Phone</th>
           <th>Salary</th>
@@ -34,6 +35,7 @@
           <tr>
             <td>{{ forloop.counter }}</td>
             <td><img src="{{ i.STAFF.photo }}" alt="{{ i.STAFF.staff_name }}" class="img-thumbnail"><br>{{ i.STAFF.staff_name }}</td>
+            <td>{{ i.STAFF.address }}<br>{{ i.STAFF.pin }}<br>{{ i.STAFF.state }}</td>
             <td>{{ i.STAFF.email }}</td>
             <td>{{ i.STAFF.phone }}</td>
             <td>{{ i.basic_salary }}</td>

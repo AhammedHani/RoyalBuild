@@ -67,5 +67,9 @@
               </tr>
         </table>
         </form>
+        <script>
+            // Set the min attribute of the delivery date input field to today's date
+            document.getElementById('deliveryDate').setAttribute('min', new Date().toISOString().split('T')[0]);
+        </script>
 </body>
 {% endblock x %}

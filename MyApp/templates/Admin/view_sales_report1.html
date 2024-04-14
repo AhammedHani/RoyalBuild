@@ -1,58 +1,55 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 
+<style>
+  .table td img {
+     width: 36px; 
+     height: 36px; 
+     border-radius: 100%; 
+}
+</style>
 <body>
-    <br><br>
-    <form id="form1" name="form1" method="post" action="/view_sales_report1_post/">
-      {% csrf_token %}
-    <div style="float: left;">
-      <select name="textfield" id="textfield" class="form-select">
-        <option value="" disabled selected>Select a status</option>
-        <option value="delivered">Delivered</option>
-        <option value="cancelled">Cancelled</option>
-        <option value="pending">Pending</option>
-        <option value="returned">Returned</option>
-      </select>
-    </div>
-    <div style="float: left;">&nbsp;
-      <input type="submit" name="button" id="button" value="Search" class="btn btn-info"/>
-    </div>
-    <br><br><br>
+  <br><br>
+  <form id="form1" name="form1" method="post" action="/view_sales_report1_post/">
+    {% csrf_token %}
+  <table class="pull-left">
+    <tr>
+      <td>
+      <input type="text" name="textfield" id="textfield" placeholder="Enter Product Name"  class="form-control"/></td>
+      <td><input type="submit" name="button" id="button" value="Search" class="btn btn-info"/></td>
+    </tr>
+  </table>
+  <br>
 <form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
 {% csrf_token %}
   {% if data %}
+  <div style="text-align: center;">
     <table class="table table-bordered table-hover">
       <tr>
         <th> S. No </th>
-        <th> Name </th>
-        <th> Phone </th>
-        {% comment %} <th> Category </th> {% endcomment %}
+        <th> Date </th>
+        <th> Customer </th>
+        <th> Address </th>
         <th> Product </th>
         <th> Quantity </th>
-        <th> Date </th>
-        <th> Status </th>
+        {% comment %} <th> Status </th> {% endcomment %}
       </tr>
       {% for i in data %}
       <tr>
         <td>{{ forloop.counter }}</td>
-        <td>{{ i.CUSTOMER.customer_name }}</td>
-        <td>{{ i.CUSTOMER.phone }}</td>
-        {% comment %} <td>{{ i.PRODUCT.CATEGORY.category_name }}</td> {% endcomment %}
-        <td>{{ i.PRODUCT.product_name }}<br>
-        <img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" style="max-width: 100px; max-height: 100px;" /></td>
-        <td>{{ i.quantity }}</td>
         <td>{{ i.date }}</td>
-        <td>
+        <td><img src="{{ i.CUSTOMER.photo }}" alt="" class="img-thumbnail"/> {{ i.CUSTOMER.customer_name }}</td>
+        <td>{{ i.CUSTOMER.address }}<br>{{ i.CUSTOMER.pin }}</td>
+        <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail"/> {{ i.PRODUCT.product_name }}</td>
+        <td>{{ i.quantity }}</td>
+
+        {% comment %} <td>
             {% if i.status == 'delivered' %}
                 <span class="badge rounded-pill bg-success">{{ i.status }}</span>
-            {% elif i.status == 'cancelled' %}
-                <span class="badge rounded-pill bg-danger">{{ i.status }}</span>
-            {% elif i.status == 'pending' %}
-                <span class="badge rounded-pill bg-warning">{{ i.status }}</span>
             {% else %}
                 {{ i.status }}
             {% endif %}
-        </td>
+        </td> {% endcomment %}
         {% comment %} <td>
           <a href="/check_payment/{{i.order_id}}" class="btn btn-success" title="Check Payment">
             <i class="fas fa-money-check"></i>
@@ -61,6 +58,7 @@
       </tr>
       {% endfor %}
     </table>
+  </div>
   {% else %}
     <p>Orders not available</p>
   {% endif %}

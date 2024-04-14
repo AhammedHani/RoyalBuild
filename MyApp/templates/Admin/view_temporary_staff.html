@@ -1,6 +1,13 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 
+<style>
+  .table td img {
+     width: 36px; 
+     height: 36px; 
+     border-radius: 100%; 
+}
+</style>
 <body>
   <br><br>
   <form id="form1" name="form1" method="post" action="/view_temporary_staff_post/">
@@ -8,8 +15,8 @@
   <div style="float: left;">
     <select name="textfield" id="textfield" class="form-select">
       <option value="" disabled selected>Select Staff Category</option>
-      <option value="Driver">Driver</option>
-      <option value="Labour">Labour</option>
+      <option value="driver">Driver</option>
+      <option value="labour">Labour</option>
     </select>
   </div>
   <div style="float: left;">&nbsp;
@@ -17,38 +24,34 @@
   </div>
   <br><br><br>
   {% if data %}
+  <div style="text-align: center;">
     <table class="table table-bordered table-hover">
+      <tr>
+        <th>S. No</th>
+        <th>Staff</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Phone</th>
+      </tr>
+      {% for i in data %}
         <tr>
-          <th>S. No</th>
-          <th>Staff Name</th>
-          <th>Photo</th>
-          <th>Address</th>
-          <th>Pin</th>
-          <th>State</th>
-          <th>Email</th>
-          <th>Phone</th>
+          <td>{{ forloop.counter }}</td>
+          <td><img src="{{ i.photo }}" alt="{{ i.staff_name }}" class="img-thumbnail"><br>{{ i.staff_name }}</td>
+          <td>{{ i.address }}<br>{{ i.pin }}<br>{{ i.state }}</td>            
+          <td>{{ i.email }}</td>
+          <td>{{ i.phone }}</td>
+          <td>
+            <a href="/admin_view_duty1/{{i.staff_id}}" class="btn btn-primary btn-sm" title="View Duty">
+              View Duty
+            </a>
+          </td>
+          {% comment %} <td><a href="/edit_staff/{{i.staff_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
+          <td><a href="/delete_staff/{{i.staff_id}}" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td> {% endcomment %}
+          {% comment %} <td><a href="/add_scheduler/{{i.staff_id}}" class="btn btn-success btn-sm"title="Scheduler"><i class="fas fa-calendar-plus"></i></a></td>           {% endcomment %}
         </tr>
-        {% for i in data %}
-          <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ i.staff_name }}</td>
-            <td><img src="{{ i.photo }}" alt="{{ i.staff_name }}" class="img-thumbnail" style="max-width: 100px; max-height: 100px;"></td>
-            <td>{{ i.address }}</td>
-            <td>{{ i.pin }}</td>
-            <td>{{ i.state }}</td>
-            <td>{{ i.email }}</td>
-            <td>{{ i.phone }}</td>
-            <td>
-              <a href="/admin_view_duty2/{{i.staff_id}}" class="btn btn-primary btn-sm" title="View Duty">
-                View Duty
-              </a>
-            </td>
-            {% comment %} <td><a href="/edit_staff/{{i.staff_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
-            <td><a href="/delete_staff/{{i.staff_id}}" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td> {% endcomment %}
-            {% comment %} <td><a href="/add_scheduler/{{i.staff_id}}" class="btn btn-success btn-sm"title="Scheduler"><i class="fas fa-calendar-plus"></i></a></td>           {% endcomment %}
-          </tr>
         {% endfor %}
     </table>
+  </div>
   {% else %}
     <p>No temporary staff available.</p>
   {% endif %}
