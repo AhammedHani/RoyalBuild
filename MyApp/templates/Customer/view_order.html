@@ -48,6 +48,8 @@
                     <span class="badge rounded-pill bg-danger">Cancelled</span>
                     {% elif i.status == 'pending' %}
                     <span class="badge rounded-pill bg-warning">Pending</span>
+                    {% elif i.status == 'rejected' %}
+                    <span class="badge rounded-pill bg-danger" style="color: black;">Rejected</span>
                     {% elif i.status == 'cancel requested' %}
                     <span class="badge rounded-pill bg-secondary">Cancel Request</span>
                     {% elif i.status == 'return requested' %}
@@ -58,6 +60,8 @@
                     <span class="badge rounded-pill bg-primary">Confirmed</span>
                     {% elif i.status == 'returned' %}
                     <span class="badge rounded-pill bg-info">Returned</span>
+                    {% elif i.status == 'return confirmed' %}
+                    <span class="badge rounded-pill bg-info" style="color: black;">Return Confirmed</span>
                     {% else %}
                     {{ i.status }}
                     {% endif %}

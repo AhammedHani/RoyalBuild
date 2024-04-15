@@ -40,13 +40,13 @@
 
 <body>
 
-  <main>
+  <main style="background-image: url(/media/img/background3.jpg);background-size: cover;">
     <div class="container">
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-lg-8 col-md-10 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
@@ -59,67 +59,84 @@
 
                 <div class="card-body">
 
-                 <div class="pt-4 pb-2">
+                 <div class="pt-2 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                     <p class="text-center small">Enter your personal details to create account</p>
-                  </div>
-
+                  </div><br>
+                  
                   <form action="/signup_post/" method="post" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
                     {% csrf_token %}
-                    <div class="col-12">
-                      <label for="yourName" class="form-label">Name</label>
-                      <input type="text" name="name" class="form-control" id="name" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="col-12 ">
+                              <label for="yourName" class="form-label">Name</label>
+                              <input type="text" name="name" class="form-control" id="name" required>
+                              <div class="invalid-feedback">Please, enter your name!</div>
+                            </div><br>
+
+                            <div class="col-12">
+                              <label for="yourPhoto" class="form-label">Photo</label>
+                              <input type="file" name="photo" class="form-control" id="photo" required>
+                              <div class="invalid-feedback">Please, enter your photo!</div>
+                            </div><br>
+
+                            <div class="col-12">
+                              <label for="yourAddress" class="form-label">Address</label>
+                              <textarea name="address" class="form-control" id="address" required></textarea>
+                              <div class="invalid-feedback">Please, enter your address!</div>
+                            </div><br>
+
+                            <div class="col-12">
+                              <label for="password" class="form-label">Password</label>
+                              <input type="password" name="password" class="form-control" id="password" oninput="validatePassword()" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+                              <div class="invalid-feedback">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters</div>
+                          </div><br>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="col-12">
+                              <label for="yourPin" class="form-label">Pin</label>
+                              <input type="text" name="pin" class="form-control" id="pin" required maxlength="6">
+                              <div class="invalid-feedback">Please, enter your pin!</div>
+                            </div><br>
+
+                            <div class="col-12">
+                              <label for="yourEmail" class="form-label">Email</label>
+                              <input type="email" name="email" class="form-control" id="email" required>
+                              <div class="invalid-feedback">Please enter a valid Email address!</div>
+                            </div><br>
+
+                            <div class="col-12">
+                                <label for="yourPhone" class="form-label">Phone</label>
+                                <input type="tel" name="phone" class="form-control" id="phone" required pattern="[0-9]{10,12}" title="Please enter a valid phone number with 10 or 12 digits" maxlength="12">
+                              <div class="invalid-feedback">Please enter a valid phone number!</div>
+                            </div><br><br>
+
+                            <div class="col-12">
+                              <label for="confirmPassword" class="form-label">Confirm Password</label>
+                              <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" oninput="validatePassword()" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+                          </div><br>
+                        </div>
                     </div>
 
-                    <div class="col-12">
-                      <label for="yourPhoto" class="form-label">Photo</label>
-                      <input type="file" name="photo" class="form-control" id="photo" required>
-                      <div class="invalid-feedback">Please, enter your photo!</div>
-                    </div>
+                    <script>
+                      function validatePassword(){
+                          var password = document.getElementById("password");
+                          var confirmPassword = document.getElementById("confirmPassword");
+                      
+                          if(password.value != confirmPassword.value) {
+                              confirmPassword.setCustomValidity("Passwords Don't Match");
+                          } else {
+                              confirmPassword.setCustomValidity('');
+                          }
+                      }
+                      </script>
 
-                    <div class="col-12">
-                      <label for="yourAddress" class="form-label">Address</label>
-                      <textarea name="address" class="form-control" id="address" required></textarea>
-                      <div class="invalid-feedback">Please, enter your address!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPin" class="form-label">Pin</label>
-                      <input type="text" name="pin" class="form-control" id="pin" required>
-                      <div class="invalid-feedback">Please, enter your pin!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourEmail" class="form-label">Email</label>
-                      <input type="email" name="email" class="form-control" id="email" required>
-                      <div class="invalid-feedback">Please enter a valid Email address!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPhone" class="form-label">Phone</label>
-                      <input type="text" name="phone" class="form-control" id="phone" required>
-                      <div class="invalid-feedback">Please enter a valid phone number!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="password" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
-                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
-                        <div class="invalid-feedback">You must agree before submitting.</div>
-                      </div>
-                    </div>
-                    <div class="col-12">
+                    <div class="col-12 text-center">
                       <button class="btn btn-primary w-100" type="submit">Create Account</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="/signin">Log in</a></p>
+                      <p class="small mb-0 text-center">Already have an account? <a href="/signin">Log in</a></p>
                     </div>
                   </form>
 

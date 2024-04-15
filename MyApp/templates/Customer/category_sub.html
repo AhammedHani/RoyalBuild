@@ -22,14 +22,15 @@
     {% csrf_token %}
     <table class="table table-bordered table-hover">
       <tr>
-        <th>Color</th>
+        <th>Colour</th>
         <td>
           <select name="color" id="detail_1" class="form-select">
-            <option value="Red">Red</option>
-            <option value="Blue">Blue</option>
+            <option value="" disabled selected>Select a colour</option>
             <option value="Grey">Grey</option>
+            <option value="Red">Red</option>
             <option value="Black">Black</option>
             <option value="White">White</option>
+            <option value="Blue">Blue</option>
           </select>
         </td>
       </tr>
@@ -38,10 +39,12 @@
         <th>Dimension</th>
         <td>
           <select name="size" id="detail_2" class="form-select">
-            <option>200 X 100 X50 mm</option>
-            <option>220 X 97 X 60 mm</option>
-            <option>222 X 106 X73 mm</option>
-            <option>200 x 100 x 100 mm</option>
+            <option value="" disabled selected>Select a dimension</option>
+            <option>8 x 8 x 16</option>
+            <option>6 x 8 x 16</option>
+            <option>5 x 8 x 16</option>
+            <option>4 x 8 x 16</option>
+            <option>3 x 8 x 16</option>
           </select>
         </td>
       </tr>

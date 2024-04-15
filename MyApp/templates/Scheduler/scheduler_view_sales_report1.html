@@ -10,7 +10,7 @@
 </style>
 <body>
   <br><br>
-  <form id="form1" name="form1" method="post" action="/scheduler_view_sales_report1_post/">
+ <form id="form1" name="form1" method="post" action="/scheduler_view_sales_report1_post/">
     {% csrf_token %}
   <table class="pull-left">
     <tr>
@@ -60,7 +60,7 @@
     </table>
   </div>
   {% else %}
-    <p>Orders not available</p>
+    <p>Sales not available</p>
   {% endif %}
 </form>
 </body>

@@ -54,11 +54,11 @@
     <table class="table table-bordered table-hover">
       <tr>
         <th>Product Name</th>
-        <td><input type="text" name="product_name" id="product_name" class="form-control"/></td>
+        <td><input type="text" name="product_name" id="product_name" class="form-control" required/></td>
       </tr>
       <tr>
         <th>Photo</th>
-        <td><input type="file" name="product_photo" id="product_photo" class="form-control"/></td>
+        <td><input type="file" name="product_photo" id="product_photo" class="form-control" required/></td>
       </tr>
       {% comment %} <tr>
         <th>Strength</th>
@@ -66,15 +66,15 @@
       </tr> {% endcomment %}
       <tr>
         <th>Description</th>
-        <td><textarea name="product_description" id="product_description" class="form-control"></textarea></td>
+        <td><textarea name="product_description" id="product_description" class="form-control" required></textarea></td>
       </tr>
       <tr>
         <th>Price</th>
-        <td><input type="text" name="product_price" id="product_price" class="form-control"/></td>
+        <td><input type="number" name="product_price" id="product_price" class="form-control" required/></td>
       </tr>
       <tr>
         <th>Quantity</th>
-        <td><input type="text" name="product_quantity" id="product_quantity" class="form-control"/></td>
+        <td><input type="number" name="product_quantity" id="product_quantity" class="form-control" required/></td>
       </tr>
       <tr>
         <th>Category Type</th>
@@ -93,15 +93,15 @@
     {% comment %} <div id="dim1">
       <table width="1150px" border="1px" height="50px"> {% endcomment %}
         <tr id= "dim1">
-        <th>color</th>
-        <td>
-          <select name="detail_1" id="detail_1" class="form-select">
+        <th style="width:340px">Color</th>
+        <td style="width:960px">
+          <select name="detail_1" id="detail_1" class="form-select" required>
             <option value="" disabled selected>Select a color</option>
-            <option value="Red">Red</option>
-            <option value="Blue">Blue</option>
             <option value="Grey">Grey</option>
+            <option value="Red">Red</option>
             <option value="Black">Black</option>
             <option value="White">White</option>
+            <option value="Blue">Blue</option>
           </select>
         </td>
       </tr>
@@ -114,14 +114,15 @@
   <div id="dim">
     <table width="1150px" border="1px" height="50px"> {% endcomment %}
       <tr id= "dim">
-      <th>Dimension</th>
-      <td>
-      <select name="detail_2" id="detail_2" class="form-select">
-        <option value="" disabled selected>Select a Dimension</option>
-        <option>200 X 100 X50 mm</option>
-        <option>220 X 97 X 60 mm</option>
-        <option>222 X 106 X73 mm</option>
-        <option>200 x 100 x 100 mm</option>
+      <th style="width:334px">Dimension</th>
+      <td style="width:960px">
+      <select name="detail_2" id="detail_2" class="form-select" required>
+        <option value="" disabled selected>Select a dimension</option>
+        <option>8 x 8 x 16</option>
+        <option>6 x 8 x 16</option>
+        <option>5 x 8 x 16</option>
+        <option>4 x 8 x 16</option>
+        <option>3 x 8 x 16</option>
       </select>
     </td>
     </tr>
@@ -134,9 +135,9 @@
   <table width="1050px" border="1px"> {% endcomment %}
     <tr id="shaps">
       {% comment %} <td style="width:250px;padding:4px"> {% endcomment %}
-      <th>shape</th>
-      <td>
-        <select name="detail_3" class="form-select">
+      <th style="width:340px">Shape</th>
+      <td style="width:960px">
+        <select name="detail_3" class="form-select" required>
           <option value="" disabled selected>Select a shape</option>
           <option value="Square">Square</option>
           <option value="Rectangle">Rectangle</option>

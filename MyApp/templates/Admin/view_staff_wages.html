@@ -10,7 +10,7 @@
 </style>
 <body>
   <br><br>
-  <form id="form1" name="form1" method="post" action="/staff_wages1_post2/">
+  {% comment %} <form id="form1" name="form1" method="post" action="/staff_wages1_post2/">
     {% csrf_token %}
   <table class="pull-left">
     <tr>
@@ -19,7 +19,7 @@
       <td><input type="submit" name="button" id="button" value="Search" class="btn btn-info"/></td>
     </tr>
   </table>
-  <br>
+  <br> {% endcomment %}
   {% if data1 %}
   <div style="text-align: center;">
     <table class="table table-bordered table-hover">

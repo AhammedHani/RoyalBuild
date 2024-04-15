@@ -1,9 +1,24 @@
 {% extends 'Admin/admin_home.html' %}
 {% block x %}
 
-<body>
+<head>
+  <script>
+    function valid()
+    {
+      if(f1.staff_type.value=="Permanent")
+      {
+document.getElementById("salary").style.display="block";
+      }
+      if(f1.staff_type.value=="Temporary")
+      {
+document.getElementById("salary").style.display="none";
+      }
+    }
+  </script>
+</head>
+<body onload="valid();">
   <br><br>
-  <form method="post" action="/edit_staff_post/" enctype="multipart/form-data">
+  <form method="post" action="/edit_staff_post/" enctype="multipart/form-data" name="f1">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
       <tr align="center">
@@ -12,7 +27,7 @@
       <tr>
         <th>Staff Name</th>
         <td>
-          <input type="text" class="form-control" name="staff_name" value="{{ data.staff_name }}">
+          <input type="text" class="form-control" name="staff_name" value="{{ data.staff_name }}" required>
           <input type="hidden" name="id" value="{{ data.staff_id }}">
         </td>
       </tr>
@@ -25,26 +40,26 @@
       <tr>
         <tr>
           <th>Date of Birth</th>
-          <td><input type="date" class="form-control" id="dob" name="dob" value="{{ data.dob }}"></td>
+          <td><input type="date" class="form-control" id="dob" name="dob" value="{{ data.dob }}" required></td>
         </tr>
         <tr>
           <th>Nationality</th>
-          <td><input type="text" class="form-control" id="nationality" name="nationality" value="{{ data.nationality }}"></td>
+          <td><input type="text" class="form-control" id="nationality" name="nationality" value="{{ data.nationality }}" required></td>
         </tr>
         <tr>
           <th>State</th>
-          <td><input type="text" class="form-control" id="state" name="state" value="{{ data.state }}"></td>
+          <td><input type="text" class="form-control" id="state" name="state" value="{{ data.state }}" required></td>
         </tr>
         <tr>
         <th>Address</th>
         <td>
-          <input type="text" class="form-control" name="address" value="{{ data.address }}">
+          <input type="text" class="form-control" name="address" value="{{ data.address }}" required>
         </td>
       </tr>
         <tr>
           <th>Pin</th>
           <td>
-            <input type="text" class="form-control" name="pin" value="{{ data.pin }}">
+            <input type="text" class="form-control" name="pin" value="{{ data.pin }}" maxlength="6" required>
           </td>
         </tr>
       <tr>
@@ -56,25 +71,44 @@
       <tr>
         <th>Phone</th>
         <td>
-          <input type="text" class="form-control" name="phone" value="{{ data.phone }}">
+          <input type="text" class="form-control" name="phone" value="{{ data.phone }}" maxlength="12" required>
         </td>
       </tr>
       <tr>
         <tr>
           <th>Aadhaar</th>
-          <td><input type="text" class="form-control" id="aadhaar" name="aadhaar" value="{{ data.aadhaar }}"></td>
+          <td><input type="text" class="form-control" id="aadhaar" name="aadhaar" value="{{ data.aadhaar }}" required></td>
         </tr>
         <tr>
           <tr>
           <tr>
             <th>Qualification</th>
-            <td><input type="text" class="form-control" id="qualification" name="qualification" value="{{ data.qualification }}"></td>
+            <td><input type="text" class="form-control" id="qualification" name="qualification" value="{{ data.qualification }}" required></td>
           </tr>
           <tr>
             <tr>
               <th>Remark</th>
-              <td><input type="text" class="form-control" id="remark" name="remark" value="{{ data.remark }}"></td>
+              <td><input type="text" class="form-control" id="remark" name="remark" value="{{ data.remark }}" required></td>
             </tr>
+
+            <tr>
+              <th>Type</th>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="staff_type" id="permanent" value="Permanent" checked="checked" required onChange="valid()">
+                  <label class="form-check-label" for="permanent">
+                    Permanent
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="staff_type" id="temporary" value="Temporary" required onChange="valid()">
+                  <label class="form-check-label" for="temporary">
+                    Temporary
+                  </label>
+                </div>
+              </td>
+            </tr>
+            <tr>
         <th>Post</th>
         <td>
           <select class="form-select" id="post" name="post" required>
@@ -82,37 +116,21 @@
             <option value="driver">Driver</option>
             <option value="labour">Labour</option>
             <option value="accountant">Accountant</option>
-            <option value="manager">Manager</option>
+            <option value="scheduler">Scheduler</option>
           </select>
         </td>
       </tr>
-      <tr>
-        <th>Type</th>
-        <td>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="staff_type" id="permanent" value="Permanent" checked="checked" required>
-            <label class="form-check-label" for="permanent">
-              Permanent
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="staff_type" id="temporary" value="Temporary" required>
-            <label class="form-check-label" for="temporary">
-              Temporary
-            </label>
-          </div>
-        </td>
-        <tr>
-          <th>Salary</th>
-          <td><input type="text" class="form-control" id="salary" name="salary" value="{{ data.salary }}"></td>
-        </tr>
-      <tr>
-      <tr>
-        <td colspan="2" class="text-center">
-          <button type="submit" class="btn btn-primary">Update</button>
-        </td>
-      </tr>
-    </table>
+      </table>
+        <table class="table table-bordered table-hover" style="display:none" id="salary" width="1500px"> 
+          <tr>
+            <th style="width:310px">Salary</th>
+            <td style="width:960px"><input type="text" class="form-control" id="salary" name="salary"></td>
+          </tr>
+        </table>
+      
+        <div class="text-center">
+          <input type="submit" name="button" id="button" value="Update" class="btn btn-primary"/>
+        </div>
   </form>
 
 </div>

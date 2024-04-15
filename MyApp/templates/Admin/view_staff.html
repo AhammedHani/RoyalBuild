@@ -35,6 +35,7 @@
           <th>Qualification</th>
           <th>Remark</th>
           <th>Post</th>
+          <th>Type</th>
         </tr>
         {% for i in data %}
           <tr>
@@ -51,6 +52,7 @@
             <td>{{ i.qualification }}</td>
             <td>{{ i.remark }}</td>
             <td>{{ i.post }}</td>
+            <td>{{ i.type }}</td>
             <td><a href="/edit_staff/{{i.staff_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>
             <td><a href="/delete_staff/{{i.staff_id}}" class="btn btn-danger btn-sm" title="Delete"><i class="fas fa-trash-alt"></i></a></td>
             {% comment %} <td><a href="/add_scheduler/{{i.staff_id}}" class="btn btn-success btn-sm"title="Scheduler"><i class="fas fa-calendar-plus"></i></a></td>           {% endcomment %}

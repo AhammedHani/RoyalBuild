@@ -29,7 +29,7 @@
                         </tr>
                         <tr>
                             <td><label for="pin">Pin:</label></td>
-                            <td><input type="text" class="form-control" id="pin" name="pin" value="{{ data.pin }}"></td> <!-- Removed readonly attribute -->
+                            <td><input type="text" class="form-control" id="pin" name="pin" value="{{ data.pin }}" maxlength="6"></td> <!-- Removed readonly attribute -->
                         </tr>
                         <tr>
                             <td><label for="email">Email:</label></td>
@@ -37,7 +37,7 @@
                         </tr>
                         <tr>
                             <td><label for="phone">Phone:</label></td>
-                            <td><input type="tel" class="form-control" id="phone" name="phone" value="{{ data.phone }}"></td> <!-- Removed readonly attribute -->
+                            <td><input type="tel" class="form-control" id="phone" name="phone" value="{{ data.phone }}" maxlength="12"></td> <!-- Removed readonly attribute -->
                         </tr>
                     </table>
                     <div class="text-center"> <!-- Added text-center class -->

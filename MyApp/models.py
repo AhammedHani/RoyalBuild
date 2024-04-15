@@ -168,6 +168,8 @@ class cart(models.Model):
     quantity = models.CharField(max_length=100)
     amount = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
+    month = models.CharField(max_length=100)
+    year = models.CharField(max_length=100)
     PRODUCT = models.ForeignKey(product, on_delete=models.CASCADE,default=1)
     CUSTOMER = models.ForeignKey(customer, on_delete=models.CASCADE,default=1)
     class Meta:

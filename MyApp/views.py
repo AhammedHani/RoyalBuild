@@ -5,6 +5,8 @@ from django.core.files.storage import FileSystemStorage
 from datetime import datetime
 import calendar
 import datetime
+from datetime import datetime
+from django.utils import timezone
 from django.db.models import Sum,Max,Count
 # Create your views here.
 
@@ -755,7 +757,9 @@ def view_sales_report1(request):
     else:
         a1=request.POST.get('month')
         a2=request.POST.get('year')
-        data = make_order.objects.filter(month=a1,year=a2, status='delivered')
+        request.session['m']=a1
+        request.session['y']=a2
+        data = make_order.objects.filter(month=a1).filter(year=a2).filter(status='delivered')
         return render(request, 'Admin/view_sales_report1.html', {'data': data})
 
 def view_sales_report1_post(request):
@@ -763,7 +767,7 @@ def view_sales_report1_post(request):
         return redirect('/public_home/')
     else:
         search=request.POST['textfield']
-        var=make_order.objects.filter(PRODUCT__product_name__icontains=search, status='delivered')
+        var=make_order.objects.filter(PRODUCT__product_name__icontains=search, status='delivered',month=request.session['m'],year=request.session['y'])
         return render(request,"Admin/view_sales_report1.html",{'data':var})
 
 def sales_report2(request):
@@ -922,7 +926,7 @@ def edit_quantity_post(request,id):
         var1.quantity=int(var1.quantity)+int(request.POST.get('new_quantity'))
         var1.save()
         c1=request.session['cc']
-        return HttpResponse('''<script>alert("EDITED");window.location="/view_product2/'''+c1+'''"</script> ''')
+        return HttpResponse('''<script>alert("UPDATED");window.location="/view_product2/'''+c1+'''"</script> ''')
 
 def view_orders(request):
     if 'schedulers' not in request.session:
@@ -1439,7 +1443,9 @@ def scheduler_view_sales_report1(request):
         
         a1=request.POST.get('month')
         a2=request.POST.get('year')
-        data = make_order.objects.filter(month=a1,year=a2, status='delivered')
+        request.session['m']=a1
+        request.session['y']=a2
+        data = make_order.objects.filter(month=a1).filter(year=a2).filter(status='delivered')
         return render(request, 'Scheduler/scheduler_view_sales_report1.html', {'lg':lg,'data': data})
 
 def scheduler_view_sales_report1_post(request):
@@ -1450,7 +1456,7 @@ def scheduler_view_sales_report1_post(request):
         lg = staff.objects.get(email=scheduler_id)
         
         search=request.POST['textfield']
-        var=make_order.objects.filter(PRODUCT__product_name__icontains=search, status='delivered')
+        var=make_order.objects.filter(PRODUCT__product_name__icontains=search, status='delivered',month=request.session['m'],year=request.session['y'])
         return render(request,"Scheduler/scheduler_view_sales_report1.html",{'lg':lg,'data':var})
 
 def scheduler_sales_report2(request):
@@ -1909,6 +1915,9 @@ def add_return_post(request,id):
         # data3.save()
         return HttpResponse('''<script>alert("RETURN REQUEST SENT");window.location="/view_order/";</script>''')
 
+from datetime import datetime
+from django.utils import timezone
+
 def add_to_cart_post(request,id):
     if 'customers' not in request.session:
         return redirect('/public_home/')
@@ -1925,6 +1934,10 @@ def add_to_cart_post(request,id):
             data.date=datetime.now().strftime('%Y-%m-%d')
             data.amount=float(quantity)*float(d10.price)
             data.status="pending"
+            print(timezone.now().month)
+            print(timezone.now().year)
+            data.month=timezone.now().month
+            data.year=timezone.now().year
             data.save()
             return HttpResponse('''<script>alert("PRODUCT ADDED TO CART");window.location="/view_cart/";</script>''')
         else:
@@ -1964,6 +1977,10 @@ def edit_cart_post(request,id):
     else:
         data = cart.objects.get(cart_id=id)
         data.quantity = request.POST.get('quantity')
+        data1=product.objects.get(product_id=data.PRODUCT_id)
+        total=float(request.POST.get('quantity'))*float(data1.price)
+        data.amount=total
+        
         data.save()
         return HttpResponse('''<script>alert("EDITED");window.location="/view_cart/";</script>''')
 
@@ -1990,12 +2007,17 @@ def cart_orders1(request):
         return redirect('/public_home/')
     else:
         data = customer.objects.get(email=request.session['customers'])
+        print(data.customer_id)
         data15 = cart.objects.filter(CUSTOMER_id=data.customer_id)
+        
+        
         for ct in data15:
             
             data1=make_order()
             data1.quantity=ct.quantity
             data1.PRODUCT_id=ct.PRODUCT_id
+            data1.month=ct.month
+            data1.year=ct.year
             data11=product.objects.get(product_id=ct.PRODUCT_id)
             data1.amount=float(ct.quantity)*float(data11.price)
             data10=customer.objects.get(email=request.session['customers'])
@@ -2021,8 +2043,11 @@ def cart_orders1(request):
                     
             data2.date=datetime.now().strftime('%Y-%m-%d')
             data2.save()
-            c2=data11.CATEGORY
-            return HttpResponse('''<script>alert("ORDERED");window.location="/view_cart/"</script> ''')
+        data15 = cart.objects.filter(CUSTOMER_id=data.customer_id)  
+        for ct in data15:
+            ct.delete()  
+        c2=data11.CATEGORY
+        return HttpResponse('''<script>alert("ORDERED");window.location="/view_cart/"</script> ''')
 
         
         return render(request, 'Customer/cart_orders.html', {'data': data1})
