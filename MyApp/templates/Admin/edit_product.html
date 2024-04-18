@@ -80,10 +80,10 @@
       <tr>
         <th>Category Type</th>
         <td>
-          <select class="form-select" name="category_type" id="category_type" onChange="valid();" required>
+          <select class="form-select" name="category_type" id="category_type" onChange="valid();">
             <option value="" disabled selected>Select a category</option>
             {% for i in data2 %}
-              <option value="{{ i.category_id }}">{{ i.category_name }}</option>
+            <option value="{{ i.category_id }}" {% if data.category_type == i.category_id %}selected{% endif %}>{{ i.category_name }}</option>
             {% endfor %}
           </select>
         </td>
@@ -95,13 +95,13 @@
             <tr id= "dim1">
             <th style="width:340px">Color</th>
             <td style="width:960px">
-              <select name="detail_1" id="detail_1" class="form-select" required>
+              <select name="detail_1" id="detail_1" class="form-select" >
                 <option value="" disabled selected>Select a color</option>
                 <option value="Grey">Grey</option>
                 <option value="Red">Red</option>
                 <option value="Black">Black</option>
-                <option value="White">White</option>
-                <option value="Blue">Blue</option>
+                {% comment %} <option value="White">White</option>
+                <option value="Blue">Blue</option> {% endcomment %}
               </select>
             </td>
           </tr>
@@ -116,7 +116,7 @@
           <tr id= "dim">
           <th style="width:334px">Dimension</th>
           <td style="width:960px">
-          <select name="detail_2" id="detail_2" class="form-select" required>
+          <select name="detail_2" id="detail_2" class="form-select" >
             <option value="" disabled selected>Select a dimension</option>
             <option>8 x 8 x 16</option>
             <option>6 x 8 x 16</option>
@@ -137,13 +137,13 @@
           {% comment %} <td style="width:250px;padding:4px"> {% endcomment %}
           <th style="width:340px">Shape</th>
           <td style="width:960px">
-            <select name="detail_3" class="form-select" required>
+            <select name="detail_3" class="form-select" >
               <option value="" disabled selected>Select a shape</option>
               <option value="Square">Square</option>
               <option value="Rectangle">Rectangle</option>
-              <option value="Circle">Circle</option>
-              <option value="Triangle">Triangle</option>
-              <option value="Hexagon">Hexagon</option>
+              <option value="Others">Others</option>
+              {% comment %} <option value="Triangle">Triangle</option>
+              <option value="Hexagon">Hexagon</option> {% endcomment %}
             </select>
           </td>
         </tr>

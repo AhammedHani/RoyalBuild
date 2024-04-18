@@ -1,7 +1,60 @@
 {% extends 'Admin/admin_home.html' %}
+{% load static %}
 {% block x %}
 
-<div><br>
+<style>
+  .info-box {
+      background-color: rgb(55, 81, 126);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      border-radius: 10px;
+      box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .info-box h3 {
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .info-box span {
+      font-size: 1.2em;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+
+  .info-box span.small {
+      font-size: 0.8em;
+  }
+
+  .info-box img {
+      width: 100px;
+      height: 100px;
+  }
+</style>
+<style>
+  h1 {
+      font-family: "Times New Roman", Times, serif;
+  }
+</style>
+<section id="contact" class="contact mt-5">
+  <div class="container">
+      <div class="row gy-5 gx-lg-5">
+          <div class="col-lg-12">
+              <div class="info-box mb-4">
+                  {% comment %} <img src="{% static 'Admin/assets/img/11.png' %}" alt="Company Logo"> {% endcomment %}
+                  <h1 class="text-center"><b>ROYAL ASSOCIATES</b></h1>
+                  <span class="d-block text-center">CRAFTING EXCELLENCE BUILDING LEGACIES</span>
+                  <span class="d-block text-center small">Royal Associates Redefining Construction Excellence</span>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+{% comment %} <div><br>
     <div class="row">
 
       <!-- Sales Card -->
@@ -191,7 +244,7 @@
           </div>
 
         </div>
-      </div><!-- End Reports -->
+      </div><!-- End Reports --> {% endcomment %}
 
 
           {% endblock x %}

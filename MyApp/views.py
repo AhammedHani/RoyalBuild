@@ -1612,7 +1612,7 @@ def view_categories1(request):
     if 'customers' not in request.session:
         return redirect('/public_home/')
     else:
-        if request.session['category']=='paving':
+        if request.session['category']==9:
             data5 = product.objects.filter(CATEGORY_id=request.session['category']).filter(color=request.POST.get('color')).filter(size=request.POST.get('size')).filter(shape=request.POST.get('shape'))
             return render(request, 'Customer/view_products.html', {'data': data5})
         else:
@@ -1876,8 +1876,17 @@ def add_review_post(request,id):
     if 'customers' not in request.session:
         return redirect('/public_home/')
     else:
-    
-        data = review()
+        #new
+        data10=customer.objects.get(email=request.session['customers'])
+        CUSTOMER_id =data10.customer_id
+        PRODUCT_id = make_order.objects.get(order_id=id).PRODUCT_id 
+        print(CUSTOMER_id,PRODUCT_id)
+        try:
+            data= review.objects.get(CUSTOMER_id=CUSTOMER_id , PRODUCT_id=PRODUCT_id)
+         
+        except review.DoesNotExist: 
+             data=review()
+        
         data.star = request.POST.get('review')
         data.review_message = request.POST.get('message')
         data.date = datetime.now().strftime('%Y-%m-%d')
@@ -2065,9 +2074,9 @@ def public_view_categories(request):
     data = category.objects.all()
     return render(request, 'Public/public_view_categories.html', {'data': data})
 
-def public_category_sub(request,id):
-    request.session['category']=id
-    data = category.objects.get(category_id=id)
+def public_category_sub(request,s1):
+    request.session['category']=s1
+    data = category.objects.get(category_id=s1)
     if data.category_name=="Bricks" or data.category_name=="Paving":
         return render(request, 'Public/public_category_sub.html',{'data':data})
     else:
@@ -2075,10 +2084,11 @@ def public_category_sub(request,id):
         return render(request, 'Public/public_view_products.html', {'data': data5})        
  
 def public_view_categories1(request):
-    if request.session['category']=='paving':
+    if request.session['category']==9:
         data5 = product.objects.filter(CATEGORY_id=request.session['category']).filter(color=request.POST.get('color')).filter(size=request.POST.get('size')).filter(shape=request.POST.get('shape'))
         return render(request, 'Public/public_view_products.html', {'data': data5})
     else:
+        print(request.session['category'])
         data5 = product.objects.filter(CATEGORY_id=request.session['category']).filter(color=request.POST.get('color')).filter(size=request.POST.get('size'))
         return render(request, 'Public/public_view_products.html', {'data': data5})
 
@@ -2154,7 +2164,7 @@ def staff_home(request):
         staff_id = request.session.get('staffs')
         lg = staff.objects.get(email=staff_id)
         
-        return render(request,'Staff/staff_home.html',{'lg':lg})
+        return render(request,'Staff/dashboard.html',{'lg':lg})
 
 def staff_view_duty(request):
     if 'staffs' not in request.session:
@@ -2346,7 +2356,7 @@ def accountant_home(request):
         accountant_id = request.session.get('accountant')
         lg = staff.objects.get(email=accountant_id)
         
-        return render(request,'Accountant/accountant_home.html',{'lg':lg})
+        return render(request,'Accountant/dashboard.html',{'lg':lg})
 
 def view_wages(request):
     if 'accountant' not in request.session:
@@ -2354,9 +2364,12 @@ def view_wages(request):
     else:
         accountant_id = request.session.get('accountant')
         lg = staff.objects.get(email=accountant_id)
+        data2=wage.objects.filter(date=datetime.now().strftime('%Y-%m-%d'))
+        data=staff.objects.filter(type="temporary").exclude(post="accountant").exclude(post="scheduler").exclude(staff_id__in=[ct.STAFF_id for ct in data2])
         
-        data = staff.objects.filter(type="temporary").exclude(post="accountant").exclude(post="scheduler")
         return render(request, 'Accountant/view_wages.html', {'lg':lg,'data': data})
+
+from django.utils import timezone
 
 def view_wages_post(request):
     if 'accountant' not in request.session:
@@ -2365,11 +2378,14 @@ def view_wages_post(request):
         accountant_id = request.session.get('accountant')
         lg = staff.objects.get(email=accountant_id)
         search = request.POST.get('textfield')
+        date_today = timezone.now().date()
         if search:
-            var = staff.objects.filter(post=search, type='Temporary')
+            var = staff.objects.filter(post=search, type='Temporary').exclude(wage__date=date_today)
         else:
-            var = staff.objects.filter(type='Temporary').exclude(post="scheduler").exclude(post="accountant")
+            var = staff.objects.filter(type='Temporary').exclude(post="scheduler").exclude(post="accountant").exclude(wage__date=date_today)
         return render(request, "Accountant/view_wages.html", {'lg': lg, 'data': var})
+
+from django.utils import timezone
 
 def view_salary(request):
     if 'accountant' not in request.session:
@@ -2378,7 +2394,11 @@ def view_salary(request):
         accountant_id = request.session.get('accountant')
         lg = staff.objects.get(email=accountant_id)
         
-        data = staff.objects.filter(type="permanent").exclude(post="accountant").exclude(post="scheduler")
+        current_month = timezone.now().month
+        current_year = timezone.now().year
+        data2=salary_slip.objects.filter(month=current_month,year=current_year)
+
+        data = staff.objects.filter(type="permanent").exclude(post="accountant").exclude(post="scheduler").exclude(staff_id__in=[ct.STAFF_id for ct in data2])
         return render(request, 'Accountant/view_salary.html', {'lg':lg,'data': data})
     
 def view_salary_post(request):
@@ -2388,10 +2408,12 @@ def view_salary_post(request):
         accountant_id = request.session.get('accountant')
         lg = staff.objects.get(email=accountant_id)
         search = request.POST.get('textfield')
+        current_month = timezone.now().month
+        current_year = timezone.now().year
         if search:
-            var = staff.objects.filter(post=search, type='Permanent')
+            var = staff.objects.filter(post=search, type='Permanent').exclude(salary_slip__month=current_month, salary_slip__year=current_year)
         else:
-            var = staff.objects.filter(type='Permanent').exclude(post="scheduler").exclude(post="accountant")
+            var = staff.objects.filter(type='Permanent').exclude(post="scheduler").exclude(post="accountant").exclude(salary_slip__month=current_month, salary_slip__year=current_year)
         return render(request, "Accountant/view_salary.html", {'lg': lg, 'data': var})
 
 def add_wage(request,id):
@@ -2407,14 +2429,19 @@ def add_wage_post(request,id):
     if 'accountant' not in request.session:
         return redirect('/public_home/')
     else:
-        data = wage()
-        data.STAFF_id = id
-        data.date=datetime.now().strftime('%Y-%m-%d')
-        data.wage=request.POST.get('wage')
-        data.remark = request.POST.get('remark')
-        data.save()
-        return HttpResponse('''<script>alert("WAGE ADDED");window.location="/view_wages/";</script>''')
-
+        c=wage.objects.filter(STAFF_id=id).filter(date=datetime.now().strftime('%Y-%m-%d')).count()
+        if c==0:
+            
+            data = wage()
+            data.STAFF_id = id
+            data.date=datetime.now().strftime('%Y-%m-%d')
+            data.wage=request.POST.get('wage')
+            data.remark = request.POST.get('remark')
+            data.save()
+            return HttpResponse('''<script>alert("WAGE ADDED");window.location="/view_wages/";</script>''')
+        else:
+            return HttpResponse('''<script>alert("WAGE ALREADY ADDED");window.location="/view_wages/";</script>''')
+        
 def add_leave(request,id):
     if 'accountant' not in request.session:
         return redirect('/public_home/')
@@ -2439,34 +2466,31 @@ def add_leave_post(request,id):
         nettotal=int(salary)-total
         
         l=int(request.POST.get('leave'))
-        if l!=1:
-            data5=salary_slip()
-            data5.STAFF_id=id
-            from datetime import datetime
-            from django.utils import timezone
-            data5.date=datetime.now().strftime('%Y-%m-%d')
-            data5.month=timezone.now().month
-            data5.year=timezone.now().year
-            data5.leave=request.POST.get('leave')
-            data5.basic_salary=data.salary
-            data5.salary=nettotal
-            data5.save()
-            return render(request,"Accountant/view_staff_salary.html",{'lg':lg,'data':data,'netsalary':nettotal})            
-        else:                           
-            data5=salary_slip()
-            data5.STAFF_id=id
-            from datetime import datetime
-            from django.utils import timezone
-            data5.date=datetime.now().strftime('%Y-%m-%d')
-            data5.month=timezone.now().month
-            data5.year=timezone.now().year
-            data5.leave=request.POST.get('leave')
-            data5.basic_salary=data.salary
-            data5.salary=data.salary
-            data5.save()
-            
-            return render(request,"Accountant/view_staff_salary.html",{'lg':lg,'data':data,'netsalary':data.salary})
+        
+        from datetime import datetime
+        from django.utils import timezone
+        current_month = timezone.now().month
+        current_year = timezone.now().year
 
+        # Check if a salary slip for the current month already exists
+        if salary_slip.objects.filter(STAFF_id=id, month=current_month, year=current_year).exists():
+            return HttpResponse('''<script>alert("Salary has already been added for this month");window.location="/view_salary/";</script>''')
+
+        data5=salary_slip()
+        data5.STAFF_id=id
+        data5.date=datetime.now().strftime('%Y-%m-%d')
+        data5.month=current_month
+        data5.year=current_year
+        data5.leave=request.POST.get('leave')
+        data5.basic_salary=data.salary
+        if l!=1:
+            data5.salary=nettotal
+        else:                           
+            data5.salary=data.salary
+        data5.save()
+        
+        return HttpResponse('''<script>alert("Leave added and salary calculated");window.location="/view_salary/";</script>''')
+    
 def accountant_view_profile(request):
     if 'accountant' not in request.session:
         return redirect('/public_home/')

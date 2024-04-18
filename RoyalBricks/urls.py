@@ -186,7 +186,7 @@ urlpatterns = [
     path('signin_post/',views.signin_post),
     path('public_home/',views.public_home),
     path('public_view_categories/',views.public_view_categories),
-    path('public_category_sub/<id>',views.public_category_sub), 
+    path('public_category_sub/<int:s1>',views.public_category_sub), 
     path('public_view_categories1/',views.public_view_categories1),
     # path('public_view_products/<id>',views.public_view_products),
     path('public_view_products2/<id>',views.public_view_products2),

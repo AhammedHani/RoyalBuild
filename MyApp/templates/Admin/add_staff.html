@@ -47,7 +47,7 @@ document.getElementById("salary").style.display="none";
       </tr>
       <tr>
         <th>Pin</th>
-        <td><input type="text" class="form-control" id="pin" name="pin" required maxlength="6"></td>
+        <td><input type="number" class="form-control" id="pin" name="pin" required maxlength="6"></td>
       </tr>
       <tr>
         <th>Email</th>
@@ -55,12 +55,12 @@ document.getElementById("salary").style.display="none";
       </tr>
       <tr>
         <th>Phone</th>
-        <td><input type="text" class="form-control" id="phone" name="phone" required maxlength="12"></td>
+        <td><input type="text" class="form-control" id="phone" name="phone" pattern="[9876][0-9]{9}" maxlength="10" required ></td>
       </tr>
       <tr>
         <tr>
-          <th>Aadhaar/Passport</th>
-          <td><input type="text" class="form-control" id="aadhaar" name="aadhaar" required></td>
+          <th>Aadhaar</th>
+          <td><input type="text" class="form-control" id="aadhaar" name="aadhaar" maxlength="12" required></td>
         </tr>
         <tr>
           <tr>

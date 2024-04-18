@@ -32,8 +32,8 @@ if(category=="Paving")
                 <option value="Grey">Grey</option>
                 <option value="Red">Red</option>
                 <option value="Black">Black</option>
-                <option value="White">White</option>
-                <option value="Blue">Blue</option>
+                {% comment %} <option value="White">White</option>
+                <option value="Blue">Blue</option> {% endcomment %}
               </select>
             </td>
           </tr>
@@ -54,13 +54,13 @@ if(category=="Paving")
                 <tr id="shape">
                   <th>Shape</th>
                 <td>
-                  <select name="detail_3" class="form-select">
+                  <select name="shape" class="form-select" >
                     <option value="" disabled selected>Select a shape</option>
                     <option value="Square">Square</option>
                     <option value="Rectangle">Rectangle</option>
-                    <option value="Circle">Circle</option>
-                    <option value="Triangle">Triangle</option>
-                    <option value="Hexagon">Hexagon</option>
+                    <option value="Others">Others</option>
+                    {% comment %} <option value="Triangle">Triangle</option>
+                    <option value="Hexagon">Hexagon</option> {% endcomment %}
                   </select>
                 </td>
               </tr>
