@@ -8,6 +8,8 @@ import datetime
 from datetime import datetime
 from django.utils import timezone
 from django.db.models import Sum,Max,Count
+from django.shortcuts import get_object_or_404
+
 # Create your views here.
 
 # Signup
@@ -84,7 +86,11 @@ def admin_home(request):
     else:
         admin_id = request.session.get('admins')
         data = login.objects.get(username=admin_id)
-        return render(request,'Admin/dashboard.html',{'data':data})
+        
+        var1 = make_order.objects.filter(status='delivered').count()
+        var2 = customer.objects.all().count()
+        var3 = staff.objects.all().count()
+        return render(request,'Admin/dashboard.html',{'data':data,'var1':var1,'var2':var2,'var3':var3})
 
 def add_category(request):
     if 'admins' not in request.session:
@@ -407,7 +413,12 @@ def delete_staff(request,id):
     if 'admins' not in request.session:
         return redirect('/public_home/')
     else:
-        staff.objects.filter(staff_id=id).delete()
+        
+        data=staff.objects.get(staff_id=id)
+        data.delete()
+        data2=login.objects.get(username=data.email)
+        
+        data2.delete()
         return HttpResponse('''<Script>alert("DELETED");window.location="/view_staff/";</Script>''')
 
 # def add_scheduler(request,id):
@@ -786,11 +797,12 @@ def view_sales_report2(request):
         a2=request.POST.get('year')
     
         ss1=make_order.objects.order_by('PRODUCT_id').values('PRODUCT_id').filter(month=a1).filter(year=a2).annotate(sum=Count('amount')).aggregate(Max('sum'))
-        # print(ss1)
+        print(ss1)
+        ss=make_order.objects.filter(month=a1).filter(year=a2).values_list('PRODUCT_id', flat=True).annotate(sum=Count('amount')).order_by('-sum')
         q=make_order.objects.filter(month=a1).filter(year=a2).values_list('PRODUCT_id', flat=True).annotate(sum=Count('amount')).order_by('-sum').first()
-        # print(q)
+        print(ss)
         data = product.objects.filter(product_id=q)
-        return render(request, 'Admin/view_sales_report2.html', {'data': data,'data2':ss1})
+        return render(request, 'Admin/view_sales_report2.html', {'data': data,'data2':ss1,'ss':ss})
 
 def view_sales_report2_post(request):
     if 'admins' not in request.session:
@@ -806,11 +818,28 @@ def staff_wages1(request):
     else:
         return render(request, 'Admin/staff_wages1.html')
 
+# def staff_wages1_post(request):
+#     if 'admins' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         data=request.POST.get('date')
+#         data1=wage.objects.filter(date=data).order_by('-wage_id')
+#         return render(request,"Admin/view_staff_wages.html",{'data1':data1})
+    
+# def staff_wages1_post2(request):
+#     if 'admins' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         search=request.POST['textfield']
+#         var=wage.objects.filter(STAFF__staff_name__icontains=search).order_by('-wage_id')
+#         return render(request,"Admin/view_staff_wages.html",{'data1':var})   
+
 def staff_wages1_post(request):
     if 'admins' not in request.session:
         return redirect('/public_home/')
     else:
         data=request.POST.get('date')
+        request.session['selected_date'] = data
         data1=wage.objects.filter(date=data).order_by('-wage_id')
         return render(request,"Admin/view_staff_wages.html",{'data1':data1})
     
@@ -819,8 +848,12 @@ def staff_wages1_post2(request):
         return redirect('/public_home/')
     else:
         search=request.POST['textfield']
-        var=wage.objects.filter(STAFF__staff_name__icontains=search).order_by('-wage_id')
-        return render(request,"Admin/view_staff_wages.html",{'data1':var})   
+        date=request.session.get('selected_date')
+        var=wage.objects.filter(
+            STAFF__staff_name__icontains=search,
+            date=date
+        ).order_by('-wage_id')
+        return render(request,"Admin/view_staff_wages.html",{'data1':var}) 
         
 def staff_salary1(request):
     if 'admins' not in request.session:
@@ -830,12 +863,31 @@ def staff_salary1(request):
         years = list(range(current_year, current_year - 5, -1))  
         return render(request, 'Admin/staff_salary1.html',{'years': years})
 
+# def staff_salary1_post(request):
+#     if 'admins' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         a1=request.POST.get('month')
+#         a2=request.POST.get('year')
+#         data = salary_slip.objects.filter(month=a1).filter(year=a2).order_by('-salary_slip_id')
+#         return render(request, 'Admin/view_staff_salary.html' ,{'data': data})
+
+# def staff_salary1_post2(request):
+#     if 'admins' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         search=request.POST['textfield']
+#         var=salary_slip.objects.filter(STAFF__staff_name__icontains=search).order_by('-salary_slip_id')
+#         return render(request,"Admin/view_staff_salary.html",{'data':var}) 
+
 def staff_salary1_post(request):
     if 'admins' not in request.session:
         return redirect('/public_home/')
     else:
         a1=request.POST.get('month')
         a2=request.POST.get('year')
+        request.session['selected_month'] = a1
+        request.session['selected_year'] = a2
         data = salary_slip.objects.filter(month=a1).filter(year=a2).order_by('-salary_slip_id')
         return render(request, 'Admin/view_staff_salary.html' ,{'data': data})
 
@@ -844,9 +896,10 @@ def staff_salary1_post2(request):
         return redirect('/public_home/')
     else:
         search=request.POST['textfield']
-        var=salary_slip.objects.filter(STAFF__staff_name__icontains=search).order_by('-salary_slip_id')
+        month=request.session.get('selected_month')
+        year=request.session.get('selected_year')
+        var=salary_slip.objects.filter(STAFF__staff_name__icontains=search,month=month,year=year).order_by('-salary_slip_id')
         return render(request,"Admin/view_staff_salary.html",{'data':var}) 
-
 
 
 
@@ -1252,7 +1305,10 @@ def add_duty(request, id):
         lg = staff.objects.get(email=scheduler_id)
         
         data = staff.objects.get(staff_id=id)
-        return render(request, 'Scheduler/add_duty.html', {'lg': lg, 'data': data})
+        vehicles = []
+        if data.post == "driver":
+            vehicles = vehicle.objects.all()
+        return render(request, 'Scheduler/add_duty.html', {'lg': lg, 'data': data, 'vehicles': vehicles})
 
 def add_duty_post(request):
     if 'schedulers' not in request.session:
@@ -1267,6 +1323,13 @@ def add_duty_post(request):
         data.workstation = request.POST.get('workstation')  
         data.status = "pending"
         data.STAFF = staff_obj
+        if staff_obj.post == "driver":
+            vehicle_id = request.POST.get('vehicle')
+            vehicle_obj = vehicle.objects.get(vehicle_id=vehicle_id).vehicle_id
+            data.vehicle = vehicle_obj
+            data1 = vehicle.objects.get(vehicle_id=vehicle_id)
+            data1.status="unavailable"
+            data1.save() 
         data.save()
         data1=staff.objects.get(staff_id=request.POST.get('staff'))
         data1.status="inactive"
@@ -1301,7 +1364,7 @@ def view_cancel_request(request):
         scheduler_id = request.session.get('schedulers')
         lg = staff.objects.get(email=scheduler_id)
         
-        data = make_order.objects.filter(status="cancel requested")
+        data = make_order.objects.filter(status__in = ('cancel requested','pending cancel requested'))
         return render(request, 'Scheduler/view_cancel_request.html', {'lg': lg, 'data': data})
 
 def view_cancel_request_post(request):
@@ -1310,7 +1373,7 @@ def view_cancel_request_post(request):
     else:
         fromdate=request.POST['textfield1']
         todate=request.POST['textfield2']
-        var = make_order.objects.filter(date__range=[fromdate, todate],  status='cancel requested')
+        var = make_order.objects.filter(date__range=[fromdate, todate],  status__in = ('cancel requested','pending cancel requested'))
         return render(request, 'Scheduler/view_cancel_request.html', {'data': var})
 
 def cancel_confirm(request,id):
@@ -1318,25 +1381,33 @@ def cancel_confirm(request,id):
         return redirect('/public_home/')
     else:
         data2 = make_order.objects.get(order_id=id)
-        data2.status="cancelled"
-        data2.save()
-        data7 = vehicle_allot.objects.get(ORDER_id=id)
-        data7.status="cancelled"
-        data7.save()
-        d1=vehicle.objects.get(vehicle_id=data7.VEHICLE_id)
-        d1.status="available"
-        d1.save()
-        d2=staff.objects.get(staff_id=data7.STAFF_id)
-        d2.status="active"
-        d2.save()
-        q=int(data2.quantity)
-        data5=product.objects.get(product_id=data2.PRODUCT_id)
-        q1=int(data5.quantity)
-        q2=q1+q
-        data5.quantity=q2
-        data5.save()
-        return HttpResponse('''<script>alert("CANCELLED");window.location="/view_cancel_request/";</script>''')
-    
+        if data2.status=="pending cancel requested":
+            data2 = make_order.objects.get(order_id=id)
+            data2.status="cancelled"
+            data2.save()
+            return HttpResponse('''<script>alert("CANCELLED");window.location="/view_cancel_request/";</script>''')
+        else: 
+            print("ffffffffffff")     
+            data2 = make_order.objects.get(order_id=id)
+            data2.status="cancelled"
+            data2.save()
+            data7 = vehicle_allot.objects.get(ORDER_id=id)
+            data7.status="cancelled"
+            data7.save()
+            d1=vehicle.objects.get(vehicle_id=data7.VEHICLE_id)
+            d1.status="available"
+            d1.save()
+            d2=staff.objects.get(staff_id=data7.STAFF_id)
+            d2.status="active"
+            d2.save()
+            q=int(data2.quantity)
+            data5=product.objects.get(product_id=data2.PRODUCT_id)
+            q1=int(data5.quantity)
+            q2=q1+q
+            data5.quantity=q2
+            data5.save()
+            return HttpResponse('''<script>alert("CANCELLED");window.location="/view_cancel_request/";</script>''')
+        
 def view_return(request):
     if 'schedulers' not in request.session:
         return redirect('/public_home/')
@@ -1568,8 +1639,38 @@ def scheduler_view_duty1(request,id):
 #         data = duty.objects.filter(STAFF_id=id)
 #         return render(request,"Scheduler/scheduler_view_duty.html",{'data':data})
     
+def status_staffs(request):
+    if 'schedulers' not in request.session:
+        return redirect('/public_home/')
+    else:
+        scheduler_id = request.session.get('schedulers')
+        lg = staff.objects.get(email=scheduler_id) 
+        
+        data=staff.objects.filter(post__in=['driver','labour'])
+        return render(request,'Scheduler/status_staffs.html',{'lg':lg,'data':data})
     
+def status_staffs_post(request):
+    if 'schedulers' not in request.session:
+        return redirect('/public_home/')
+    else:
+        scheduler_id = request.session.get('schedulers')
+        lg = staff.objects.get(email=scheduler_id) 
+        
+        search=request.POST['textfield']
+        var=staff.objects.filter(staff_name__icontains=search).filter(post__in=['driver','labour'])
+        return render(request,"Scheduler/status_staffs.html",{'lg': lg,'data':var})
     
+def update_staff(request,id):
+    if 'schedulers' not in request.session:
+        return redirect('/public_home/')
+    else:
+        data=staff.objects.get(staff_id=id)
+        if data.status == "active":
+            data.status = "inactive"
+        else:
+            data.status = "active"
+        data.save()
+        return redirect('/status_staffs/')
     
 # Customer--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1735,6 +1836,13 @@ def cancel_order(request,id):
     if 'customers' not in request.session:
         return redirect('/public_home/')
     else:
+        d2=make_order.objects.filter(status='pending').filter(order_id=id).count()
+        if d2!=0:
+            condition1 = {'status': 'pending'}
+            condition2 = {'order_id': id}
+            data2 = get_object_or_404(make_order, **condition1, **condition2)
+            data2.status="pending cancel requested"
+            data2.save()
         data2 = make_order.objects.get(order_id=id)
         data2.status="cancel requested"
         data2.save()
@@ -2172,10 +2280,13 @@ def staff_view_duty(request):
     else:
         staff_id = request.session.get('staffs')
         lg = staff.objects.get(email=staff_id)
-        
+        try:
+            bb = vehicle.objects.get(status="unavailable")
+        except vehicle.DoesNotExist:
+            bb = None
         data = staff.objects.get(email=request.session['staffs'])
         data1=duty.objects.filter(STAFF_id=data.staff_id,status="pending")
-        return render(request, 'Staff/staff_view_duty.html', {'lg':lg,'data': data1})
+        return render(request, 'Staff/staff_view_duty.html', {'lg':lg,'data': data1,'bb':bb})
 
 def finish_duty(request,id):
     if 'staffs' not in request.session:
@@ -2187,6 +2298,10 @@ def finish_duty(request,id):
         data1=staff.objects.get(staff_id=data.STAFF_id)
         data1.status="active"
         data1.save()
+        if data1.post == "driver":
+            vehicle_obj = vehicle.objects.get(vehicle_id = data.vehicle)
+            vehicle_obj.status = "available"
+            vehicle_obj.save()
         return HttpResponse('''<script>alert("DUTY COMPLETED");window.location="/staff_view_duty/";</script>''')
 
 def view_delivery(request):
@@ -2626,6 +2741,28 @@ def accountant_staff_wages1(request):
          
         return render(request, 'Accountant/accountant_staff_wages1.html', {'lg':lg})
 
+# def accountant_staff_wages1_post(request):
+#     if 'accountant' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         accountant_id = request.session.get('accountant')
+#         lg = staff.objects.get(email=accountant_id)  
+        
+#         data=request.POST.get('date')
+#         data1=wage.objects.filter(date=data)
+#         return render(request,"Accountant/accountant_view_staff_wages.html",{'lg':lg,'data1':data1})
+    
+# def accountant_staff_wages1_post2(request):
+#     if 'accountant' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         accountant_id = request.session.get('accountant')
+#         lg = staff.objects.get(email=accountant_id)  
+        
+#         search=request.POST['textfield']
+#         var=wage.objects.filter(STAFF__staff_name__icontains=search)
+#         return render(request,"Accountant/accountant_view_staff_wages.html",{'lg':lg,'data1':var})   
+
 def accountant_staff_wages1_post(request):
     if 'accountant' not in request.session:
         return redirect('/public_home/')
@@ -2634,6 +2771,7 @@ def accountant_staff_wages1_post(request):
         lg = staff.objects.get(email=accountant_id)  
         
         data=request.POST.get('date')
+        request.session['selected_date'] = data
         data1=wage.objects.filter(date=data)
         return render(request,"Accountant/accountant_view_staff_wages.html",{'lg':lg,'data1':data1})
     
@@ -2645,17 +2783,13 @@ def accountant_staff_wages1_post2(request):
         lg = staff.objects.get(email=accountant_id)  
         
         search=request.POST['textfield']
-        var=wage.objects.filter(STAFF__staff_name__icontains=search)
-        return render(request,"Accountant/accountant_view_staff_wages.html",{'lg':lg,'data1':var})   
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        date=request.session.get('selected_date')
+        var=wage.objects.filter(
+            STAFF__staff_name__icontains=search,
+            date=date
+        )
+        return render(request,"Accountant/accountant_view_staff_wages.html",{'lg':lg,'data1':var}) 
+       
 def accountant_staff_salary1(request):
     if 'accountant' not in request.session:
         return redirect('/public_home/')
@@ -2667,6 +2801,29 @@ def accountant_staff_salary1(request):
         years = list(range(current_year, current_year - 5, -1))  
         return render(request, 'Accountant/accountant_staff_salary1.html',{'lg':lg,'years': years})
 
+# def accountant_staff_salary1_post(request):
+#     if 'accountant' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         accountant_id = request.session.get('accountant')
+#         lg = staff.objects.get(email=accountant_id)  
+        
+#         a1=request.POST.get('month')
+#         a2=request.POST.get('year')
+#         data = salary_slip.objects.filter(month=a1).filter(year=a2).order_by('-salary_slip_id')
+#         return render(request, 'Accountant/accountant_view_staff_salaries.html' ,{'lg':lg,'data': data})
+
+# def accountant_staff_salary1_post2(request):
+#     if 'accountant' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         accountant_id = request.session.get('accountant')
+#         lg = staff.objects.get(email=accountant_id)  
+        
+#         search=request.POST['textfield']
+#         var=salary_slip.objects.filter(STAFF__staff_name__icontains=search).order_by('-salary_slip_id')
+#         return render(request,"Accountant/accountant_view_staff_salaries.html",{'lg':lg,'data':var}) 
+    
 def accountant_staff_salary1_post(request):
     if 'accountant' not in request.session:
         return redirect('/public_home/')
@@ -2676,6 +2833,8 @@ def accountant_staff_salary1_post(request):
         
         a1=request.POST.get('month')
         a2=request.POST.get('year')
+        request.session['selected_month'] = a1
+        request.session['selected_year'] = a2
         data = salary_slip.objects.filter(month=a1).filter(year=a2).order_by('-salary_slip_id')
         return render(request, 'Accountant/accountant_view_staff_salaries.html' ,{'lg':lg,'data': data})
 
@@ -2687,12 +2846,12 @@ def accountant_staff_salary1_post2(request):
         lg = staff.objects.get(email=accountant_id)  
         
         search=request.POST['textfield']
-        var=salary_slip.objects.filter(STAFF__staff_name__icontains=search).order_by('-salary_slip_id')
+        month=request.session.get('selected_month')
+        year=request.session.get('selected_year')
+        var=salary_slip.objects.filter(
+            STAFF__staff_name__icontains=search,
+            month=month,
+            year=year
+        ).order_by('-salary_slip_id')
         return render(request,"Accountant/accountant_view_staff_salaries.html",{'lg':lg,'data':var}) 
-    
-    
-    
-    
-    
-    
     

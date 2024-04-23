@@ -52,6 +52,8 @@
                     <span class="badge rounded-pill bg-danger" style="color: black;">Rejected</span>
                     {% elif i.status == 'cancel requested' %}
                     <span class="badge rounded-pill bg-secondary">Cancel Request</span>
+                    {% elif i.status == 'pending cancel requested' %}
+                    <span class="badge rounded-pill bg-secondary">Pending Cancel Request</span>
                     {% elif i.status == 'return requested' %}
                     <span class="badge rounded-pill bg-dark">Return Request</span>
                     {% elif i.status == 'return rejected' %}
@@ -78,11 +80,15 @@
                 {% else %}
             
                 {% endif %}
-                {% if i.status == 'confirmed' %}
+                {% comment %} {% if i.status == 'confirmed' %}
                     <td>
                         <a href="/cancel_order/{{i.order_id}}" class="btn btn-danger btn-sm">Cancel Order</a>
                     </td>
-                {% elif i.status == 'delivered' %}
+                {% elif i.status == 'pending' %}
+                    <td>
+                      <a href="/cancel_order/{{i.order_id}}" class="btn btn-danger btn-sm">Cancel Order</a>
+                    </td> {% endcomment %}
+                {% if i.status == 'delivered' %}
                     <td>
                         <a href="/add_return/{{i.order_id}}" class="btn btn-warning btn-sm">Return Order</a>
                     </td>

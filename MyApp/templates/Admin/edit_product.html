@@ -83,7 +83,7 @@
           <select class="form-select" name="category_type" id="category_type" onChange="valid();">
             <option value="" disabled selected>Select a category</option>
             {% for i in data2 %}
-            <option value="{{ i.category_id }}" {% if data.category_type == i.category_id %}selected{% endif %}>{{ i.category_name }}</option>
+              <option value="{{ i.category_id }}">{{ i.category_name }}</option>
             {% endfor %}
           </select>
         </td>

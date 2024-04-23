@@ -1,0 +1,65 @@
+{% extends 'Scheduler/scheduler_home.html' %}
+{% block x %}
+
+<style>
+    .table td img {
+       width: 36px; 
+       height: 36px; 
+       border-radius: 100%; 
+  }
+  </style>
+    <body>
+        <br><br>
+        <form id="form1" name="form1" method="post" action="/status_staffs_post/">
+          {% csrf_token %}
+        <table class="pull-left">
+          <tr>
+            <td>
+            <input type="text" name="textfield" id="textfield" placeholder="Enter Staff Name"  class="form-control"/></td>
+            <td><input type="submit" name="button" id="button" value="Search" class="btn btn-info"/></td>
+          </tr>
+        </table>
+        <br>
+<form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
+{% csrf_token %}
+    {% if data %}
+    <div style="text-align: center;">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>SL.NO</th>
+                <th>Staff Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><img src="{{ i.photo }}" alt="{{ i.staff_name }}" class="img-thumbnail"><br>{{ i.staff_name }}</td>
+                <td>{{ i.address }}<br>{{i.pin}}</td>
+                <td>{{ i.email }}</td>
+                <td>{{ i.phone }}</td>
+            <td>
+                {% if i.status == 'active' %}
+                    <span class="badge rounded-pill bg-success">{{ i.status }}</span>
+                {% elif i.status == 'inactive' %}
+                    <span class="badge rounded-pill bg-danger">{{ i.status }}</span>
+                {% endif %}
+            </td>
+            {% if i.status == 'active' %}
+                <td><a href="/update_staff/{{ i.staff_id }}" title="Active"><i class="fas fa-toggle-on fa-2x"></i></a></td>
+            {% elif i.status == 'inactive' %}
+                <td><a href="/update_staff/{{ i.staff_id }}" title="Inactive"><i class="fas fa-toggle-off fa-2x"></i></a></td>
+            {% endif %}
+  
+            {% endfor %}
+        </table>
+    </div>
+    {% else %}
+        <p>Staffs not available.</p>
+    {% endif %}
+</form>
+
+</body>
+{% endblock x %}

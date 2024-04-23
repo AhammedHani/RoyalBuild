@@ -4,6 +4,7 @@
 <body>
 <br><br>
 <form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
+    <input type="hidden" name="vehicle" value="{{ bb.vehicle_id }}">
 {% csrf_token %}
     {% if data %}
         <table class="table table-bordered table-hover">

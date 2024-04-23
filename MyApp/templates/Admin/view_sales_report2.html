@@ -59,6 +59,14 @@
         </td> {% endcomment %}
       </tr>
       {% endfor %}
+
+
+      {% comment %} {% for ct in ss %}
+{{ct.PRODUCT_id}}
+{% endfor %}
+{{ss}} {% endcomment %}
+
+
     </table>
   </div>
   {% else %}
@@ -66,4 +74,5 @@
   {% endif %}
 </form>
 </body>
+
 {% endblock x %}

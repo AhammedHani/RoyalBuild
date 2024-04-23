@@ -128,7 +128,10 @@ urlpatterns = [
     path('scheduler_sales_report2/',views.scheduler_sales_report2),
     path('scheduler_view_sales_report2/',views.scheduler_view_sales_report2),
     path('scheduler_view_sales_report2_post/',views.scheduler_view_sales_report2_post),
-    
+    path('status_staffs/',views.status_staffs),
+    path('status_staffs_post/',views.status_staffs_post),
+    path('update_staff/<id>',views.update_staff),
+        
     #customer
     path('customer_home/',views.customer_home),
     path('home/',views.home),

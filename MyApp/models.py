@@ -149,6 +149,7 @@ class duty(models.Model):
     time = models.CharField(max_length=100)
     workstation = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
+    vehicle = models.CharField(max_length=100)
     STAFF = models.ForeignKey(staff, on_delete=models.CASCADE,default=1)
     class Meta:
         db_table = "duty" 

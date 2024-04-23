@@ -22,6 +22,21 @@
                 <th>Workstation</th>
                 <td><input type="text" name="workstation" class="form-control"></td>
             </tr>
+            {% if data.post == "driver" %}
+            <tr>
+                <th>Vehicle</th>
+                <td>
+                    <select name="vehicle" class="form-control">
+                        <option value="" disabled selected>Select Vehicle</option>
+                        {% for i in vehicles %}
+                        {% if i.status == 'available' %}
+                            <option value="{{ i.vehicle_id }}">{{ i.type }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            {% endif %}
             <tr>
                 <td colspan="2" style="text-align: center;">
                     <input type="submit" value="Add" class="btn btn-primary">
