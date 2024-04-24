@@ -11,16 +11,16 @@
       </tr>
       <tr>
         <th>Category Name</th>
-        <td><input type="text" name="textfield" id="textfield" class="form-control" value="{{data.category_name}}"/></td>
+        <td><input type="text" name="textfield" id="textfield" class="form-control" value="{{data.category_name}}" required/></td>
         <input type="hidden" name="id" id="id" value="{{data.category_id}}">
-      </tr>
-      <tr>
-        <th>Description</th>
-        <td><textarea name="description" id="description" class="form-control">{{data.description}}</textarea></td>
       </tr>
       <tr>
         <th>Photo</th>
         <td><input type="file" name="photo" id="photo" class="form-control"/></td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td><textarea name="description" id="description" class="form-control" required>{{data.description}}</textarea></td>
       </tr>
       <tr>
         <td colspan="2" class="text-center"><input type="submit" name="button" id="button" value="Update" class="btn btn-primary"/></td>

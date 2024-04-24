@@ -3,7 +3,7 @@
   
 <body>
   <br><br>
-  <form id="form1" name="form1" method="post" action="/add_leave_post/{{id}}">
+  <form id="form1" name="form1" method="post" action="/add_leave_post/{{id}}" onsubmit="return validateLeave()">
     {% csrf_token %}
     <table class="table table-bordered table-hover" id="scroll">
     {% comment %} <tr>
@@ -12,7 +12,7 @@
         </tr> {% endcomment %}
       <tr>
         <th>Number of leave</th>
-        <td><input type="text" name="leave" id="wage" class="form-control"/></td>
+        <td><input type="number" name="leave" id="leave" class="form-control"/></td>
       </tr>
       {% comment %} <tr>
         <th>Remark</th>
@@ -23,5 +23,17 @@
       </tr>
     </table>
   </form>
+
+  <script>
+    function validateLeave() {
+      var leave = document.getElementById("leave").value;
+      if (leave > 7) {
+        alert("Number of leaves should not exceed 7");
+        return false;
+      }
+      return true;
+    }
+  </script>
+
 </body>
 {% endblock x %}

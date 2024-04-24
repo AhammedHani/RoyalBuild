@@ -3,7 +3,7 @@
   
 <body>
   <br><br>
-  <form id="form1" name="form1" method="post" action="/add_wage_post/{{id}}">
+  <form id="form1" name="form1" method="post" action="/add_wage_post/{{id}}" onsubmit="return validateWage()">
     {% csrf_token %}
     <table class="table table-bordered table-hover" id="scroll">
     {% comment %} <tr>
@@ -23,5 +23,17 @@
       </tr>
     </table>
   </form>
+
+  <script>
+    function validateWage() {
+      var wage = document.getElementById("wage").value;
+      if (wage < 500 || wage > 1500) {
+        alert("Wage should be between 500 and 1500");
+        return false;
+      }
+      return true;
+    }
+  </script>
+
 </body>
 {% endblock x %}

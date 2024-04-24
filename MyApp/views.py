@@ -247,13 +247,19 @@ def edit_product_post(request):
             var1.product_name=request.POST.get('product_name')
             var1.color=request.POST.get('detail_1')
             var1.size=request.POST.get('detail_2')
-            var1.shape=request.POST.get('detail_3')
+            # var1.shape=request.POST.get('detail_3')
             var1.description=request.POST.get('product_description')
             var1.price=request.POST.get('product_price')
             var1.quantity=request.POST.get('product_quantity')
             
             category_name = request.POST.get('category_type')
             var1.CATEGORY_id = category_name
+            
+             # If the category type is not "Paving", set the shape to blank
+            if category_name != '9':  # replace paving_category_id with the id of "Paving" category
+                var1.shape = ""
+            else:
+                var1.shape=request.POST.get('detail_3')
             
             var1.save()
             return HttpResponse('''<script>alert("EDITED");window.location="/view_product/"</script> ''')
@@ -263,13 +269,19 @@ def edit_product_post(request):
             var1.product_name=request.POST.get('product_name')
             var1.color=request.POST.get('detail_1')
             var1.size=request.POST.get('detail_2')
-            var1.shape=request.POST.get('detail_3')
+            # var1.shape=request.POST.get('detail_3')
             var1.description=request.POST.get('product_description')
             var1.price=request.POST.get('product_price')
             var1.quantity=request.POST.get('product_quantity')
             
             category_name = request.POST.get('category_type')
             var1.CATEGORY_id = category_name
+            
+            # If the category type is not "Paving", set the shape to blank
+            if category_name != '9':  # replace paving_category_id with the id of "Paving" category
+                var1.shape = ""
+            else:
+                var1.shape=request.POST.get('detail_3')
             
             var1.save()
             

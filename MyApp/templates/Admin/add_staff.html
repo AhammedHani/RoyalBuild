@@ -5,20 +5,74 @@
   <script>
     function valid()
     {
+      var postSelect = document.getElementById("post");
+      var salaryTable = document.getElementById("salary_table");
+      var salaryInput = document.getElementById("salary");
       if(f1.staff_type.value=="Permanent")
       {
-document.getElementById("salary").style.display="block";
+        salaryTable.style.display="block";
+        postSelect.innerHTML = `
+          <option value="" selected disabled>Select a post</option>
+          <option value="driver">Driver</option>
+          <option value="labour">Labour</option>
+          <option value="accountant">Accountant</option>
+          <option value="scheduler">Manager</option>
+        `;
       }
       if(f1.staff_type.value=="Temporary")
       {
-document.getElementById("salary").style.display="none";
+        salaryTable.style.display="none";
+        salaryInput.value = ""; // Clear the salary value
+        postSelect.innerHTML = `
+          <option value="" selected disabled>Select a post</option>
+          <option value="driver">Driver</option>
+          <option value="labour">Labour</option>
+        `;
       }
+      updateSalaryRange();
+    }
+
+    function updateSalaryRange()
+    {
+      var salaryInput = document.getElementById("salary");
+      switch(f1.post.value)
+      {
+        case "labour":
+          salaryInput.min = 5000;
+          salaryInput.max = 15000;
+          break;
+        case "driver":
+          salaryInput.min = 5000;
+          salaryInput.max = 20000;
+          break;
+        case "accountant":
+          salaryInput.min = 15000;
+          salaryInput.max = 25000;
+          break;
+        case "scheduler":
+          salaryInput.min = 20000;
+          salaryInput.max = 25000;
+          break;
+      }
+    }
+
+    function validateForm() {
+      var salaryInput = document.getElementById("salary");
+      var salary = Number(salaryInput.value); // Convert the salary value to a number
+      var minSalary = Number(salaryInput.min); // Convert the minimum salary to a number
+      var maxSalary = Number(salaryInput.max); // Convert the maximum salary to a number
+      if (salary < minSalary || salary > maxSalary) {
+        alert("Salary must be between " + minSalary + " and " + maxSalary);
+        return false;
+      }
+      return true;
     }
   </script>
 </head>
+
 <body onload="valid();">
   <br><br>
-  <form method="post" action="/add_staff_post/" enctype="multipart/form-data" name="f1">
+  <form method="post" action="/add_staff_post/" enctype="multipart/form-data" name="f1" onsubmit="return validateForm();">
     {% csrf_token %}
     <table class="table table-bordered table-hover">
       <tr>
@@ -95,20 +149,20 @@ document.getElementById("salary").style.display="none";
         <tr>
         <th>Post</th>
         <td>
-          <select class="form-select" id="post" name="post" required>
+          <select class="form-select" id="post" name="post" required onchange="updateSalaryRange();">
             <option value="" disabled selected>Select a post</option>
             <option value="driver">Driver</option>
             <option value="labour">Labour</option>
             <option value="accountant">Accountant</option>
-            <option value="scheduler">Scheduler</option>
+            <option value="scheduler">Manager</option>
           </select>
         </td>
       </tr>
         </table >
-        <table class="table table-bordered table-hover" style="display:none" id="salary" width="1500px"> 
+        <table class="table table-bordered table-hover" style="display:none" id="salary_table" width="1500px"> 
           <tr>
             <th style="width:310px">Salary</th>
-            <td style="width:960px"><input type="text" class="form-control" id="salary" name="salary"></td>
+            <td style="width:960px"><input type="number" class="form-control" id="salary" name="salary"></td>
           </tr>
         </table>
         <div class="text-center">
