@@ -131,7 +131,7 @@ document.getElementById("salary").style.display="none";
         <tr>
           <th>Pin</th>
           <td>
-            <input type="text" class="form-control" name="pin" value="{{ data.pin }}" maxlength="6" required>
+            <input type="text" class="form-control" name="pin" value="{{ data.pin }}" pattern="^\d{6}$" maxlength="6" required>
           </td>
         </tr>
       <tr>
@@ -143,13 +143,13 @@ document.getElementById("salary").style.display="none";
       <tr>
         <th>Phone</th>
         <td>
-          <input type="text" class="form-control" name="phone" value="{{ data.phone }}" maxlength="12" required>
+          <input type="text" class="form-control" name="phone" value="{{ data.phone }}" pattern="^[9876]\d{9}$" maxlength="10" required>
         </td>
       </tr>
       <tr>
         <tr>
           <th>Aadhaar</th>
-          <td><input type="text" class="form-control" id="aadhaar" name="aadhaar" value="{{ data.aadhaar }}" required></td>
+          <td><input type="text" class="form-control" id="aadhaar" name="aadhaar" value="{{ data.aadhaar }}" pattern="^\d{12}$" maxlength="12" required></td>
         </tr>
         <tr>
           <tr>
@@ -160,7 +160,7 @@ document.getElementById("salary").style.display="none";
           <tr>
             <tr>
               <th>Remark</th>
-              <td><input type="text" class="form-control" id="remark" name="remark" value="{{ data.remark }}" required></td>
+              <td><textarea class="form-control" id="remark" name="remark" required>{{ data.remark }}</textarea></td>
             </tr>
 
             <tr>

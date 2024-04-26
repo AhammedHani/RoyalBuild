@@ -6,16 +6,11 @@
     <form id="form1" name="form1" method="post" action="/edit_worksite_post/" enctype="multipart/form-data">
         {% csrf_token %}
         <table class="table table-bordered table-hover">
-            <tr align="center">
-                <td colspan="2"><img src="{{data.photo1}}" alt="" width="100px" height="100px"></td>
-              </tr>
-              <tr align="center">
-                <td colspan="2"><img src="{{data.photo2}}" alt="" width="100px" height="100px"></td>
-              </tr>
-              <tr align="center">
-                <td colspan="2"><img src="{{data.photo3}}" alt="" width="100px" height="100px"></td>
-              </tr>
-            <tr>
+            <div style="display: flex; justify-content: center;">
+                <div style="margin-right: 20px;"><img src="{{data.photo1}}" alt="" width="100px" height="100px"></div>
+                <div style="margin-right: 20px;"><img src="{{data.photo2}}" alt="" width="100px" height="100px"></div>
+                <div><img src="{{data.photo3}}" alt="" width="100px" height="100px"></div>
+            </div><br>
                 <th>Product</th>
                 <td>
                     <select id="product" name="product" required class="form-control">
@@ -32,15 +27,15 @@
             </tr>
             <tr>
                 <th>Photo1</th>
-                <td><input type="file" name="photo1" id="photo1" class="form-control" required/></td>
+                <td><input type="file" name="photo1" id="photo1" class="form-control" /></td>
             </tr>
             <tr>
                 <th>Photo2</th>
-                <td><input type="file" name="photo2" id="photo2" class="form-control" required/></td>
+                <td><input type="file" name="photo2" id="photo2" class="form-control" /></td>
             </tr>
             <tr>
                 <th>Photo3</th>
-                <td><input type="file" name="photo3" id="photo3" class="form-control" required/></td>
+                <td><input type="file" name="photo3" id="photo3" class="form-control" /></td>
             </tr>
             <tr>
                 <th>Remark</th>

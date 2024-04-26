@@ -1,0 +1,38 @@
+{% extends 'Staff/staff_home.html' %}
+{% block x %}
+
+<br><br>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card text-center">
+                <div class="card-header">
+                    {% if lg.type == "Permanent" %}
+                        Salary
+                    {% else %}
+                        Wage
+                    {% endif %}
+                </div>
+                <div class="card-body"><br>
+                    {% if lg.type == "Permanent" %}
+                        {% for i in data2 %}
+                            <h5 class="card-title">{{ i.salary }}</h5>
+                        {% empty %}
+                            <h5 class="card-title">No salary available.</h5>
+                        {% endfor %}
+                    {% else %}
+                        {% for i in data %}
+                            <h5 class="card-title">{{ i.wage }}</h5>
+                        {% empty %}
+                            <h5 class="card-title">No wage available.</h5>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="card-footer text-muted">
+                    This is {{ lg.staff_name }}'s {% if lg.type == "Permanent" %}salary{% else %}wage{% endif %}.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock x %}

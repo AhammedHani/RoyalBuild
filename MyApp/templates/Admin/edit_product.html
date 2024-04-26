@@ -65,15 +65,15 @@
       </tr>
       <tr>
         <th>Description</th>
-        <td><textarea class="form-control" name="product_description" rows=7 required>{{ data.description }}</textarea></td>
+        <td><textarea class="form-control" name="product_description" required>{{ data.description }}</textarea></td>
       </tr>
       <tr>
         <th>Price</th>
-        <td><input type="text" class="form-control" name="product_price" value="{{ data.price }}" required></td>
+        <td><input type="text" class="form-control" name="product_price" value="{{ data.price }}" pattern="^[1-9][0-9]{0,2}$" required></td>
       </tr>
       <tr>
         <th>Quantity</th>
-        <td><input type="text" class="form-control" name="product_quantity" value="{{ data.quantity }}" required></td>
+        <td><input type="number" class="form-control" name="product_quantity" value="{{ data.quantity }}" max="2000" required></td>
       </tr>
       <tr>
         <th>Category Type</th>

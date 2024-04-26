@@ -13,12 +13,13 @@
 <div style="float: left;">
   <select name="textfield" id="textfield" class="form-select">
     <option value="" disabled selected>Select a status</option>
-    <option value="delivered">Delivered</option>
-    <option value="cancelled">Cancelled</option>
     <option value="pending">Pending</option>
+    <option value="delivered">Delivered</option>
     <option value="returned">Returned</option>
-    <option value="cancel requested">Cancel Request</option>
     <option value="return requested">Return Request</option>
+    {% comment %} <option value="cancelled">Cancelled</option> {% endcomment %}
+    {% comment %} <option value="cancel requested">Cancel Request</option> {% endcomment %}
+  
 
   </select>
 </div>

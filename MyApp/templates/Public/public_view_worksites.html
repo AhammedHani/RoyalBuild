@@ -2,13 +2,13 @@
 {% block x %}
 <body>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <div class="section-title">
+            <h2>WORKSITES</h2>
+            {% comment %} <p>" Comprehensive solutions for all your construction needs - from materials to delivery, we've got you covered "</p> {% endcomment %}
+          </div>
         {% for i in data %}
         <div class="card-body">
-                {% comment %} <h5 class="card-title">With captions</h5> {% endcomment %}
-                <div class="section-title">
-                    <h2>WORKSITES</h2>
-                    {% comment %} <p>" Comprehensive solutions for all your construction needs - from materials to delivery, we've got you covered "</p> {% endcomment %}
-                  </div>
+                {% comment %} <h5 class="card-title">With captions</h5> {% endcomment %}                
                 <!-- Slides with captions -->
                 <div id="carouselExampleCaptions{{ forloop.counter }}" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
@@ -27,7 +27,7 @@
                         <div class="carousel-item active">
                             <img src="{{ i.photo2 }}" class="d-block w-100" alt="..."style="height: 600px;">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5>Product Used</h5>
+                                <h5>Product</h5>
                                 <p>{{ i.PRODUCT.product_name }}</p>
                             </div>
                         </div>

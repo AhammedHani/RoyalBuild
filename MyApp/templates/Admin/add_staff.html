@@ -5,6 +5,20 @@
   <script>
     function valid()
     {
+      var dob = document.getElementById("dob");
+
+      var today = new Date();
+      var year = today.getFullYear() - 18;
+      var month = today.getMonth() + 1;
+      var day = today.getDate();
+    
+      // Ensure the month and day are in the correct format
+      month = (month < 10) ? '0' + month : month;
+      day = (day < 10) ? '0' + day : day;
+    
+      // Set the max date for the dob input field
+      dob.max = year + '-' + month + '-' + day;
+
       var postSelect = document.getElementById("post");
       var salaryTable = document.getElementById("salary_table");
       var salaryInput = document.getElementById("salary");
@@ -57,13 +71,13 @@
     }
 
     function validateForm() {
-      var salaryInput = document.getElementById("salary");
-      var salary = Number(salaryInput.value); // Convert the salary value to a number
-      var minSalary = Number(salaryInput.min); // Convert the minimum salary to a number
-      var maxSalary = Number(salaryInput.max); // Convert the maximum salary to a number
-      if (salary < minSalary || salary > maxSalary) {
-        alert("Salary must be between " + minSalary + " and " + maxSalary);
-        return false;
+      if(f1.staff_type.value=="Permanent") {
+        var salaryInput = document.getElementById("salary");
+        var salary = Number(salaryInput.value); // Convert the salary value to a number
+        if (salary < salaryInput.min || salary > salaryInput.max) {
+          alert("Salary must be between " + salaryInput.min + " and " + salaryInput.max);
+          return false;
+        }
       }
       return true;
     }
@@ -101,7 +115,7 @@
       </tr>
       <tr>
         <th>Pin</th>
-        <td><input type="number" class="form-control" id="pin" name="pin" required maxlength="6"></td>
+        <td><input type="text" class="form-control" id="pin" name="pin" pattern="^\d{6}$" maxlength="6" required></td>
       </tr>
       <tr>
         <th>Email</th>
@@ -114,7 +128,7 @@
       <tr>
         <tr>
           <th>Aadhaar</th>
-          <td><input type="text" class="form-control" id="aadhaar" name="aadhaar" maxlength="12" required></td>
+          <td><input type="text" class="form-control" id="aadhaar" name="aadhaar" pattern="^\d{12}$" maxlength="12" required></td>
         </tr>
         <tr>
           <tr>
@@ -125,9 +139,9 @@
           <tr>
             <tr>
               <th>Remark</th>
-              <td><input type="text" class="form-control" id="remark" name="remark" required></td>
+              <td><textarea class="form-control" id="remark" name="remark" required></textarea></td>
             </tr>
-
+            </tr>
             <tr>
               <th>Type</th>
               <td>

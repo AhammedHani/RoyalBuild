@@ -12,7 +12,7 @@
       </tr>
       <tr>
         <th>Vehicle Number</th>
-        <td><input type="text" class="form-control" id="vehicle_number" name="vehicle_number" maxlength="10" required></td>
+        <td><input type="text" class="form-control" id="vehicle_number" name="vehicle_number" pattern="^[A-Z]{2}\s?[0-9]{2}\s?[A-Z]{2}\s?[0-9]{4}$" title="Vehicle number must be in the format XX 00 XX 0000" maxlength="10" required></td>
       </tr>
       <tr>
         <tr>

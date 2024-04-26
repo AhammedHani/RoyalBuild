@@ -12,6 +12,7 @@
   </table>
   <br>
 <body>
+  {% if data %}
   <div style="text-align: center;">
   <table class="table table-bordered table-hover">
       <tr>
@@ -33,5 +34,8 @@
       {% endfor %}
   </table>
   </div>
+  {% else %}
+  <p>No category available.</p>
+{% endif %}
 </body>
 {% endblock x %}

@@ -7,9 +7,10 @@
     <input type="hidden" name="vehicle" value="{{ bb.vehicle_id }}">
 {% csrf_token %}
     {% if data %}
+    <div style="text-align: center;">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>SL.NO</th>
+                <th>S. No</th>
                 <th>Staff</th>
                 <th>Job</th>
                 <th>Date</th>
@@ -34,6 +35,7 @@
             </tr>
             {% endfor %}
         </table>
+    </div>
     {% else %}
         <p>Duty not available</p>
     {% endif %}

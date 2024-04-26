@@ -6,6 +6,7 @@
 <form id="form1" name="form1" method="post" enctype="multipart/form-data" action="">
 {% csrf_token %}
     {% if data3 %}
+    <div style="text-align: center;">
         <table class="table table-bordered table-hover">
             <tr>
                 {% comment %} <th>SL.NO</th> {% endcomment %}
@@ -37,6 +38,7 @@
                 {% endfor %}
             </tr>
         </table>
+    </div>
     {% else %}
         <p>Delivery not available</p>
     {% endif %}

@@ -19,7 +19,7 @@
       <tr>
         <th>Vehicle Number</th>
         <td>
-          <input type="text" class="form-control" name="vehicle_number" value="{{ data.vehicle_number }}" maxlength="10" required>
+          <input type="text" class="form-control" name="vehicle_number" value="{{ data.vehicle_number }}" pattern="^[A-Z]{2}\s?[0-9]{2}\s?[A-Z]{2}\s?[0-9]{4}$" title="Vehicle number must be in the format XX 00 XX 0000" maxlength="10" required>
         </td>
       </tr>
       <tr>

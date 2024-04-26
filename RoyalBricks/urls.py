@@ -180,7 +180,7 @@ urlpatterns = [
     path('staff_view_profile/',views.staff_view_profile),
     path('staff_edit_profile_post/',views.staff_edit_profile_post),
     path('staff_change_password_post/',views.staff_change_password_post),
-    
+    path('view_salary_wage/',views.view_salary_wage),
     
     #public
     path('signup/',views.signup),
@@ -194,11 +194,12 @@ urlpatterns = [
     # path('public_view_products/<id>',views.public_view_products),
     path('public_view_products2/<id>',views.public_view_products2),
     path('public_view_worksites/',views.public_view_worksites),
+    path('forgot_password/',views.forgot_password),
     
     
     #accountant
     path('accountant_home/',views.accountant_home),
-    path('view_wages/',views.view_wages),
+    path('view_wages1/',views.view_wages1),
     path('view_wages_post/',views.view_wages_post),
     path('view_salary/',views.view_salary),
     path('view_salary_post/',views.view_salary_post),

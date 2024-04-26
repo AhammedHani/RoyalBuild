@@ -18,25 +18,29 @@ def signup(request):
     return render(request,'Public/signup.html')
     
 def signup_post(request):
-    data=customer()
-    data.customer_name=request.POST.get('name')
-    data.address=request.POST.get('address')
-    data.pin=request.POST.get('pin')
-    data.email=request.POST.get('email')
-    data.phone=request.POST.get('phone')
-    data.password=request.POST.get('password')
-    Photo = request.FILES['photo']
-    fs = FileSystemStorage()
-    filename = fs.save(Photo.name, Photo) 
-    uploaded_file_url = fs.url(filename)
-    data.photo=uploaded_file_url
-    data.save()
-    data2=login()
-    data2.username=request.POST.get('email')
-    data2.password=request.POST.get('password')
-    data2.type="customer"
-    data2.save()
-    return HttpResponse('''<Script>alert("Registered");window.location="/signup/";</Script>''')
+    email = request.POST.get('email')
+    if login.objects.filter(username=email).exists():
+        return HttpResponse('''<Script>alert("Email already exists");window.location="/signup/";</Script>''')
+    else:
+        data=customer()
+        data.customer_name=request.POST.get('name')
+        data.address=request.POST.get('address')
+        data.pin=request.POST.get('pin')
+        data.email=email
+        data.phone=request.POST.get('phone')
+        data.password=request.POST.get('password')
+        Photo = request.FILES['photo']
+        fs = FileSystemStorage()
+        filename = fs.save(Photo.name, Photo) 
+        uploaded_file_url = fs.url(filename)
+        data.photo=uploaded_file_url
+        data.save()
+        data2=login()
+        data2.username=request.POST.get('email')
+        data2.password=request.POST.get('password')
+        data2.type="customer"
+        data2.save()
+        return HttpResponse('''<Script>alert("Registered");window.location="/signup/";</Script>''')
 
 # Login
 
@@ -304,48 +308,52 @@ def add_staff_post(request):
     if 'admins' not in request.session:
         return redirect('/public_home/')
     else:
-        data=staff()
-        data.staff_name=request.POST.get('staff_name')
-        data.address=request.POST.get('address')
-        data.pin=request.POST.get('pin')
-        data.email=request.POST.get('email')
-        data.phone=request.POST.get('phone')
-        data.state=request.POST.get('state')
-        data.post=request.POST.get('post')
-        data.type=request.POST.get('staff_type')
-        data.dob=request.POST.get('dob')
-        data.aadhaar=request.POST.get('aadhaar')
-        data.nationality=request.POST.get('nationality')
-        data.qualification=request.POST.get('qualification')
-        data.remark=request.POST.get('remark')
-        data.salary=request.POST.get('salary')
-        Photo = request.FILES['staff_photo']
-        fs = FileSystemStorage()
-        filename = fs.save(Photo.name, Photo) 
-        uploaded_file_url = fs.url(filename)
-        data.photo=uploaded_file_url
-        data.status = "active"
-        data.save()
-        if request.POST.get('post')=="accountant":
-            data1=login()
-            data1.username=request.POST.get('email')
-            data1.password=request.POST.get('phone')
-            data1.type="accountant"
-            data1.save()
-        elif request.POST.get('post')=="scheduler":
-            data1=login()
-            data1.username=request.POST.get('email')
-            data1.password=request.POST.get('phone')
-            data1.type="scheduler"
-            data1.save()    
-        else:    
-            
-            data1=login()
-            data1.username=request.POST.get('email')
-            data1.password=request.POST.get('phone')
-            data1.type="staff"
-            data1.save()
-        return HttpResponse('''<Script>alert("ADDED");window.location="/add_staff/";</Script>''')
+        email = request.POST.get('email')
+        if login.objects.filter(username=email).exists():
+            return HttpResponse('''<Script>alert("Email already exists");window.location="/add_staff/";</Script>''')
+        else:
+            data=staff()
+            data.staff_name=request.POST.get('staff_name')
+            data.address=request.POST.get('address')
+            data.pin=request.POST.get('pin')
+            data.email=email
+            data.phone=request.POST.get('phone')
+            data.state=request.POST.get('state')
+            data.post=request.POST.get('post')
+            data.type=request.POST.get('staff_type')
+            data.dob=request.POST.get('dob')
+            data.aadhaar=request.POST.get('aadhaar')
+            data.nationality=request.POST.get('nationality')
+            data.qualification=request.POST.get('qualification')
+            data.remark=request.POST.get('remark')
+            data.salary=request.POST.get('salary')
+            Photo = request.FILES['staff_photo']
+            fs = FileSystemStorage()
+            filename = fs.save(Photo.name, Photo) 
+            uploaded_file_url = fs.url(filename)
+            data.photo=uploaded_file_url
+            data.status = "active"
+            data.save()
+            if request.POST.get('post')=="accountant":
+                data1=login()
+                data1.username=request.POST.get('email')
+                data1.password=request.POST.get('phone')
+                data1.type="accountant"
+                data1.save()
+            elif request.POST.get('post')=="scheduler":
+                data1=login()
+                data1.username=request.POST.get('email')
+                data1.password=request.POST.get('phone')
+                data1.type="scheduler"
+                data1.save()    
+            else:    
+                
+                data1=login()
+                data1.username=request.POST.get('email')
+                data1.password=request.POST.get('phone')
+                data1.type="staff"
+                data1.save()
+            return HttpResponse('''<Script>alert("ADDED");window.location="/add_staff/";</Script>''')
 
 def view_staff(request):
     if 'admins' not in request.session:
@@ -653,7 +661,7 @@ def admin_view_review_post(request):
     else:
         search = request.POST.get('textfield')
         if search:
-            var = review.objects.filter(PRODUCT_id__CATEGORY_id__category_name__icontains=search)
+            var = review.objects.filter(PRODUCT_id__CATEGORY_id__category_name__icontains=search).order_by('-review_id')
         else:
             var = review.objects.all().order_by('-review_id')
         categories = category.objects.all()
@@ -927,7 +935,11 @@ def scheduler_home(request):
     else:
         scheduler_id = request.session.get('schedulers')
         lg = staff.objects.get(email=scheduler_id)
-        return render(request,'Scheduler/dashboard.html',{'lg':lg})
+        
+        var1 = make_order.objects.filter(status='delivered').count()
+        var2 = customer.objects.all().count()
+        var3 = staff.objects.all().count()
+        return render(request,'Scheduler/dashboard.html',{'lg':lg,'var1':var1,'var2':var2,'var3':var3})
 
 def view_category2(request):
     if 'schedulers' not in request.session:
@@ -1104,12 +1116,15 @@ def orders_history_post(request):
     if 'schedulers' not in request.session:
         return redirect('/public_home/')
     else:
+        scheduler_id = request.session.get('schedulers')
+        lg = staff.objects.get(email=scheduler_id)
+        
         search = request.POST.get('textfield')
         if search:
             var = make_order.objects.filter(status__icontains=search).order_by('-order_id')
         else:
             var = make_order.objects.all().order_by('-order_id')
-        return render(request, "Scheduler/view_orders_history.html", {'data': var})
+        return render(request, "Scheduler/view_orders_history.html", {'lg':lg,'data': var})
 
 def scheduler_view_profile(request):
     if 'schedulers' not in request.session:
@@ -1302,12 +1317,15 @@ def view_staffs_post(request):
     if 'schedulers' not in request.session:
         return redirect('/public_home/')
     else:
+        scheduler_id = request.session.get('schedulers')
+        lg = staff.objects.get(email=scheduler_id)
+        
         search = request.POST.get('textfield')
         if search:
             var = staff.objects.filter(post__icontains=search).exclude(status="inactive")
         else:
             var = staff.objects.exclude(status="inactive").exclude(post="scheduler").exclude(post="accountant")
-        return render(request, "Scheduler/view_staffs.html", {'data': var})
+        return render(request, "Scheduler/view_staffs.html", {'lg':lg,'data': var})
 
 def add_duty(request, id):
     if 'schedulers' not in request.session:
@@ -1434,10 +1452,13 @@ def view_return_post(request):
     if 'schedulers' not in request.session:
         return redirect('/public_home/')
     else:
+        scheduler_id = request.session.get('schedulers')
+        lg = staff.objects.get(email=scheduler_id)
+        
         fromdate=request.POST['textfield1']
         todate=request.POST['textfield2']
         var = returns.objects.filter(date__range=[fromdate, todate], status='pending')
-        return render(request, 'Scheduler/view_return.html', {'data': var})
+        return render(request, 'Scheduler/view_return.html', {'lg':lg,'data': var})
 
 def schedule_return(request,id): 
     if 'schedulers' not in request.session:
@@ -2268,6 +2289,8 @@ def public_view_worksites(request):
     data = worksite.objects.all()
     return render(request, 'Public/public_view_worksites.html', {'data': data})
 
+def forgot_password(request):
+    return render(request, 'Public/forgot_password.html')
 
 
 
@@ -2467,7 +2490,18 @@ def staff_change_password_post(request):
         else:
             return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/staff_view_profile/";</Script>''')
 
-
+def view_salary_wage(request):
+    if 'staffs' not in request.session:
+        return redirect('/public_home/')
+    else:
+        staff_id = request.session.get('staffs')
+        lg = staff.objects.get(email=staff_id)
+        
+        current_month = timezone.now().month
+        current_year = timezone.now().year
+        data2=salary_slip.objects.filter(month=current_month,year=current_year,STAFF_id=lg.staff_id)
+        data=wage.objects.filter(date=datetime.now().strftime('%Y-%m-%d'),STAFF_id=lg.staff_id)
+        return render(request, 'Staff/view_salary_wage.html', {'lg':lg,'data': data,'data2': data2})
 
 
 # Accountant--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2485,7 +2519,7 @@ def accountant_home(request):
         
         return render(request,'Accountant/dashboard.html',{'lg':lg})
 
-def view_wages(request):
+def view_wages1(request):
     if 'accountant' not in request.session:
         return redirect('/public_home/')
     else:
@@ -2565,9 +2599,9 @@ def add_wage_post(request,id):
             data.wage=request.POST.get('wage')
             data.remark = request.POST.get('remark')
             data.save()
-            return HttpResponse('''<script>alert("WAGE ADDED");window.location="/view_wages/";</script>''')
+            return HttpResponse('''<script>alert("WAGE ADDED");window.location="/view_wages1/";</script>''')
         else:
-            return HttpResponse('''<script>alert("WAGE ALREADY ADDED");window.location="/view_wages/";</script>''')
+            return HttpResponse('''<script>alert("WAGE ALREADY ADDED");window.location="/view_wages1/";</script>''')
         
 def add_leave(request,id):
     if 'accountant' not in request.session:
@@ -2590,6 +2624,7 @@ def add_leave_post(request,id):
         
         wage=float(salary)/30
         total=float(wage)*float(request.POST.get('leave'))
+        total = round(total, 2)
         nettotal=int(salary)-total
         
         l=int(request.POST.get('leave'))
