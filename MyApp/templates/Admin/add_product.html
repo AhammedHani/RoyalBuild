@@ -8,35 +8,57 @@
       }
     </style>
   <script>
-    function valid()
-    {
-
-      var c=document.getElementById("category_type").value;
+    function valid() {
+      var c = document.getElementById("category_type").value;
   
-      if(c==9)
-      {
-        document.getElementById("dim").style.display="block";
-        document.getElementById("dim1").style.display="block";
-        document.getElementById("shaps").style.display="block";
+      // Get the color and dimension select elements
+      var colorSelect = document.getElementById("detail_1");
+      var dimensionSelect = document.getElementById("detail_2");
+  
+      if (c == 9) {
+          document.getElementById("dim").style.display = "block";
+          document.getElementById("dim1").style.display = "block";
+          document.getElementById("shaps").style.display = "block";
+  
+          // Set the color options for Paving
+          colorSelect.innerHTML = '<option value="" disabled selected>Select a color</option>' +
+                                  '<option value="Grey">Grey</option>' +
+                                  '<option value="Red">Red</option>' +
+                                  '<option value="Black">Black</option>' +
+                                  '<option value="White">White</option>';
+  
+          // Set the dimension options for Paving
+          dimensionSelect.innerHTML = '<option value="" disabled selected>Select a dimension</option>' +
+                                      '<option value="12 x 24">12 x 24</option>' +
+                                      '<option value="12 x 12">12 x 12</option>' +
+                                      '<option value="4 x 8">4 x 8</option>' +
+                                      '<option value="4 x 4">4 x 4</option>';
+      } else if (c == 7) {
+          document.getElementById("dim").style.display = "block";
+          document.getElementById("dim1").style.display = "block";
+          document.getElementById("shaps").style.display = "none";
+  
+          // Set the color options for Bricks
+          colorSelect.innerHTML = '<option value="" disabled selected>Select a color</option>' +
+                                  '<option value="Grey">Grey</option>' +
+                                  '<option value="Red">Red</option>';
+  
+          // Set the dimension options for Bricks
+          dimensionSelect.innerHTML = '<option value="" disabled selected>Select a dimension</option>' +
+                                      '<option value="8 x 8 x 16">8 x 8 x 16</option>' +
+                                      '<option value="6 x 8 x 16">6 x 8 x 16</option>' +
+                                      '<option value="5 x 8 x 16">5 x 8 x 16</option>' +
+                                      '<option value="4 x 8 x 16">4 x 8 x 16</option>';
+      } else {
+          document.getElementById("dim").style.display = "none";
+          document.getElementById("dim1").style.display = "none";
+          document.getElementById("shaps").style.display = "none";
+  
+          // Clear the color and dimension options
+          colorSelect.innerHTML = '<option value="" disabled selected>Select a color</option>';
+          dimensionSelect.innerHTML = '<option value="" disabled selected>Select a dimension</option>';
       }
-      
-      else if(c==7)
-      {
-        document.getElementById("dim").style.display="block";
-        document.getElementById("dim1").style.display="block";
-        document.getElementById("shaps").style.display="none";
-        
-      }
-      else{
-        document.getElementById("dim").style.display="none";
-        document.getElementById("dim1").style.display="none";
-        document.getElementById("shaps").style.display="none";
-      }
-      
-      
-
-
-    }
+  }
     function valid1()
     {
 
@@ -100,8 +122,8 @@
             <option value="Grey">Grey</option>
             <option value="Red">Red</option>
             <option value="Black">Black</option>
-            {% comment %} <option value="White">White</option>
-            <option value="Blue">Blue</option> {% endcomment %}
+             <option value="White">White</option>
+            {% comment %}<option value="Blue">Blue</option> {% endcomment %}
           </select>
         </td>
       </tr>
@@ -122,7 +144,7 @@
         <option>6 x 8 x 16</option>
         <option>5 x 8 x 16</option>
         <option>4 x 8 x 16</option>
-        <option>3 x 8 x 16</option>
+        {% comment %} <option>3 x 8 x 16</option> {% endcomment %}
       </select>
     </td>
     </tr>

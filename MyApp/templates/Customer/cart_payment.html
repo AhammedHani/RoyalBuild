@@ -4,15 +4,25 @@
     <script>
         function valid()
         {
+            var accNumber = document.getElementById("account_number");
+            var ifscCode = document.getElementById("ifsc_code");
+            var branch = document.getElementById("branch");
+
             if(form1.payment_method.value=="BANK")
             {
                
                 document.getElementById("payment").style.display='block';
+                accNumber.setAttribute('required', '');
+                ifscCode.setAttribute('required', '');
+                branch.setAttribute('required', '');
             }
             if(form1.payment_method.value=="COD")
             {
                
                 document.getElementById("payment").style.display='none';
+                accNumber.removeAttribute('required');
+                ifscCode.removeAttribute('required');
+                branch.removeAttribute('required');
             }
         }
         function valid1()
@@ -60,19 +70,19 @@
     <tr>
         <th>Account Number</th>
         <td>
-            <input type="text" name="acc_number" id="account_number" class="form-control"/>
+            <input type="text" name="acc_number" id="account_number" class="form-control" pattern="\d{15}" maxlength="15" title="Please enter a valid account number."/>
         </td>
     </tr>
     <tr>
         <th>IFSC Code</th>
         <td>
-            <input type="text" name="ifsc_code" id="ifsc_code" class="form-control"/>
+            <input type="text" name="ifsc_code" id="ifsc_code" class="form-control" pattern="[A-Za-z]{4}0[A-Za-z0-9]{6}" maxlength="11" title="Please enter a valid IFSC code."/>
         </td>
     </tr>
     <tr>
         <th>Branch</th>
         <td>
-            <input type="text" name="branch" id="branch" class="form-control"/>
+            <input type="text" name="branch" id="branch" class="form-control" maxlength="15"/>
         </td>
     </tr>
 </table>

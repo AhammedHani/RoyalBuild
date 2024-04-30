@@ -195,7 +195,7 @@ urlpatterns = [
     path('public_view_products2/<id>',views.public_view_products2),
     path('public_view_worksites/',views.public_view_worksites),
     path('forgot_password/',views.forgot_password),
-    
+    path('forgot_password_post/',views.forgot_password_post),
     
     #accountant
     path('accountant_home/',views.accountant_home),

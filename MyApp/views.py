@@ -9,6 +9,10 @@ from datetime import datetime
 from django.utils import timezone
 from django.db.models import Sum,Max,Count
 from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
+from django.contrib.auth.hashers import make_password
+import random
+import string
 
 # Create your views here.
 
@@ -1206,7 +1210,7 @@ def add_worksite(request):
     else:
         scheduler_id = request.session.get('schedulers')
         lg = staff.objects.get(email=scheduler_id)
-        data=product.objects.all()
+        data=product.objects.values('product_name').distinct()
         return render(request,'Scheduler/add_worksite.html',{'lg':lg,'data':data})
 
 def add_worksite_post(request):
@@ -1256,7 +1260,7 @@ def edit_worksite(request,id):
         lg = staff.objects.get(email=scheduler_id)
         
         data=worksite.objects.get(worksite_id=id)
-        data2 = product.objects.all()
+        data2 = product.objects.values('product_name').distinct()
         return render(request,'Scheduler/edit_worksite.html',{'lg': lg , 'data':data,'data2':data2})
 
 def edit_worksite_post(request):
@@ -1802,9 +1806,9 @@ def add_order_post(request,id):
         qty1=int(request.POST.get('quantity'))
         
         if qty==0:
-            return HttpResponse('''<script>alert("STOCK NOT AVALIABLE");window.location="/view_categories/";</script>''')
+            return HttpResponse('''<script>alert("STOCK NOT AVALIABLE");window.location="/view_products2/{}";</script>'''.format(id))
         elif qty1>qty:
-            return HttpResponse('''<script>alert("STOCK NOT AVALIABLE");window.location="/view_categories/";</script>''')
+            return HttpResponse('''<script>alert("STOCK NOT AVALIABLE");window.location="/view_products2/{}";</script>'''.format(id))
         
         else:   
             request.session['pid']=id
@@ -2075,28 +2079,39 @@ def add_to_cart_post(request,id):
         quantity=request.POST.get('a')
         c=cart.objects.filter(PRODUCT_id=id).count()
         d10=product.objects.get(product_id=id)
-        if c==0:
-            data=cart()
-            data.quantity=quantity
-            data.PRODUCT_id=id
-            d1=customer.objects.get(email=request.session['customers'])
-            data.CUSTOMER_id=d1.customer_id
-            data.date=datetime.now().strftime('%Y-%m-%d')
-            data.amount=float(quantity)*float(d10.price)
-            data.status="pending"
-            print(timezone.now().month)
-            print(timezone.now().year)
-            data.month=timezone.now().month
-            data.year=timezone.now().year
-            data.save()
-            return HttpResponse('''<script>alert("PRODUCT ADDED TO CART");window.location="/view_cart/";</script>''')
+        q=int(d10.quantity)
+        q1=int(quantity)
+        
+         # Calculate total quantity in the cart for the product
+        total_quantity_in_cart = cart.objects.filter(PRODUCT_id=id).aggregate(total_quantity=Sum('quantity'))['total_quantity'] or 0
+        total_quantity = total_quantity_in_cart + q1
+        
+        if total_quantity <= q:
+        # if q1<=q:
+            if c==0:
+                data=cart()
+                data.quantity=quantity
+                data.PRODUCT_id=id
+                d1=customer.objects.get(email=request.session['customers'])
+                data.CUSTOMER_id=d1.customer_id
+                data.date=datetime.now().strftime('%Y-%m-%d')
+                data.amount=float(quantity)*float(d10.price)
+                data.status="pending"
+                print(timezone.now().month)
+                print(timezone.now().year)
+                data.month=timezone.now().month
+                data.year=timezone.now().year
+                data.save()
+                return HttpResponse('''<script>alert("PRODUCT ADDED TO CART");window.location="/view_products2/{}";</script>'''.format(id))
+            else:
+                data=cart.objects.get(PRODUCT_id=id)
+                
+                data.quantity=int(data.quantity)+int(quantity)
+                data.amount=float(data.quantity)*float(d10.price)
+                data.save()
         else:
-            data=cart.objects.get(PRODUCT_id=id)
-            
-            data.quantity=int(data.quantity)+int(quantity)
-            data.amount=float(data.quantity)*float(d10.price)
-            data.save()
-            return HttpResponse('''<script>alert("PRODUCT ADDED TO CART");window.location="/view_cart/";</script>''')
+             return HttpResponse('''<script>alert("STOCK NOT AVAILABLE");window.location="/view_products2/{}";</script>'''.format(id))   
+        return HttpResponse('''<script>alert("PRODUCT ADDED TO CART");window.location="/view_products2/{}";</script>'''.format(id))
         
 def view_cart(request):
     if 'customers' not in request.session:
@@ -2121,15 +2136,36 @@ def edit_cart(request,id):
         data = cart.objects.get(cart_id=id)
         return render(request, 'Customer/edit_cart.html', {'data': data})
 
+# def edit_cart_post(request,id):
+#     if 'customers' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         data = cart.objects.get(cart_id=id)
+#         data.quantity = request.POST.get('quantity')
+#         data1=product.objects.get(product_id=data.PRODUCT_id)
+#         total=float(request.POST.get('quantity'))*float(data1.price)
+#         data.amount=total
+        
+#         data.save()
+#         return HttpResponse('''<script>alert("EDITED");window.location="/view_cart/";</script>''')
+
 def edit_cart_post(request,id):
     if 'customers' not in request.session:
         return redirect('/public_home/')
     else:
         data = cart.objects.get(cart_id=id)
-        data.quantity = request.POST.get('quantity')
-        data1=product.objects.get(product_id=data.PRODUCT_id)
-        total=float(request.POST.get('quantity'))*float(data1.price)
-        data.amount=total
+        quantity = request.POST.get('quantity')
+        d10 = product.objects.get(product_id=data.PRODUCT_id)
+        q = int(d10.quantity)
+        q1 = int(quantity)
+        
+        # Check if the stock is available
+        if q1 > q:
+            return HttpResponse('''<script>alert("STOCK NOT AVAILABLE");window.location="/view_cart/";</script>''')
+        
+        total = float(quantity) * float(d10.price)
+        data.quantity = quantity
+        data.amount = total
         
         data.save()
         return HttpResponse('''<script>alert("EDITED");window.location="/view_cart/";</script>''')
@@ -2198,9 +2234,7 @@ def cart_orders1(request):
             ct.delete()  
         c2=data11.CATEGORY
         return HttpResponse('''<script>alert("ORDERED");window.location="/view_cart/"</script> ''')
-
-        
-        return render(request, 'Customer/cart_orders.html', {'data': data1})
+        # return render(request, 'Customer/cart_orders.html', {'data': data1})
 
 
 
@@ -2902,3 +2936,26 @@ def accountant_staff_salary1_post2(request):
         ).order_by('-salary_slip_id')
         return render(request,"Accountant/accountant_view_staff_salaries.html",{'lg':lg,'data':var}) 
     
+    
+def forgot_password(request):
+    return render(request, 'Public/forgot_password.html')
+
+def forgot_password_post(request):
+    email=request.POST.get('email')
+    res=login.objects.filter(username=email)
+    if res.exists():
+        data=login.objects.get(username=email)
+        
+        # Generate a random password
+        characters = string.ascii_letters + string.digits + string.punctuation
+        strong_password = ''.join(random.choice(characters) for i in range(8))  # Adjust the length as needed
+
+        # Update the password in the database
+        data.password = strong_password
+        data.save()
+        
+        send_mail('Forgot Password (Royal Associates)', 'Your new password is: ' + strong_password, 'from@example.com', [data.username])
+        
+        return HttpResponse('''<script>alert("PASSWORD SENT TO YOUR EMAIL");window.location="/public_home/";</script>''')
+    else:
+        return HttpResponse('''<script>alert("EMAIL DOES NOT EXIST");window.location="/forgot_password/";</script>''')

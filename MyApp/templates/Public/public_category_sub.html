@@ -1,23 +1,49 @@
 {% extends 'Public/home.html' %}
 {% block x %}
 <script>
-  function valid()
-  {
-var category=form1.c1.value;
-if(category=="Paving")
-{
+  function valid() {
+      var category = document.forms["form1"]["c1"].value;
   
+      // Get the color and dimension select elements
+      var colorSelect = document.getElementById("detail_1");
+      var dimensionSelect = document.getElementById("detail_2");
   
-        document.getElementById("shape").style.display="table-row";
-        
+      if (category == "Paving") {
+          document.getElementById("shape").style.display = "table-row";
+  
+          // Set the color options for Paving
+          colorSelect.innerHTML = '<option value="" disabled selected>Select a color</option>' +
+                                  '<option value="Grey">Grey</option>' +
+                                  '<option value="Red">Red</option>' +
+                                  '<option value="Black">Black</option>' +
+                                  '<option value="White">White</option>';
+  
+          // Set the dimension options for Paving
+          dimensionSelect.innerHTML = '<option value="" disabled selected>Select a dimension (W x L)</option>' +
+                                      '<option value="12 x 24">12 x 24</option>' +
+                                      '<option value="12 x 12">12 x 12</option>' +
+                                      '<option value="4 x 8">4 x 8</option>' +
+                                      '<option value="4 x 4">4 x 4</option>';
+      } else {
+          document.getElementById("shape").style.display = "none";
+  
+          // Set the default color options
+          colorSelect.innerHTML = '<option value="" disabled selected>Select a color</option>' +
+                                  '<option value="Grey">Grey</option>' +
+                                  '<option value="Red">Red</option>';
+  
+          // Set the default dimension options
+          dimensionSelect.innerHTML = '<option value="" disabled selected>Select a dimension (W x H x L)</option>' +
+                                      '<option value="8 x 8 x 16">8 x 8 x 16</option>' +
+                                      '<option value="6 x 8 x 16">6 x 8 x 16</option>' +
+                                      '<option value="5 x 8 x 16">5 x 8 x 16</option>' +
+                                      '<option value="4 x 8 x 16">4 x 8 x 16</option>';
       }
-      else{
-        
-        document.getElementById("shape").style.display="none";
-      }
-}
+  }
   
-</script>
+  // Call the valid function when the page loads
+  {% comment %} window.onload = valid; {% endcomment %}
+  </script>
 <body onload="valid()">
   <br>
   <form id="form1" name="form1" method="post" action="/public_view_categories1/" enctype="multipart/form-data">
@@ -27,13 +53,13 @@ if(category=="Paving")
         <tr>
             <th>Color</th>
             <td>
-              <select name="color" id="detail_1" class="form-select">
+              <select name="color" id="detail_1" class="form-select" required>
                 <option value="" disabled selected>Select a colour</option>
                 <option value="Grey">Grey</option>
                 <option value="Red">Red</option>
                 <option value="Black">Black</option>
-                {% comment %} <option value="White">White</option>
-                <option value="Blue">Blue</option> {% endcomment %}
+                <option value="White">White</option>
+                {% comment %} <option value="Blue">Blue</option> {% endcomment %}
               </select>
             </td>
           </tr>
@@ -41,20 +67,20 @@ if(category=="Paving")
           <tr>
             <th>Dimension</th>
             <td>
-            <select name="size" id="detail_2" class="form-select">
+            <select name="size" id="detail_2" class="form-select" required>
               <option value="" disabled selected>Select a dimension</option>
               <option>8 x 8 x 16</option>
               <option>6 x 8 x 16</option>
               <option>5 x 8 x 16</option>
               <option>4 x 8 x 16</option>
-              <option>3 x 8 x 16</option>
+              {% comment %} <option>3 x 8 x 16</option> {% endcomment %}
             </select>
           </td>
           </tr>
                 <tr id="shape">
                   <th>Shape</th>
                 <td>
-                  <select name="shape" class="form-select" >
+                  <select name="shape" class="form-select">
                     <option value="" disabled selected>Select a shape</option>
                     <option value="Square">Square</option>
                     <option value="Rectangle">Rectangle</option>

@@ -8,42 +8,58 @@
         width: 100%; /* Adjust as needed */
       }
     </style>
-  <script>
-    function valid()
-    {
-      var c=document.getElementById("category_type").value;
-
-      if(c==9)
-      {
-        document.getElementById("dim").style.display="block";
-        document.getElementById("dim1").style.display="block";
-        document.getElementById("shaps").style.display="block";
-      }
-      
-      else if(c==7)
-      {
-        document.getElementById("dim").style.display="block";
-        document.getElementById("dim1").style.display="block";
-        document.getElementById("shaps").style.display="none";
-        
-      }
-      else{
-        document.getElementById("dim").style.display="none";
-        document.getElementById("dim1").style.display="none";
-        document.getElementById("shaps").style.display="none";
-      }
-      
-
+    <script>
+      function valid() {
+        var c = document.getElementById("category_type").value;
+    
+        // Get the color and dimension select elements
+        var colorSelect = document.getElementById("detail_1");
+        var dimensionSelect = document.getElementById("detail_2");
+    
+        if (c == 9) {
+            document.getElementById("dim").style.display = "block";
+            document.getElementById("dim1").style.display = "block";
+            document.getElementById("shaps").style.display = "block";
+    
+            // Set the color options for Paving
+            colorSelect.innerHTML = '<option value="Grey" {% if data.color == "Grey" %}selected{% endif %}>Grey</option>' +
+                                    '<option value="Red" {% if data.color == "Red" %}selected{% endif %}>Red</option>' +
+                                    '<option value="Black" {% if data.color == "Black" %}selected{% endif %}>Black</option>' +
+                                    '<option value="White" {% if data.color == "White" %}selected{% endif %}>White</option>';
+    
+            // Set the dimension options for Paving
+            dimensionSelect.innerHTML = '<option value="12 x 24" {% if data.size == "12 x 24" %}selected{% endif %}>12 x 24</option>' +
+                                        '<option value="12 x 12" {% if data.size == "12 x 12" %}selected{% endif %}>12 x 12</option>' +
+                                        '<option value="4 x 8" {% if data.size == "4 x 8" %}selected{% endif %}>4 x 8</option>' +
+                                        '<option value="4 x 4" {% if data.size == "4 x 4" %}selected{% endif %}>4 x 4</option>';
+        } else if (c == 7) {
+            document.getElementById("dim").style.display = "block";
+            document.getElementById("dim1").style.display = "block";
+            document.getElementById("shaps").style.display = "none";
+    
+            // Set the color options for Bricks
+            colorSelect.innerHTML = '<option value="Grey" {% if data.color == "Grey" %}selected{% endif %}>Grey</option>' +
+                                    '<option value="Red" {% if data.color == "Red" %}selected{% endif %}>Red</option>';
+    
+            // Set the dimension options for Bricks
+            dimensionSelect.innerHTML = '<option value="8 x 8 x 16" {% if data.size == "8 x 8 x 16" %}selected{% endif %}>8 x 8 x 16</option>' +
+                                        '<option value="6 x 8 x 16" {% if data.size == "6 x 8 x 16" %}selected{% endif %}>6 x 8 x 16</option>' +
+                                        '<option value="5 x 8 x 16" {% if data.size == "5 x 8 x 16" %}selected{% endif %}>5 x 8 x 16</option>' +
+                                        '<option value="4 x 8 x 16" {% if data.size == "4 x 8 x 16" %}selected{% endif %}>4 x 8 x 16</option>';
+        } else {
+            document.getElementById("dim").style.display = "none";
+            document.getElementById("dim1").style.display = "none";
+            document.getElementById("shaps").style.display = "none";
+    
+            // Clear the color and dimension options
+            colorSelect.innerHTML = '<option value="" disabled>Select a color</option>';
+            dimensionSelect.innerHTML = '<option value="" disabled>Select a dimension</option>';
+        }
     }
-    function valid1()
-    {
-
-        document.getElementById("shaps").style.display="none";
-        document.getElementById("dim").style.display="none";
-        document.getElementById("dim1").style.display="none";
-      
-    }
-  </script>
+    
+    // Call the valid function when the page loads
+    {% comment %} window.onload = valid; {% endcomment %}
+    </script>
   
 </head>
 <body onload="valid()">
@@ -98,6 +114,7 @@
                 <option value="Grey" {% if data.color == "Grey" %}selected{% endif %}>Grey</option>
                 <option value="Red" {% if data.color == "Red" %}selected{% endif %}>Red</option>
                 <option value="Black" {% if data.color == "Black" %}selected{% endif %}>Black</option>
+                <option value="White" {% if data.color == "White" %}selected{% endif %}>White</option>
               </select>
             </td>
           </tr>
@@ -118,7 +135,7 @@
             <option {% if data.size == "6 x 8 x 16" %}selected{% endif %}>6 x 8 x 16</option>
             <option {% if data.size == "5 x 8 x 16" %}selected{% endif %}>5 x 8 x 16</option>
             <option {% if data.size == "4 x 8 x 16" %}selected{% endif %}>4 x 8 x 16</option>
-            <option {% if data.size == "3 x 8 x 16" %}selected{% endif %}>3 x 8 x 16</option>
+            {% comment %} <option {% if data.size == "3 x 8 x 16" %}selected{% endif %}>3 x 8 x 16</option> {% endcomment %}
           </select>
         </td>
         </tr>
