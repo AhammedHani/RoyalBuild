@@ -76,6 +76,8 @@
                     <span class="badge rounded-pill bg-info">Returned</span>
                     {% elif i.status == 'return confirmed' %}
                     <span class="badge rounded-pill bg-info" style="color: black;">Return Confirmed</span>
+                    {% elif i.status == 'out of stock' %}
+                    <span class="badge bg-danger">OUT OF STOCK</span>
                     {% else %}
                     {{ i.status }}
                     {% endif %}

@@ -1048,10 +1048,15 @@ def schedule_order_post(request,id):
         data1=make_order.objects.get(order_id=id)
         d1=product.objects.get(product_id=data1.PRODUCT_id)
         qty=int(d1.quantity)
+        q1=int(data1.quantity)
         if qty==0:
             data1.status="out of stock"
             data1.save()
             return HttpResponse('''<script>alert("STOCK NOT AVALIABLE");window.location="/view_orders/";</script>''')
+        elif q1>qty:
+            data1.status="out of stock"
+            data1.save()
+            return HttpResponse('''<script>alert("ORDERED QUANTITY EXCEEDS AVAILABLE STOCK");window.location="/view_orders/";</script>''')
         else:   
             data1.status="confirmed"
             data1.save()
