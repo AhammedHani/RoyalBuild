@@ -29,8 +29,10 @@
                 {% comment %} <th>Order ID</th> {% endcomment %}
                 <th>Date</th>
                 <th>Product</th>
+                <th>Dimension</th>
                 <th>Quantity</th>
                 <th>Amount</th>
+                <th>Payment</th>
                 <th>Status</th>   
             </tr>
             {% for i in data %}
@@ -39,25 +41,35 @@
                 {% comment %} <td>{{ i.order_id }}</td> {% endcomment %}
                 <td>{{ i.date }}</td>
                 <td>{{ i.PRODUCT.product_name }}</td>
+                <td>{{ i.PRODUCT.size }}
                 <td>{{ i.quantity }}</td>
                 <td>{{ i.amount }}</td>
                 <td>
+                    {% if i.payment_method == 'BANK' %}
+                    <span class="badge bg-success">BANK</span>
+                    {% elif i.payment_method == 'COD' %}
+                    <span class="badge bg-warning">COD</span>
+                    {% endif %}
+                </td>
+                <td>
                     {% if i.status == 'delivered' %}
                     <span class="badge rounded-pill bg-success">Delivered</span>
-                    {% elif i.status == 'cancelled' %}
-                    <span class="badge rounded-pill bg-danger">Cancelled</span>
+                    {% comment %} {% elif i.status == 'cancelled' %}
+                    <span class="badge rounded-pill bg-danger">Cancelled</span> {% endcomment %}
                     {% elif i.status == 'pending' %}
                     <span class="badge rounded-pill bg-warning">Pending</span>
                     {% elif i.status == 'rejected' %}
                     <span class="badge rounded-pill bg-danger" style="color: black;">Rejected</span>
-                    {% elif i.status == 'cancel requested' %}
+                    {% elif i.status == 'refunded' %}
+                    <span class="badge rounded-pill bg-danger">Rejected and Refunded</span>
+                    {% comment %} {% elif i.status == 'cancel requested' %}
                     <span class="badge rounded-pill bg-secondary">Cancel Request</span>
-                    {% elif i.status == 'pending cancel requested' %}
-                    <span class="badge rounded-pill bg-secondary">Pending Cancel Request</span>
-                    {% elif i.status == 'return requested' %}
+                    {% elif i.status == 'pending cancel requested' %} {% endcomment %}
+                    {% comment %} <span class="badge rounded-pill bg-secondary">Pending Cancel Request</span>{% endcomment %}
+                    {% elif i.status == 'return requested' %} 
                     <span class="badge rounded-pill bg-dark">Return Request</span>
                     {% elif i.status == 'return rejected' %}
-                    <span class="badge rounded-pill bg-light" style="color: black;">Return rejected</span>
+                    <span class="badge rounded-pill bg-light" style="color: black;">Return Rejected</span>
                     {% elif i.status == 'confirmed' %}
                     <span class="badge rounded-pill bg-primary">Confirmed</span>
                     {% elif i.status == 'returned' %}

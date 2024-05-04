@@ -44,7 +44,7 @@ def signup_post(request):
         data2.password=request.POST.get('password')
         data2.type="customer"
         data2.save()
-        return HttpResponse('''<Script>alert("Registered");window.location="/signup/";</Script>''')
+        return HttpResponse('''<Script>alert("Registered");window.location="/signin/";</Script>''')
 
 # Login
 
@@ -1204,13 +1204,52 @@ def scheduler_change_password_post(request):
         else:
             return HttpResponse('''<Script>alert("CURRENT PASSWORD IS WRONG");window.location="/scheduler_view_profile/";</Script>''')
 
+# def add_worksite(request):
+#     if 'schedulers' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         scheduler_id = request.session.get('schedulers')
+#         lg = staff.objects.get(email=scheduler_id)
+#         data=product.objects.values('product_name').distinct()
+#         return render(request,'Scheduler/add_worksite.html',{'lg':lg,'data':data})
+
+# def add_worksite_post(request):
+#     if 'schedulers' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         data=worksite()
+#         data.PRODUCT_id=request.POST.get('product')
+#         data.worksite_location=request.POST.get('location')
+        
+#         photo1 = request.FILES['photo1']
+#         fs1 = FileSystemStorage()
+#         filename1 = fs1.save(photo1.name, photo1) 
+#         uploaded_file_url1 = fs1.url(filename1)
+#         data.photo1=uploaded_file_url1
+        
+#         photo2 = request.FILES['photo2']
+#         fs2 = FileSystemStorage()
+#         filename2 = fs2.save(photo2.name, photo2) 
+#         uploaded_file_url2 = fs2.url(filename2)
+#         data.photo2=uploaded_file_url2
+        
+#         photo3 = request.FILES['photo3']
+#         fs3 = FileSystemStorage()
+#         filename3 = fs3.save(photo3.name, photo3) 
+#         uploaded_file_url3 = fs3.url(filename3)
+#         data.photo3=uploaded_file_url3
+#         data.remark=request.POST.get('remark')
+#         data.save()
+#         return HttpResponse('''<Script>alert("ADDED");window.location="/add_worksite/";</Script>''')
+
 def add_worksite(request):
     if 'schedulers' not in request.session:
         return redirect('/public_home/')
     else:
         scheduler_id = request.session.get('schedulers')
         lg = staff.objects.get(email=scheduler_id)
-        data=product.objects.values('product_name').distinct()
+        distinct_names = product.objects.values_list('product_name', flat=True).distinct()
+        data = [product.objects.filter(product_name=name).first() for name in distinct_names]
         return render(request,'Scheduler/add_worksite.html',{'lg':lg,'data':data})
 
 def add_worksite_post(request):
@@ -1218,7 +1257,9 @@ def add_worksite_post(request):
         return redirect('/public_home/')
     else:
         data=worksite()
-        data.PRODUCT_id=request.POST.get('product')
+        product_id = request.POST.get('product')
+        selected_product = product.objects.get(product_id=product_id)
+        data.PRODUCT = selected_product
         data.worksite_location=request.POST.get('location')
         
         photo1 = request.FILES['photo1']
@@ -1252,53 +1293,102 @@ def view_worksite(request):
         data = worksite.objects.all().order_by('-worksite_id')
         return render(request, 'Scheduler/view_worksite.html', {'lg' : lg , 'data' : data })
 
-def edit_worksite(request,id):
+# def edit_worksite(request,id):
+#     if 'schedulers' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         scheduler_id = request.session.get('schedulers')
+#         lg = staff.objects.get(email=scheduler_id)
+        
+#         data=worksite.objects.get(worksite_id=id)
+#         data2 = product.objects.values('product_name').distinct()
+#         return render(request,'Scheduler/edit_worksite.html',{'lg': lg , 'data':data,'data2':data2})
+
+# def edit_worksite_post(request):
+#     if 'schedulers' not in request.session:
+#         return redirect('/public_home/')
+#     else:
+#         id=request.POST['id']
+        
+#         data=worksite.objects.get(worksite_id=id)
+        
+#         if 'photo1' in request.FILES:
+#             photo1 = request.FILES['photo1']
+#             fs1 = FileSystemStorage()
+#             filename1 = fs1.save(photo1.name, photo1) 
+#             uploaded_file_url1 = fs1.url(filename1)
+#             data.photo1=uploaded_file_url1
+        
+#         if 'photo2' in request.FILES:
+#             photo2 = request.FILES['photo2']
+#             fs2 = FileSystemStorage()
+#             filename2 = fs2.save(photo2.name, photo2) 
+#             uploaded_file_url2 = fs2.url(filename2)
+#             data.photo2=uploaded_file_url2
+        
+#         if 'photo3' in request.FILES:
+#             photo3 = request.FILES['photo3']
+#             fs3 = FileSystemStorage()
+#             filename3 = fs3.save(photo3.name, photo3) 
+#             uploaded_file_url3 = fs3.url(filename3)
+#             data.photo3=uploaded_file_url3
+        
+#         data.PRODUCT_id=request.POST.get('product')
+#         data.worksite_location=request.POST.get('location')
+#         data.remark=request.POST.get('remark')
+#         data.save()
+        
+#         return HttpResponse('''<script>alert("EDITED");window.location="/view_worksite/"</script> ''')
+
+def edit_worksite(request, id):
     if 'schedulers' not in request.session:
         return redirect('/public_home/')
     else:
         scheduler_id = request.session.get('schedulers')
         lg = staff.objects.get(email=scheduler_id)
         
-        data=worksite.objects.get(worksite_id=id)
-        data2 = product.objects.values('product_name').distinct()
-        return render(request,'Scheduler/edit_worksite.html',{'lg': lg , 'data':data,'data2':data2})
+        data = worksite.objects.get(worksite_id=id)
+        distinct_names = product.objects.values_list('product_name', flat=True).distinct()
+        data2 = [product.objects.filter(product_name=name).first() for name in distinct_names]
+        return render(request, 'Scheduler/edit_worksite.html', {'lg': lg , 'data': data, 'data2': data2})
 
 def edit_worksite_post(request):
     if 'schedulers' not in request.session:
         return redirect('/public_home/')
     else:
-        id=request.POST['id']
+        id = request.POST['id']
         
-        data=worksite.objects.get(worksite_id=id)
+        data = worksite.objects.get(worksite_id=id)
         
         if 'photo1' in request.FILES:
             photo1 = request.FILES['photo1']
             fs1 = FileSystemStorage()
             filename1 = fs1.save(photo1.name, photo1) 
             uploaded_file_url1 = fs1.url(filename1)
-            data.photo1=uploaded_file_url1
+            data.photo1 = uploaded_file_url1
         
         if 'photo2' in request.FILES:
             photo2 = request.FILES['photo2']
             fs2 = FileSystemStorage()
             filename2 = fs2.save(photo2.name, photo2) 
             uploaded_file_url2 = fs2.url(filename2)
-            data.photo2=uploaded_file_url2
+            data.photo2 = uploaded_file_url2
         
         if 'photo3' in request.FILES:
             photo3 = request.FILES['photo3']
             fs3 = FileSystemStorage()
             filename3 = fs3.save(photo3.name, photo3) 
             uploaded_file_url3 = fs3.url(filename3)
-            data.photo3=uploaded_file_url3
+            data.photo3 = uploaded_file_url3
         
-        data.PRODUCT_id=request.POST.get('product')
-        data.worksite_location=request.POST.get('location')
-        data.remark=request.POST.get('remark')
+        product_id = request.POST.get('product')
+        selected_product = product.objects.get(product_id=product_id)
+        data.PRODUCT = selected_product
+        data.worksite_location = request.POST.get('location')
+        data.remark = request.POST.get('remark')
         data.save()
         
-        return HttpResponse('''<script>alert("EDITED");window.location="/view_worksite/"</script> ''')
-
+        return HttpResponse('''<script>alert("EDITED");window.location="/view_worksite/"</script>''')
 
 def delete_worksite(request,id):
     if 'schedulers' not in request.session:
@@ -1845,7 +1935,7 @@ def add_order_post(request,id):
             data2.date=datetime.now().strftime('%Y-%m-%d')
             data2.save()
             c2=data11.CATEGORY
-            return HttpResponse('''<script>alert("ORDERED");window.location="/view_categories/"</script> ''')
+            return HttpResponse('''<script>alert("ORDERED");window.location="/view_order/"</script> ''')
 
 def view_order(request):
     if 'customers' not in request.session:
@@ -2459,7 +2549,7 @@ def view_returns_post(request,id):
         # d1.quantity=qty2
         # d1.save()
         
-        return HttpResponse('''<script>alert("DELIVERED");window.location="/view_returns/";</script>''')
+        return HttpResponse('''<script>alert("RETURNED");window.location="/view_returns/";</script>''')
 
 def staff_view_profile(request):
     if 'staffs' not in request.session:

@@ -21,6 +21,7 @@
           <th>Product Name</th>
           <th>Photo</th>
           <th>Description</th>
+          <th>Dimension</th>
           <th>Price</th>
           <th>Quantity</th>
         </tr>
@@ -30,6 +31,7 @@
             <td>{{ i.product_name }}</td>
             <td><img src="{{ i.photo }}" alt="{{ i.product_name }}" class="img-thumbnail" style="width: 100px; height: 80px;"></td>
             <td>{{ i.description }}</td>
+            <td>{{ i.size }}</td>
             <td>{{ i.price }}</td>
             <td>{{ i.quantity }}</td>
             <td>
