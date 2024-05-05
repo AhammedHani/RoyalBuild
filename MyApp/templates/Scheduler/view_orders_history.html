@@ -56,8 +56,8 @@
                     {{ i.CUSTOMER.pin }}<br>
                     {{ i.CUSTOMER.email }}<br>
                     {{ i.CUSTOMER.phone }}</td>
-                <td><img src="{{ i.PRODUCT.CATEGORY.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.CATEGORY.category_name }}</td>
-                <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.product_name }}</td>
+                <td><img src="{{ i.PRODUCT.CATEGORY.photo }}" alt="" class="img-thumbnail" /><br>{{ i.PRODUCT.CATEGORY.category_name }}</td>
+                <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /><br>{{ i.PRODUCT.product_name }}<br>{{i.PRODUCT.size}}</td>
                 <td>{{ i.quantity }}</td>
                 <td>
                     {% if i.status == 'delivered' %}

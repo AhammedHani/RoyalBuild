@@ -101,7 +101,7 @@ class make_order(models.Model):
     year = models.CharField(max_length=100)
     quantity = models.CharField(max_length=100)
     status = models.CharField(max_length=100)  
-    amount = models.DecimalField(max_digits=5, decimal_places=2)
+    amount = models.DecimalField(max_digits=7, decimal_places=2)
     payment_method =  models.CharField(max_length=100)  
     CUSTOMER = models.ForeignKey(customer, on_delete=models.CASCADE,default=1)
     PRODUCT = models.ForeignKey(product, on_delete=models.CASCADE,default=1)
@@ -115,7 +115,7 @@ class payment(models.Model):
     ifsc_code = models.CharField(max_length=100)
     date = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
-    amount = models.DecimalField(max_digits=5, decimal_places=2)
+    amount = models.DecimalField(max_digits=7, decimal_places=2)
     ORDER = models.ForeignKey(make_order, on_delete=models.CASCADE,default=1)
     class Meta:
         db_table = "payment" 

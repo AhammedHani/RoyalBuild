@@ -29,7 +29,6 @@
         <tr>
           <th>S. No</th>
           <th>Product</th>
-          <th>Dimension</th>
           <th>Quantity</th>
           {% comment %} <th>Date</th> {% endcomment %}
         </tr>
@@ -38,8 +37,7 @@
         {% for i in data %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /> {{ i.PRODUCT.product_name }}</td>
-            <td>{{ i.PRODUCT.size }}</td>
+            <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail" /><br>{{ i.PRODUCT.product_name }}<br>{{ i.PRODUCT.size }}</td>
             <td>{{ i.quantity }}</td>
             {% comment %} <td>{{ i.date }}</td> {% endcomment %}
             <td><a href="/edit_cart/{{i.cart_id}}" class="btn btn-warning btn-sm" title="Edit"><i class="fas fa-edit"></i></a></td>

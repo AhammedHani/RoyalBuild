@@ -29,7 +29,6 @@
                 {% comment %} <th>Order ID</th> {% endcomment %}
                 <th>Date</th>
                 <th>Product</th>
-                <th>Dimension</th>
                 <th>Quantity</th>
                 <th>Amount</th>
                 <th>Payment</th>
@@ -40,8 +39,7 @@
                 <td>{{ forloop.counter }}</td>
                 {% comment %} <td>{{ i.order_id }}</td> {% endcomment %}
                 <td>{{ i.date }}</td>
-                <td>{{ i.PRODUCT.product_name }}</td>
-                <td>{{ i.PRODUCT.size }}
+                <td>{{ i.PRODUCT.product_name }}<br>{{ i.PRODUCT.size }}</td>
                 <td>{{ i.quantity }}</td>
                 <td>{{ i.amount }}</td>
                 <td>

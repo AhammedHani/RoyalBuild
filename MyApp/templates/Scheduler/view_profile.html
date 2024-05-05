@@ -104,7 +104,7 @@
                   <div class="row mb-3">
                     <label for="Name" class="col-md-4 col-lg-3 col-form-label">Name</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="name" type="text" class="form-control" id="name" value="{{ lg.staff_name }}">
+                      <input name="name" type="text" class="form-control" id="name" value="{{ lg.staff_name }}" required>
                     </div>
                   </div>
                   
@@ -125,42 +125,52 @@
                   <div class="row mb-3">
                     <label for="Place" class="col-md-4 col-lg-3 col-form-label">Date of Birth</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="dob" type="date" class="form-control" id="dob" value="{{ lg.dob }}">
+                      <input name="dob" type="date" class="form-control" id="dob" value="{{ lg.dob }}" required>
                     </div>
                   </div>
+
+                  <script>
+                    var today = new Date();
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = today.getFullYear() - 18;
+                
+                    today = yyyy + '-' + mm + '-' + dd;
+                    document.getElementById("dob").setAttribute("max", today);
+                  </script>
 
                   <div class="row mb-3">
                     <label for="Place" class="col-md-4 col-lg-3 col-form-label">Address</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="address" type="text" class="form-control" id="address" value="{{ lg.address }}">
+                      <input name="address" type="text" class="form-control" id="address" value="{{ lg.address }}" required>
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <label for="Place" class="col-md-4 col-lg-3 col-form-label">Pin</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="pin" type="text" class="form-control" id="pin" value="{{ lg.pin }}">
+                      <input name="pin" type="text" class="form-control" id="pin" value="{{ lg.pin }}" pattern="^\d{6}$" maxlength="6" required>
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <label for="State" class="col-md-4 col-lg-3 col-form-label">State</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="state" type="text" class="form-control" id="state" value="{{ lg.state }}">
+                      <input name="state" type="text" class="form-control" id="state" value="{{ lg.state }}" required>
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <label for="Place" class="col-md-4 col-lg-3 col-form-label">Nationality</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="nationality" type="text" class="form-control" id="nationality" value="{{ lg.nationality }}">
+                      <input name="nationality" type="text" class="form-control" id="nationality" value="{{ lg.nationality }}" required>
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <label for="Place" class="col-md-4 col-lg-3 col-form-label">Qualification</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="qualification" type="text" class="form-control" id="qualification" value="{{ lg.qualification }}">
+                      <input name="qualification" type="text" class="form-control" id="qualification" value="{{ lg.qualification }}" required>
                     </div>
                   </div>
 
@@ -175,7 +185,7 @@
                   <div class="row mb-3">
                     <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                     <div class="col-md-8 col-lg-9">
-                      <input name="phone" type="text" class="form-control" id="Phone" value="{{ lg.phone }}">
+                      <input name="phone" type="text" class="form-control" id="Phone" value="{{ lg.phone }}" pattern="^[9876]\d{9}$" maxlength="10" required>
                     </div>
                   </div>
 
@@ -229,14 +239,14 @@
                   <div class="row mb-3">
                     <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                     <div class="col-md-8 col-lg-9">
-                      <input type="password" name="textfield2" id="textfield2"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required class="form-control"/></td>
+                      <input type="password" name="textfield2" id="textfield2"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"  title="Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long." required class="form-control"/></td>
                     </div>
                   </div>
 
                   <div class="row mb-3">
                     <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                     <div class="col-md-8 col-lg-9">
-                      <input type="password" name="textfield3" id="textfield3"  title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required class="form-control"/></td>
+                      <input type="password" name="textfield3" id="textfield3"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"  title="Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long." required class="form-control"/></td>
                     </div>
                   </div>
 

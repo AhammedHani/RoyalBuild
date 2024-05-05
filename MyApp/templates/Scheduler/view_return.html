@@ -48,8 +48,8 @@
               {{ i.ORDER.CUSTOMER.email }}<br>
               {{ i.ORDER.CUSTOMER.phone }}</td>
             <td>{{ i.reason }}</td>
-            <td><img src="{{ i.ORDER.PRODUCT.CATEGORY.photo }}" alt="" class="img-thumbnail" /> {{ i.ORDER.PRODUCT.CATEGORY.category_name }}</td>
-            <td><img src="{{ i.ORDER.PRODUCT.photo }}" alt="" class="img-thumbnail" /> {{ i.ORDER.PRODUCT.product_name }}</td>
+            <td><img src="{{ i.ORDER.PRODUCT.CATEGORY.photo }}" alt="" class="img-thumbnail" /><br>{{ i.ORDER.PRODUCT.CATEGORY.category_name }}</td>
+            <td><img src="{{ i.ORDER.PRODUCT.photo }}" alt="" class="img-thumbnail" /><br>{{ i.ORDER.PRODUCT.product_name }}<br>{{i.ORDER.PRODUCT.size}}</td>
 
             <td>{{ i.ORDER.quantity }}</td>
             <td>{{ i.ORDER.amount }}</td>
