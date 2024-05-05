@@ -28,6 +28,7 @@
           <th>Staff</th>
           <th>Email</th>
           <th>Phone</th>
+          <th>Remark</th>
           <th>Wage</th>
         </tr>
         {% for i in data1 %}
@@ -36,6 +37,7 @@
             <td><img src="{{ i.STAFF.photo }}" alt="{{ i.STAFF.staff_name }}" class="img-thumbnail"><br>{{ i.STAFF.staff_name }}</td>
             <td>{{ i.STAFF.email }}</td>
             <td>{{ i.STAFF.phone }}</td>
+            <td>{{ i.remark }}</td>
             <td>{{ i.wage }}</td>
           
             {% comment %} <td><a href="/add_wage/{{i.staff_id}}" class="btn btn-primary btn-sm" title="Allot Wage">Add Wage</a></td> {% endcomment %}

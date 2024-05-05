@@ -390,6 +390,7 @@ def edit_staff_post(request):
         if 'staff_photo' in request.FILES:
             
             var1=staff.objects.get(staff_id=id)
+            old_email = var1.email
             Photo = request.FILES['staff_photo']
             fs = FileSystemStorage()
             filename = fs.save(Photo.name, Photo) 
@@ -411,10 +412,22 @@ def edit_staff_post(request):
             var1.salary=request.POST.get('salary')
             
             var1.save()
+            
+            data1 = login.objects.get(username=old_email)
+            data1.username = request.POST.get('email')
+            data1.password = request.POST.get('phone')
+            post_type = request.POST.get('post')
+            if post_type == "driver" or post_type == "labour":
+                data1.type = "staff"
+            else:
+                data1.type = post_type
+            data1.save()
+            
             return HttpResponse('''<script>alert("EDITED");window.location="/view_staff/"</script> ''')
         
         else:
             var1=staff.objects.get(staff_id=id)
+            old_email = var1.email
             var1.staff_name=request.POST.get('staff_name')
             var1.address=request.POST.get('address')
             var1.pin=request.POST.get('pin')
@@ -430,6 +443,16 @@ def edit_staff_post(request):
             var1.remark=request.POST.get('remark')
             var1.salary=request.POST.get('salary')
             var1.save()
+            
+            data1 = login.objects.get(username=old_email)
+            data1.username = request.POST.get('email')
+            data1.password = request.POST.get('phone')
+            post_type = request.POST.get('post')
+            if post_type == "driver" or post_type == "labour":
+                data1.type = "staff"
+            else:
+                data1.type = post_type
+            data1.save()
             
         return HttpResponse('''<Script>alert("EDITED");window.location="/view_staff/";</Script>''')
 
