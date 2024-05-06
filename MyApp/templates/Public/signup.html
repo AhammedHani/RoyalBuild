@@ -89,14 +89,14 @@
                             <div class="col-12">
                               <label for="password" class="form-label">Password</label>
                               <input type="password" name="password" class="form-control" id="password" oninput="validatePassword()" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}"  title="Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.">
-                              <div class="invalid-feedback">title="Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long."</div>
+                              <div class="invalid-feedback">"Must contain at least one number, one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long."</div>
                           </div><br>
                         </div>
 
                         <div class="col-md-6">
                             <div class="col-12">
                               <label for="yourPin" class="form-label">Pin</label>
-                              <input type="text" name="pin" class="form-control" id="pin" required maxlength="6">
+                              <input type="text" name="pin" class="form-control" id="pin" required pattern="^\d{6}$" maxlength="6">
                               <div class="invalid-feedback">Please, enter your pin!</div>
                             </div><br>
 
@@ -108,7 +108,7 @@
 
                             <div class="col-12">
                                 <label for="yourPhone" class="form-label">Phone</label>
-                                <input type="tel" name="phone" class="form-control" id="phone" required pattern="[0-9]{10,12}" title="Please enter a valid phone number with 10 or 12 digits" maxlength="12">
+                                <input type="tel" name="phone" class="form-control" id="phone" required pattern="[9876][0-9]{9}" maxlength="10" title="Please enter a valid phone number." maxlength="12">
                               <div class="invalid-feedback">Please enter a valid phone number!</div>
                             </div><br><br>
 

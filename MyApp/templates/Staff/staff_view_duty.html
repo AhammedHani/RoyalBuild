@@ -10,8 +10,8 @@
     <div style="text-align: center;">
         <table class="table table-bordered table-hover">
             <tr>
-                <th>S. No</th>
-                <th>Staff</th>
+                {% comment %} <th>S. No</th> {% endcomment %}
+                {% comment %} <th>Staff</th> {% endcomment %}
                 <th>Job</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -20,8 +20,8 @@
             </tr>
             {% for i in data %}
             <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ i.STAFF.staff_name }}</td>
+                {% comment %} <td>{{ forloop.counter }}</td> {% endcomment %}
+                {% comment %} <td>{{ i.STAFF.staff_name }}</td> {% endcomment %}
                 <td>{{ i.job }}</td>
                 <td>{{ i.date }}</td>
                 <td>{{ i.time }}</td>

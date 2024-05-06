@@ -38,9 +38,9 @@
       <tr>
         <td>{{ forloop.counter }}</td>
         <td>{{ i.date }}</td>
-        <td><img src="{{ i.CUSTOMER.photo }}" alt="" class="img-thumbnail"/> {{ i.CUSTOMER.customer_name }}</td>
+        <td><img src="{{ i.CUSTOMER.photo }}" alt="" class="img-thumbnail"/><br>{{ i.CUSTOMER.customer_name }}</td>
         <td>{{ i.CUSTOMER.address }}<br>{{ i.CUSTOMER.pin }}</td>
-        <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail"/> {{ i.PRODUCT.product_name }}</td>
+        <td><img src="{{ i.PRODUCT.photo }}" alt="" class="img-thumbnail"/><br>{{ i.PRODUCT.product_name }}<br>{{ i.PRODUCT.size }}</td>
         <td>{{ i.quantity }}</td>
 
         {% comment %} <td>

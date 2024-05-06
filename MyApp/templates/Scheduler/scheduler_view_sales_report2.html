@@ -26,14 +26,14 @@
   <div style="text-align: center;">
     <table class="table table-bordered table-hover">
       <tr>
-        <th> S. No </th>
+        {% comment %} <th> S. No </th> {% endcomment %}
         <th> Product </th>
         <th> Sales </th>
       </tr>
       {% for i in data %}
       <tr>
-        <td>{{ forloop.counter }}</td>
-        <td><img src="{{ i.photo }}" alt="" class="img-thumbnail" /> {{ i.product_name }}</td>
+        {% comment %} <td>{{ forloop.counter }}</td> {% endcomment %}
+        <td><img src="{{ i.photo }}" alt="" class="img-thumbnail" /><br>{{ i.product_name }}<br>{{ i.size }}</td>
         {% comment %} <td>{{ i.CUSTOMER.phone }}</td> {% endcomment %}
         {% comment %} <td>{{ i.PRODUCT.CATEGORY.category_name }}</td> {% endcomment %}
    
