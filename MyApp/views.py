@@ -3077,3 +3077,4 @@ def forgot_password_post(request):
         return HttpResponse('''<script>alert("PASSWORD SENT TO YOUR EMAIL");window.location="/public_home/";</script>''')
     else:
         return HttpResponse('''<script>alert("EMAIL DOES NOT EXIST");window.location="/forgot_password/";</script>''')
+    
